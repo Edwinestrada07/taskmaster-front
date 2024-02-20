@@ -3,6 +3,7 @@ import Layout from './layouts/mainLayout'
 import Login from './pages/login'
 import Signup from './pages/signup'
 import Home from './pages/home'
+import Task from './pages/task'
 
 const router = createBrowserRouter([
     {
@@ -12,7 +13,11 @@ const router = createBrowserRouter([
             {
                 path: '/home',
                 Component: Home
-            }
+            },
+            {
+                path: '/task',
+                Component: Task
+            },
         ]
     },
     {
