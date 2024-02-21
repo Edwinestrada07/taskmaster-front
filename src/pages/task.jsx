@@ -29,6 +29,11 @@ const TaskListPage = () => {
 
     const createTask = async (task) => {
         try {
+            // Obtener el userId del almacenamiento local
+            const userId = JSON.parse(localStorage.getItem('user')).id;
+            // Asignar el userId a la tarea
+            task.userId = userId;
+            
             const response = await fetch('http://localhost:5000/task', {
                 method: 'POST',
                 headers: {
@@ -86,7 +91,7 @@ const TaskListPage = () => {
             <h2>Lista de Tareas</h2>
             {error && <p style={{ color: 'red' }}>{error}</p>}
                 <TaskForm onSubmit={createTask} />  
-                <TaskList tasks={tasks} onUpdateTask={updateTask} onDeleteTask={deleteTask} />
+                <TaskList tasks={tasks} getTasks={getTasks} onUpdateTask={updateTask} onDeleteTask={deleteTask} />
         </div>
     )
 }

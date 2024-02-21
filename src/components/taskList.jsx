@@ -4,7 +4,7 @@ import TaskItem from './taskItem'
 const TaskList = ({ tasks }) => {
     return (
         <div>
-            {tasks.map((task) => (
+            {Array.isArray(tasks) && tasks.map((task) => (
                 <TaskItem key={task.id} task={task} />
             ))}
         </div>
@@ -12,5 +12,6 @@ const TaskList = ({ tasks }) => {
 }
 
 export default TaskList
+
 
 

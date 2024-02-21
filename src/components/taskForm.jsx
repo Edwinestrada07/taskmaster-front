@@ -1,22 +1,34 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 
-const TaskForm = ({ onSubmit }) => {
-    const [description, setDescription] = useState('')
-    const [dueDate, setDueDate] = useState('')
-    const [priority, setPriority] = useState('')
-    const [status, setStatus] = useState('')
+function TaskForm(props) {
+    const [description, setDescription] = useState('');
+    const [dueDate, setDueDate] = useState('');
+    const [priority, setPriority] = useState('');
+    const [status, setStatus] = useState('');
+    const [error, setError] = useState(null);
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        onSubmit({ description, dueDate, priority: priority.toUpperCase(), status: status.toUpperCase() })
-        setDescription('')
-        setDueDate('')
-        setPriority('')
-        setStatus('')
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        // Validar que todos los campos estén llenos
+        if (!description || !dueDate || !priority || !status) {
+            setError('Por favor, completa todos los campos.');
+            return;
+        }
+
+        setError(null);
+
+        props.onSubmit({ description, dueDate, priority: priority.toUpperCase(), status: status.toUpperCase() });
+        setDescription('');
+        setDueDate('');
+        setPriority('');
+        setStatus('');
     };
 
     return (
-        <form onSubmit={handleSubmit}> {/* Corregido aquí */}
+        <form onSubmit={handleSubmit}>
+            {error && <p style={{ color: 'red' }}>{error}</p>}
+
             <input
                 type="text"
                 placeholder="Descripción"
@@ -32,12 +44,14 @@ const TaskForm = ({ onSubmit }) => {
             />
 
             <select value={priority} onChange={(e) => setPriority(e.target.value)}>
+                <option value="">Selecciona una prioridad</option>
                 <option value="LOW">Baja</option>
                 <option value="MEDIUM">Media</option>
                 <option value="HIGH">Alta</option>
             </select>
 
             <select value={status} onChange={(e) => setStatus(e.target.value)}>
+                <option value="">Selecciona un estado</option>
                 <option value="PENDING">Pendiente</option>
                 <option value="IN_PROGRESS">En progreso</option>
                 <option value="COMPLETED">Completada</option>
@@ -45,7 +59,7 @@ const TaskForm = ({ onSubmit }) => {
 
             <button type="submit">Guardar tarea</button>
         </form>
-    )
+    );
 }
 
-export default TaskForm
+export default TaskForm;

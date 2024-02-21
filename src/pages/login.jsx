@@ -38,8 +38,16 @@ function Login() {
 
             const dataResponse = await response.json() //await porque nos devuelve una promesa
 
+            // Guardar el usuario y el token en el almacenamiento local
             localStorage.setItem('user', JSON.stringify(dataResponse.user))
             localStorage.setItem('token', dataResponse.token)
+            
+            //este bloque de código se encarga de guardar el userId del usuario en el almacenamiento local 
+            //si está presente en la respuesta del servidor. Esto podría ser útil para mantener información 
+            //del usuario entre sesiones o para su uso posterior en la aplicación.
+            if (dataResponse.user && dataResponse.user.userId) {
+                localStorage.setItem('userId', dataResponse.user.userId)
+            }
 
             navigate('/')
             
