@@ -1,54 +1,50 @@
-function TaskForm(props) {
+import React, { useState } from 'react'
 
-    const submit = async (event) => {
-        event.preventDefault()
-        
-    props.onSubmit()
-    }
-    
+const TaskForm = ({ onSubmit }) => {
+    const [description, setDescription] = useState('')
+    const [dueDate, setDueDate] = useState('')
+    const [priority, setPriority] = useState('')
+    const [status, setStatus] = useState('')
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        onSubmit({ description, dueDate, priority, status })
+        setDescription('')
+        setDueDate('')
+        setPriority('')
+        setStatus('')
+    };
+
     return (
-        <>
-            <form className="d-flex" onSubmit={submit}> 
-                <div className="form-group m-2">
-                    <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Descripción"
-                        name="description"
-                        id="description"
-                        value={ props.task.description ||  ''}
-                    />
-                </div>
-                <div className="form-group m-2">
-                    <input
-                        type="number"
-                        className="form-control"
-                        placeholder="Fecha de Vencimineto"
-                        name="dueDate"
-                        id="dueDate"
-                        value={ props.task.dueDate ||  ''}
-                    />
-                </div>
-                <div className="form-group m-2">
-                    <button 
-                        className="btn btn-primary" 
-                        type="submit"
-                    >
-                        Guardar
-                    </button>
-                </div>
-            </form>
+        <form onSubmit={handleSubmit}> {/* Corregido aquí */}
+            <input
+                type="text"
+                placeholder="Descripción"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+            />
 
-            <div className="btn mx-2">
-                <button 
-                    className="btn btn-primary" 
-                    type="submit"
-                    onClick={props.onClear}
-                >
-                    Limpiar
-                </button>
-            </div>
-        </>
+            <input
+                type="date"
+                placeholder="Fecha de vencimiento"
+                value={dueDate}
+                onChange={(e) => setDueDate(e.target.value)}
+            />
+
+            <select value={priority} onChange={(e) => setPriority(e.target.value)}>
+                <option value="LOW">Baja</option>
+                <option value="MEDIUM">Media</option>
+                <option value="HIGH">Alta</option>
+            </select>
+
+            <select value={status} onChange={(e) => setStatus(e.target.value)}>
+                <option value="PENDING">Pendiente</option>
+                <option value="IN_PROGRESS">En progreso</option>
+                <option value="COMPLETED">Completada</option>
+            </select>
+
+            <button type="submit">Guardar tarea</button>
+        </form>
     )
 }
 

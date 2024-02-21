@@ -1,43 +1,29 @@
-import { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import TaskList from '../components/taskList'
 import TaskForm from '../components/taskForm'
 
-const TaskPage = () => {
-    const [ tasks, setTasks ] = useState([])
-    const [ task, setTask ] = useState({})
-    const [ isEditTask, setIsEditTask ] = useState(false)
-    
+const TaskListPage = () => {
+    const [tasks, setTasks] = useState([])
+    const [error] = useState(null)
+
     useEffect(() => {
         getTasks()
     }, [])
 
-    const onSubmit = () => {
-        if(isEditTask){
-            updateTask(task)
-        } else {
-            createTask(task)
-        }
-    }
-    
-    const onClear = () => {
-        setTask({})
-        setIsEditTask(false)
-    }
-
     const getTasks = async () => {
         try {
-            const response = await fetch('http://localhost:5000/task', {
+            const response = await fetch("http://localhost:5000/task", {
                 method: 'GET',
                 headers: {
                     authorization: localStorage.getItem('token')
                 }
             })
-
+    
             const tasks = await response.json()
-            setTask(tasks)
-
+            setTasks(tasks)
+    
         } catch (error) {
-            console.error('Error al recuperar las tareas:', error)
+            console.error("error", error)
         }
     }
 
@@ -51,7 +37,7 @@ const TaskPage = () => {
                 },
                 body: JSON.stringify(task)
             })
-
+            
             const responseData = await response.json()
             console.log('Tarea creada:', responseData)
     
@@ -59,7 +45,7 @@ const TaskPage = () => {
             setTasks({})
           
         } catch (error) {
-            console.error('Error al crear tareas:', error)
+            console.error('Error al crear Tarea', error)
         }
     }
 
@@ -80,13 +66,13 @@ const TaskPage = () => {
             getTasks()
             
         } catch (error) {
-            console.error('Error al actualizar tareas:', error)
+            console.error('Error al actualizar Tarea', error)
         }
     }
 
     const deleteTask = async (id) => {
         await fetch(`http://localhost:5000/task/${id}`, {
-            method: "DELETE",
+            method: 'DELETE',
             headers: {
                 authorization: localStorage.getItem('token')
             }
@@ -95,18 +81,14 @@ const TaskPage = () => {
         getTasks()
     }
 
-return (
-        <>
-            <div>
-                <h2>Lista de Tareas</h2>
-
-                <p style={{ color: 'red' }}></p>
-                <TaskForm task={task} onSubmit={onSubmit} onClear={onClear}  />
-                <TaskList tasks={tasks} getTasks={getTasks} updateTask={updateTask} deleteTask={deleteTask} />
-            </div>
-        </>
-      )
-
+    return (
+        <div>
+            <h2>Lista de Tareas</h2>
+            {error && <p style={{ color: 'red' }}>{error}</p>}
+                <TaskForm onSubmit={createTask} />
+                <TaskList tasks={tasks} onUpdateTask={updateTask} onDeleteTask={deleteTask} />
+        </div>
+    )
 }
 
-export default TaskPage
+export default TaskListPage

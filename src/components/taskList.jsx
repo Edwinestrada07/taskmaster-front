@@ -1,31 +1,16 @@
 import React from 'react'
+import TaskItem from './taskItem'
 
-const TaskList = ({ tasks, updateTask, deleteTask }) => {
+const TaskList = ({ tasks }) => {
     return (
         <div>
-            <thead>
-                <tr>
-                    <th>Descripción</th>
-                    <th>Fecha de Vencimiento</th>
-                </tr>
-            </thead>
-
-            <tbody>
-            { 
-            tasks.map((task, i) => (
-                <tr key={i}>
-                    <td>{task.description}</td>
-                    <td>{task.dueDate}</td>
-                    <td>
-                        <Link onClick={() => deleteTask(task.id)}>Eliminar</Link><br />
-                        <Link onClick={() => updateTask(task.id)}>Actualizar</Link>
-                    </td>
-                </tr>
-            ))
-        }
-        </tbody>
+            {tasks.map((task) => (
+                <TaskItem key={task.id} task={task} />
+            ))}
         </div>
     )
 }
 
 export default TaskList
+
+
