@@ -85,7 +85,7 @@ const TaskListPage = () => {
         <div>
             <h2>Lista de Tareas</h2>
             {error && <p style={{ color: 'red' }}>{error}</p>}
-                <TaskForm onSubmit={createTask} />
+                <TaskForm onSubmit={createTask} />  
                 <TaskList tasks={tasks} onUpdateTask={updateTask} onDeleteTask={deleteTask} />
         </div>
     )

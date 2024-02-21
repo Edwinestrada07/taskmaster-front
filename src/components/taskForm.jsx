@@ -8,7 +8,7 @@ const TaskForm = ({ onSubmit }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        onSubmit({ description, dueDate, priority, status })
+        onSubmit({ description, dueDate, priority: priority.toUpperCase(), status: status.toUpperCase() })
         setDescription('')
         setDueDate('')
         setPriority('')
