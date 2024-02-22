@@ -4,6 +4,7 @@ import Login from './pages/login'
 import Signup from './pages/signup'
 import Home from './pages/home'
 import Task from './pages/task'
+import Profile from './pages/profile'
 
 const router = createBrowserRouter([
     {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
                 path: '/task',
                 Component: Task
             },
+            {
+                path: '/profile',
+                Component: Profile
+            }
         ]
     },
     {
