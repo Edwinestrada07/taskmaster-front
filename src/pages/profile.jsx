@@ -1,109 +1,116 @@
 import React, { useState, useEffect } from 'react';
 
-function ProfilePage() {
+function UserProfile() {
     const [user, setUser] = useState(null);
-    const [setImage] = useState(null);
-    const [password, setPassword] = useState('');
-    const [newPassword, setNewPassword] = useState('');
 
-    useEffect(() => {
-        const fetchUserProfile = async () => {
-            try {
-                const response = await fetch(`http://localhost:5000/user`, {
-                    method: 'GET',
-                    headers: {
-                        authorization: localStorage.getItem('token')
-                    },
-                });
-                const userData = await response.json();
-                setUser(userData);
-            } catch (error) {
-                console.error('Error al obtener el perfil del usuario:', error);
-            }
-        };
-
-        fetchUserProfile();
+    useEffect(() => { 
+        getUsers();
     }, []);
 
-    const handleUpdateProfile = async () => {
+    const getUsers = async () => {
         try {
-            if (!user) return; // Verificar que user no sea null
-            const response = await fetch(`http://localhost:5000/user/${user.id}`, {
-                method: 'PUT',
+            const token = localStorage.getItem('token');
+            if (!token) {
+                console.error("No se encontró token de autorización.");
+                return;
+            }
+
+            const response = await fetch('http://localhost:5000/user', {
+                method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                     authorization: localStorage.getItem('token')
-                },
-                body: JSON.stringify(user),
+                }
             });
-            const updatedUserData = await response.json();
-            setUser(updatedUserData);
-            alert('Perfil actualizado exitosamente.');
+
+            if (!response.ok) {
+                throw new Error('No se pudo obtener la información del usuario.');
+            }
+
+            const userData = await response.json();
+            setUser(userData);
+
         } catch (error) {
-            console.error('Error al actualizar el perfil:', error);
+            console.error("Error al obtener información del usuario:", error);
         }
     };
 
-    const handleChangePassword = async () => {
-        try {
-            const response = await fetch('http://localhost:5000/change-password', {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                },
-                body: JSON.stringify({ password, newPassword }),
-            });
-            await response.json();
-            alert('Contraseña cambiada exitosamente.');
-        } catch (error) {
-            console.error('Error al cambiar la contraseña:', error);
-        }
-    };
-
-    const handleImageChange = (e) => {
-        // Lógica para manejar el cambio de imagen de perfil
-        const selectedImage = e.target.files[0];
-        setImage(selectedImage);
-    };
+    if (!user) {
+        return <div>Cargando...</div>;
+    }
 
     return (
         <div>
-            {user && (
-                <div>
-                    <h1>Perfil de Usuario</h1>
-
-                    <div>
-                        <img src={user.profileImageUrl} alt="Perfil" />
-                        <input type="file" onChange={handleImageChange} />
-                    </div>
-
-                    <div>
-                        <label>Nombre de Usuario:</label>
-                        <input type="text" value={user.name} onChange={(e) => setUser({ ...user, name: e.target.value })} />
-                    </div>
-
-                    <div>
-                        <label>Correo Electrónico:</label>
-                        <input type="email" value={user.email} onChange={(e) => setUser({ ...user, email: e.target.value })} />
-                    </div>
-
-                    <div>
-                        <label>Contraseña Actual:</label>
-                        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-                    </div>
-
-                    <div>
-                        <label>Nueva Contraseña:</label>
-                        <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
-                    </div>
-                    
-                    <button onClick={handleUpdateProfile}>Actualizar Perfil</button>
-                    <button onClick={handleChangePassword}>Cambiar Contraseña</button>
-                </div>
-            )}
+            <h2>Información del Usuario</h2>
+            <p>Nombre: {user.name}</p>
+            <p>Email: {user.email}</p>
+            {/* Otros campos de información del usuario */}
+            <UpdateForm user={user} setUser={setUser} />
         </div>
     );
 }
 
-export default ProfilePage;
+function UpdateForm({ user, setUser }) {
+    const [formData, setFormData] = useState({
+        id: user.id,
+        name: user.name,
+        email: user.email
+    });
+
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {   
+            const token = localStorage.getItem('token');
+            if (!token) {
+                console.error("No se encontró token de autorización.");
+                return;
+            }
+    
+            const response = await fetch(`http://localhost:5000/user/${formData.id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify(formData)
+            });
+    
+            if (!response.ok) {
+                throw new Error('No se pudo actualizar la información del usuario.');
+            }
+    
+            const responseData = await response.json();
+            console.log('Perfil actualizado:', responseData);
+            setUser(responseData);
+        } catch (error) {
+            console.error('Error al actualizar Perfil', error);
+            // Aquí podrías mostrar un mensaje de error al usuario
+        }
+    };
+    
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <h3>Actualizar Información</h3>
+            <label>
+                Nombre:
+                <input type="text" name="name" value={formData.name} onChange={handleChange} />
+            </label>
+            <label>
+                Email:
+                <input type="email" name="email" value={formData.email} onChange={handleChange} />
+            </label>
+            {/* Otros campos del formulario */}
+            <button type="submit">Actualizar</button>
+        </form>
+    );
+}
+
+export default UserProfile;
