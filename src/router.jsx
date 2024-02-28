@@ -4,7 +4,7 @@ import Login from './pages/login'
 import Signup from './pages/signup'
 import Home from './pages/home'
 import Task from './pages/task'
-import Profile from './pages/profile'
+import Profile from './components/profile'
 
 const router = createBrowserRouter([
     {
