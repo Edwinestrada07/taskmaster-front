@@ -12,7 +12,7 @@ const TaskListPage = () => {
 
     const getTasks = async () => {
         try {
-            const response = await fetch("http://localhost:5000/task", {
+            const response = await fetch('http://localhost:5000/task', {
                 method: 'GET',
                 headers: {
                     authorization: localStorage.getItem('token')
@@ -30,9 +30,9 @@ const TaskListPage = () => {
     const createTask = async (task) => {
         try {
             // Obtener el userId del almacenamiento local
-            const userId = JSON.parse(localStorage.getItem('user')).id;
+            const userId = JSON.parse(localStorage.getItem('user')).id
             // Asignar el userId a la tarea
-            task.userId = userId;
+            task.userId = userId
             
             const response = await fetch('http://localhost:5000/task', {
                 method: 'POST',

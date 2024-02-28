@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 // Objeto de traducción para prioridades y estados
 const translations = {
@@ -11,16 +11,16 @@ const translations = {
 };
 
 const translate = (text) => {
-    return translations[text] || text; // Devuelve la traducción si está disponible, de lo contrario, devuelve el texto original
+    return translations[text] || text // Devuelve la traducción si está disponible, de lo contrario, devuelve el texto original
 };
 
 const formatDate = (dateString) => {
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    return new Date(dateString).toLocaleDateString('es-ES', options);
-};
+    const options = { year: 'numeric', month: 'long', day: 'numeric' }
+    return new Date(dateString).toLocaleDateString('es-ES', options)
+}
 
-const TaskItem = ({ task }) => {
-    const { description, dueDate, priority, status } = task;
+const TaskItem = ({ task, onUpdateTask, onDeleteTask }) => {
+    const { description, dueDate, priority, status } = task
 
     return (
         <div>
@@ -28,8 +28,10 @@ const TaskItem = ({ task }) => {
             <p>Fecha de Vencimiento: {formatDate(dueDate)}</p> {/* Formatea la fecha */}
             <p>Prioridad: {translate(priority)}</p> {/* Traduce la prioridad */}
             <p>Estado: {translate(status)}</p> {/* Traduce el estado */}
+            <button onClick={() => onDeleteTask(task.id)}>Eliminar</button>
+            <button onClick={() => onUpdateTask(task.id)}>Actualizar</button>
         </div>
-    );
-};
+    )
+}
 
-export default TaskItem;
+export default TaskItem
