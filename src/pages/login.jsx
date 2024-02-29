@@ -58,27 +58,27 @@ function Login() {
     }
     
     return (
-        <div className="login template d-flex justify-content-center align-items-center vh-100 bg-dark">
-            <div className="form_container p-5 rounded bg-white">
+        <div className="align-items-center vh-100">
+            <div className="container">
 
-                <form className="d-grid" onSubmit={submit} id='form-login'>
+                <form className="frame form-signin" onSubmit={submit} id='form-login'>
                     
-                    <h3 className="text-center font-weight-normal">Iniciar Sesión</h3>
+                    <h3 className="text">Iniciar Sesión</h3>
                     <div className="mt-4">
+                        <label className='text-a'>Correo</label>
                         <input
                             type="text"
-                            className="form-control"
-                            placeholder="Correo"
+                            className="form-styling"
                             name="email"
                             id="email"
                             onChange={ onChangeData }
                         />
                     </div>
                     <div className="mt-4">
+                        <label className='text-a'>Contraseña</label>
                         <input
                             type="password"
-                            className="form-control"
-                            placeholder="Contraseña"
+                            className="form-styling"
                             name="password"
                             id="password"
                             onChange={ onChangeData }
@@ -86,21 +86,19 @@ function Login() {
                     </div>
                     <div className="d-grid">
                         <button 
-                            className="mt-4 btn btn-primary" 
+                            className="btn-animate" 
                             type="submit"
                         >
                             Iniciar Sesión
                         </button>
                     </div>
-                                
+                    <div className="link"> ¿Olvidaste tu contraseña? </div>
+                    <div className="link">
+                        ¿No tienes una cuenta?
+                            <Link to='/signup' className="link ms-2">Regístrate aquí</Link>
+                    </div>          
                 </form>
-                <div className="mt-4">
-                    ¿No tienes una cuenta?
-                        <Link to='/signup' className="ms-2">Regístrate aquí</Link>
-                </div>
-            
             </div>
-          
         </div>
     )
 }
