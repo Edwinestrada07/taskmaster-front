@@ -11,7 +11,7 @@ function Navbar() {
 
     return (
 
-        <nav className="navbar navbar-expand-lg p-3 m-2 bg-transparent">
+        <nav className="navbar navbar-expand-lg p-3 m-2 bg-dark">
     
             <Link 
                 className="navbar-brand text-light" 
