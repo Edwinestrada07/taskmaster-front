@@ -29,7 +29,7 @@ const TaskItem = ({ task, onUpdateTask, onDeleteTask }) => {
             <p>Prioridad: {translate(priority)}</p> {/* Traduce la prioridad */}
             <p>Estado: {translate(status)}</p> {/* Traduce el estado */}
             <button onClick={() => onDeleteTask(task.id)}>Eliminar</button>
-            <button onClick={() => onUpdateTask(task.id)}>Actualizar</button>
+            <button onClick={() => onUpdateTask(task.id, task)}>Actualizar</button>
         </div>
     )
 }

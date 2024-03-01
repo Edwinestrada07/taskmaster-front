@@ -5,6 +5,7 @@ import TaskForm from '../components/taskForm'
 const TaskListPage = () => {
     const [tasks, setTasks] = useState([])
     const [error] = useState(null)
+    const [ filter, setFilter] = useState(null)
 
     useEffect(() => {
         getTasks()
@@ -12,7 +13,8 @@ const TaskListPage = () => {
 
     const getTasks = async () => {
         try {
-            const response = await fetch('http://localhost:5000/task', {
+            const url = filter ? `http://localhost:5000/task?priority=${filter}` : "http://localhost:5000/task"
+            const response = await fetch(url, {
                 method: 'GET',
                 headers: {
                     authorization: localStorage.getItem('token')
@@ -54,15 +56,17 @@ const TaskListPage = () => {
         }
     }
 
-    const updateTask = async (task) => {
+    const updateTask = async (id, task) => {
         try {
-            const response = await fetch(`http://localhost:5000/task/${task.id}`, {
+            const response = await fetch(`http://localhost:5000/task/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                     authorization: localStorage.getItem('token')
                 },
-                body: JSON.stringify(task)
+                body: JSON.stringify({ 
+                    ...task,
+                }),
             })
 
             const responseData = await response.json()
@@ -86,9 +90,16 @@ const TaskListPage = () => {
         getTasks()
     }
 
+    useEffect(() => {
+        getTasks()
+    }, [filter])
+    
+
     return (
         <div>
             <h2>Lista de Tareas</h2>
+            <button onClick={ () => setFilter("HIGH")}>filtrar por prioridad alta</button>
+            <button onClick={ () => setFilter(null)}>Borrar Filtros</button>
             {error && <p style={{ color: 'red' }}>{error}</p>}
                 <TaskForm onSubmit={createTask} />  
                 <TaskList tasks={tasks} getTasks={getTasks} onUpdateTask={updateTask} onDeleteTask={deleteTask} />

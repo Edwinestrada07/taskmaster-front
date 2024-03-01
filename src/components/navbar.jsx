@@ -10,28 +10,36 @@ function Navbar() {
     }
 
     return (
-
-        <nav className="navbar navbar-expand-lg p-3 m-2 bg-dark">
-    
-            <Link 
-                className="navbar-brand text-light" 
+        <nav className="navbar navbar-expand-lg ">
+            <Link
+                className="navbar-brand navbar-text text-light" 
                 to='/home'
             >
                 Inicio
             </Link>
+            <button className="navbar-toggler navbar"
+                type="button" 
+                data-bs-toggle="collapse" 
+                data-bs-target="#navbarSupportedContent" 
+                aria-controls="navbarSupportedContent" 
+                aria-expanded="false" 
+                aria-label="Toggle navigation">
 
-            <div className="navbar-collapse">
-                <div className="navbar-nav mx-auto">
+                <span className="navbar-toggler-icon"></span>
+            </button>
+
+            <div className="collapse navbar-collapse navbar-text">
+                <div className="navbar-nav">
 
                     <NavLink 
-                        className={ ({isActive}) => `nav-item nav-link text-light ${ isActive ? 'active':'' }` }
+                        className={ ({isActive}) => `nav-item nav-link text-light  ${ isActive ? 'active':'' }` }
                         to='task'
                     >
                         Tareas
                     </NavLink>
 
                     <NavLink 
-                        className={ ({isActive}) => `nav-item nav-link text-light ${ isActive ? 'active':'' }` }
+                        className={ ({isActive}) => `nav-item nav-link text-light  ${ isActive ? 'active':'' }` }
                         to='profile'
                         
                     >
@@ -39,16 +47,15 @@ function Navbar() {
                     </NavLink>
                 </div>
             </div>
-
-            <div className="navbar-collapse collapse w-100 order-3 dual-collapse2 d-flex justify-content-end">
+            <div className="navbar-collapse collapse w-100 justify-content-end m-3">
                 <button
-                    className="nav-item nav-link btn text-light"
+                    className="nav-item nav-link btn "
                     onClick={ logout }
                 >
                     Cerrar Sesión
                 </button>
             </div>
-        </nav>
+        </nav>  
     )
 }
 
