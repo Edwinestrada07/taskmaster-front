@@ -23,13 +23,13 @@ const TaskItem = ({ task, onUpdateTask, onDeleteTask }) => {
     const { description, dueDate, priority, status } = task
 
     return (
-        <div>
+        <div className='frame-task text m-2 bg-primary bg-opacity-25'>
             <h3>{description}</h3>
             <p>Fecha de Vencimiento: {formatDate(dueDate)}</p> {/* Formatea la fecha */}
             <p>Prioridad: {translate(priority)}</p> {/* Traduce la prioridad */}
             <p>Estado: {translate(status)}</p> {/* Traduce el estado */}
-            <button onClick={() => onDeleteTask(task.id)}>Eliminar</button>
-            <button onClick={() => onUpdateTask(task.id, task)}>Actualizar</button>
+            <button className="btn-animate" onClick={() => onDeleteTask(task.id)}>Eliminar</button>
+            <button className="btn-animate"onClick={() => onUpdateTask(task.id, task)}>Actualizar</button>
         </div>
     )
 }

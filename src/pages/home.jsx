@@ -21,36 +21,36 @@ const Home = () => {
             <h4 className='text m-4'>Ejemplo de Lista de Tareas:</h4>
             <div className="row">
                 <div className="col-sm-6">
-                    <div className="frame-card">
+                    <div className="frame-card bg-primary bg-opacity-25">
                         <div className="frame-card text-a p-5">
                             <h5 className="text m-3">Comprar víveres para la semana</h5>
                             <p><strong>Fecha de vencimiento:</strong> 03/03/2024</p>
                             <p><strong>Prioridad:</strong> Alta</p>
                             <p><strong>Descripción:</strong> Comprar frutas, verduras, carne y productos básicos para la semana.</p>
-                            <a href="/task" className="btn btn-primary">Realiza una pueba</a>
+                            <a href="/task" className="btn btn-light">Realiza una pueba</a>
                         </div>
                     </div>
                 </div>
                 <div className="col-sm-6">
-                    <div className="frame-card">
+                    <div className="frame-card bg-primary bg-opacity-25">
                         <div className="frame-card text-a p-5">
                             <h5 className="text m-3">Preparar informe mensual</h5>
                             <p><strong>Fecha de vencimiento:</strong> 10/03/2024</p>
                             <p><strong>Prioridad:</strong> Media</p>
                             <p><strong>Descripción:</strong> Recolectar datos y preparar informe para la reunión mensual.</p>
-                            <a href="/task" className="btn btn-primary">Realiza una pueba</a>
+                            <a href="/task" className="btn btn-light">Realiza una pueba</a>
                         </div>
                     </div>
                 </div>
                 <div>
                     <h5 className="text m-4">Cambia tu información de usuario</h5>
-                    <div className="frame-card text-a p-5">
+                    <div className="frame-card text-a p-5 bg-primary bg-opacity-25">
                         <h5 className="text-a m-3">Gestiona tu perfil</h5>
                         <p>
                             Se logra gestionar el perfil de usuario de una manera sencilla y eficaz, otorgando una 
                             experiencia intuitiva a la hora de cambiar nombre de usuario, correo o contraseña
                         </p>
-                        <a href="/profile" className="btn btn-primary">Cambia tu perfil</a>
+                        <a href="/profile" className="btn btn-light">Cambia tu perfil</a>
                     </div>
                 </div>
             </div>

@@ -10,14 +10,14 @@ function Navbar() {
     }
 
     return (
-        <nav className="navbar navbar-expand-lg ">
+        <nav className="navbar navbar-dark navbar-expand-lg">
             <Link
                 className="navbar-brand navbar-text text-light" 
                 to='/home'
             >
                 Inicio
             </Link>
-            <button className="navbar-toggler navbar"
+            <button class="navbar-toggler navbar-expand m-2" 
                 type="button" 
                 data-bs-toggle="collapse" 
                 data-bs-target="#navbarSupportedContent" 
@@ -25,7 +25,7 @@ function Navbar() {
                 aria-expanded="false" 
                 aria-label="Toggle navigation">
 
-                <span className="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon"></span>
             </button>
 
             <div className="collapse navbar-collapse navbar-text">

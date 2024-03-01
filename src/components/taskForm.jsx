@@ -26,10 +26,11 @@ function TaskForm(props) {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form className="frame-task" onSubmit={handleSubmit}>
             {error && <p style={{ color: 'red' }}>{error}</p>}
 
             <input
+                className="form-styling"
                 type="text"
                 placeholder="Descripción"
                 value={description}
@@ -37,27 +38,28 @@ function TaskForm(props) {
             />
 
             <input
+                className="form-styling"
                 type="date"
                 placeholder="Fecha de vencimiento"
                 value={dueDate}
                 onChange={(e) => setDueDate(e.target.value)}
             />
 
-            <select value={priority} onChange={(e) => setPriority(e.target.value)}>
+            <select className="form-styling" value={priority} onChange={(e) => setPriority(e.target.value)}>
                 <option value="">Selecciona una prioridad</option>
                 <option value="LOW">Baja</option>
                 <option value="MEDIUM">Media</option>
                 <option value="HIGH">Alta</option>
             </select>
 
-            <select value={status} onChange={(e) => setStatus(e.target.value)}>
+            <select className="form-styling" value={status} onChange={(e) => setStatus(e.target.value)}>
                 <option value="">Selecciona un estado</option>
                 <option value="PENDING">Pendiente</option>
                 <option value="IN_PROGRESS">En progreso</option>
                 <option value="COMPLETED">Completada</option>
             </select>
 
-            <button type="submit">Guardar tarea</button>
+            <button className="btn-animate" type="submit">Guardar tarea</button>
         </form>
     );
 }
