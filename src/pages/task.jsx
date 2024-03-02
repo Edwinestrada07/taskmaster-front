@@ -5,17 +5,17 @@ import TaskForm from '../components/taskForm';
 const TaskListPage = () => {
     const [tasks, setTasks] = useState([]);
     const [error, setError] = useState(null);
-    const [filter, setFilter] = useState(null);
+    const [taskStatus, setTaskStatus] = useState(null);
 
     const getTasks = async () => {
         try {
-            const url = filter ? `http://localhost:5000/task?priority=${filter}` : "http://localhost:5000/task";
+            const url = taskStatus ? `http://localhost:5000/task?status=${taskStatus}` : "http://localhost:5000/task";
             const response = await fetch(url, {
                 method: 'GET',
                 headers: {
                     authorization: localStorage.getItem('token')
                 }
-            });
+            });   
     
             if (!response.ok) {
                 throw new Error('No se pudo obtener la lista de tareas.');
@@ -110,15 +110,25 @@ const TaskListPage = () => {
 
     useEffect(() => {
         getTasks();
-    }, [filter]);
+    }, [taskStatus]);
 
     return (
         <div>
-            <h2 className="text m-3">Lista de Tareas</h2>
-            <button className="btn-animate-task" onClick={() => setFilter("HIGH")}>Filtrar por prioridad alta</button>
-            <button className="btn-animate-task" onClick={() => setFilter(null)}>Borrar Filtros</button>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-            <TaskForm onSubmit={createTask} />  
+            <h5 className="text m-3">Formulario para la creación de Tareas</h5>
+
+            <TaskForm onSubmit={createTask} /> 
+
+            <button className="btn-animate-task btn-primary" onClick={() => setTaskStatus("status")}>Filtrar por estado</button>
+            {taskStatus === "status" && (
+                <div>
+                    <button className="btn-animate-task btn-danger" onClick={() => setTaskStatus("PENDING")}>Pendiente</button>
+                    <button className="btn-animate-task btn btn-warning" onClick={() => setTaskStatus("IN_PROGRESS")}>En progreso</button>
+                    <button className="btn-animate-task btn-success" onClick={() => setTaskStatus("COMPLETED")}>Completada</button>
+                    <button className="btn-animate-task btn-primary" onClick={() => setTaskStatus(null)}>Borrar Filtros</button>
+                </div>
+            )}
+
+            <h5 className="text-a m-3">Lista de Tareas</h5>
             <TaskList tasks={tasks} onDeleteTask={deleteTask} onUpdateTask={updateTask} />
         </div>
     );

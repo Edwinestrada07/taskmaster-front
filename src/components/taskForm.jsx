@@ -29,10 +29,10 @@ function TaskForm(props) {
         <form className="frame-task" onSubmit={handleSubmit}>
             {error && <p style={{ color: 'red' }}>{error}</p>}
 
+            <label className='text-a'>Descripción</label> 
             <input
                 className="form-styling"
                 type="text"
-                placeholder="Descripción"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
             />
