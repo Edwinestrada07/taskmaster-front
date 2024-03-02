@@ -1,17 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+
 
 function Profile() {
-    const [user, setUser] = useState({})
-    const [password, setPassword] = useState('')
-    const [newPassword, setNewPassword] = useState('')
-    const [confirmNewPassword, setConfirmNewPassword] = useState('')
-    const [error, setError] = useState(null)
+    const [user, setUser] = useState({});
+    const [password, setPassword] = useState('');
+    const [newPassword, setNewPassword] = useState('');
+    const [confirmNewPassword, setConfirmNewPassword] = useState('');
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        const token = localStorage.getItem('token')
+        const token = localStorage.getItem('token');
 
         if (!token) {
-            setError('No se ha encontrado un token de autenticación')
+            setError('No se ha encontrado un token de autenticación');
             return;
         }
 
@@ -20,29 +21,27 @@ function Profile() {
                 authorization: localStorage.getItem('token')
             },
         })
-
         .then(response => {
             if (!response.ok) {
-                throw new Error('Hubo un error al obtener la información del usuario')
+                throw new Error('Hubo un error al obtener la información del usuario');
             }
-            return response.json()
+            return response.json();
         })
-
         .then(data => setUser(data))
-        .catch(error => setError(error.message))
+        .catch(error => setError(error.message));
 
-    }, [])
+    }, []);
 
     const handlePasswordChange = () => {
-      const token = localStorage.getItem('token')
+        const token = localStorage.getItem('token');
 
         if (!token) {
-            setError('No se ha encontrado un token de autenticación')
-            return
+            setError('No se ha encontrado un token de autenticación');
+            return;
         }
 
         if (newPassword !== confirmNewPassword) {
-            setError('Las contraseñas nuevas no coinciden')
+            setError('Las contraseñas nuevas no coinciden');
             return;
         }
 
@@ -54,33 +53,31 @@ function Profile() {
             },
             body: JSON.stringify({ password, newPassword }),
         })
-
         .then(response => {
-
             if (!response.ok) {
-              throw new Error('Hubo un error al cambiar la contraseña')
+                throw new Error('Hubo un error al cambiar la contraseña');
             }
             return response.json();
         })
-
         .then(data => {
-            console.log('Contraseña cambiada:', data)
-            setPassword('')
-            setNewPassword('')
-            setConfirmNewPassword('')
-            setError(null)
+            console.log('Contraseña cambiada:', data);
+            setPassword('');
+            setNewPassword('');
+            setConfirmNewPassword('');
+            setError(null);
         })
-        .catch(error => setError(error.message))
+        .catch(error => setError(error.message));
     };
     
     const handleFormSubmit = (e) => {
-        e.preventDefault()
-        const token = localStorage.getItem('token')
+        e.preventDefault();
+        const token = localStorage.getItem('token');
 
         if (!token) {
-            setError('No se ha encontrado un token de autenticación')
-            return
+            setError('No se ha encontrado un token de autenticación');
+            return;
         }
+
         fetch('http://localhost:5000/user/profile', {
             method: 'PUT',
             headers: {
@@ -89,86 +86,92 @@ function Profile() {
             },
             body: JSON.stringify(user),
         })
-
         .then(response => {
             if (!response.ok) {
-                throw new Error('Hubo un error al actualizar la información del usuario')
+                throw new Error('Hubo un error al actualizar la información del usuario');
             }
-            return response.json()
+            return response.json();
         })
-
         .then(data => console.log('Usuario actualizado:', data))
-        .catch(error => setError(error.message))
-    }
+        .catch(error => setError(error.message));
+    };
 
     const handleInputChange = (e) => {
-        const { name, value } = e.target
+        const { name, value } = e.target;
 
         setUser(prevUser => ({
             ...prevUser,
             [name]: value,
-        }))
-    }
+        }));
+    };
 
     return (
-        
-        <div>
-            <h2>Información del Usuario</h2>
-            <p>Nombre: {user.name}</p>
-            <p>Email: {user.email}</p>
-            {/* Otros campos de información del usuario */}
-            
+        <div className="container">
+            <h2 className="text">Información del Usuario</h2>
 
-            <h3>Perfil de Usuario</h3>
-            {error && <p>{error}</p>}
-            <form onSubmit={handleFormSubmit}>
-                <label>
-                    Nombre de usuario:
-                    <input 
-                        type="text" 
-                        name="name" 
-                        value={user.name || ''}
-                        onChange={handleInputChange} 
-                    />
-                </label>
-                <label>
-                    Correo electrónico:
-                    <input 
-                        type="email" 
-                        name="email" 
-                        value={user.email || ''} 
-                        onChange={handleInputChange} 
-                    />
-                </label>
-                <br></br>
+            <div className="row">
+                <div className="col-md-6">
+                    <p className="form-styling-inf">Nombre: {user.name}</p>
+                    <p className="form-styling-inf">Email: {user.email}</p>
+                    
+                    <h3 className="text m-3">Perfil de Usuario</h3>
+                    <p className="text-ul">Puedes modificar la información del usuario aquí</p>
+                    {error && <p>{error}</p>}
 
-                <button type="submit">Actualizar Información</button>
-                
-                <div>
-                    <h3>Cambiar Contraseña</h3>
-                    <input 
-                        type="password" 
-                        placeholder="Contraseña actual" 
-                        value={password} 
-                        onChange={e => setPassword(e.target.value)} 
-                    />
-                    <input 
-                        type="password" 
-                        placeholder="Nueva contraseña" 
-                        value={newPassword} 
-                        onChange={e => setNewPassword(e.target.value)} 
-                    />
-                    <input 
-                        type="password" 
-                        placeholder="Confirmar nueva contraseña" 
-                        value={confirmNewPassword} 
-                        onChange={e => setConfirmNewPassword(e.target.value)} 
-                    />
+                    <form onSubmit={handleFormSubmit}>
+                        <label className="text-a">
+                            Nombre de usuario:
+                            <input
+                                className="form-styling-inf m-1"
+                                type="text" 
+                                name="name" 
+                                value={user.name || ''}
+                                onChange={handleInputChange} 
+                            />
+                        </label>
+                        <label className="text-a">
+                            Correo electrónico:
+                            <input
+                                className="form-styling-inf m-1"
+                                type="email" 
+                                name="email" 
+                                value={user.email || ''} 
+                                onChange={handleInputChange} 
+                            />
+                        </label>
+                        <button className="btn-animate" type="submit">Actualizar Información</button>
+                    </form>
                 </div>
-                <button onClick={handlePasswordChange}>Cambiar Contraseña</button>
-            </form>
+                <div className="col-md-6">
+                    <div className="m-5">
+                        <h3 className="text">Cambiar Contraseña</h3>
+                        <input
+                            className="form-styling-inf"
+                            type="password" 
+                            placeholder="Contraseña actual" 
+                            value={password} 
+                            onChange={e => setPassword(e.target.value)} 
+                        />
+                        <input
+                            className="form-styling-inf"
+                            type="password" 
+                            placeholder="Nueva contraseña" 
+                            value={newPassword} 
+                            onChange={e => setNewPassword(e.target.value)} 
+                        />
+                        <input
+                            className="form-styling-inf"
+                            type="password" 
+                            placeholder="Confirmar nueva contraseña" 
+                            value={confirmNewPassword} 
+                            onChange={e => setConfirmNewPassword(e.target.value)} 
+                        />
+                        <button className="btn-animate" onClick={handlePasswordChange}>Cambiar Contraseña</button>
+                    </div>
+                </div>
+            </div>
         </div>
-    )
+    );
 }
 
 export default Profile;
