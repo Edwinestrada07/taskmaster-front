@@ -1,28 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 
 function TaskForm(props) {
-    const [description, setDescription] = useState('');
-    const [dueDate, setDueDate] = useState('');
-    const [priority, setPriority] = useState('');
-    const [status, setStatus] = useState('');
-    const [error, setError] = useState(null);
+    const [formData, setFormData] = useState({
+        description: '',
+        dueDate: '',
+        priority: '',
+        status: '',
+    })
+    const [error, setError] = useState(null)
+
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value,
+        })
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         // Validar que todos los campos estén llenos
-        if (!description || !dueDate || !priority || !status) {
-            setError('Por favor, completa todos los campos.');
-            return;
+        if (!formData.description || !formData.dueDate || !formData.priority || !formData.status) {
+            setError('Por favor, completa todos los campos.')
+            return
         }
 
-        setError(null);
+        setError(null)
 
-        props.onSubmit({ description, dueDate, priority: priority.toUpperCase(), status: status.toUpperCase() });
-        setDescription('');
-        setDueDate('');
-        setPriority('');
-        setStatus('');
+        props.onSubmit({
+            description: formData.description,
+            dueDate: formData.dueDate,
+            priority: formData.priority.toUpperCase(),
+            status: formData.status.toUpperCase(),
+        });
+
+        setFormData({
+            description: '',
+            dueDate: '',
+            priority: '',
+            status: '',
+        });
     };
 
     return (
@@ -33,26 +50,28 @@ function TaskForm(props) {
             <input
                 className="form-styling"
                 type="text"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
+                name="description"
+                value={formData.description}
+                onChange={handleChange}
             />
 
             <input
                 className="form-styling-inf"
                 type="date"
+                name="dueDate"
                 placeholder="Fecha de vencimiento"
-                value={dueDate}
-                onChange={(e) => setDueDate(e.target.value)}
+                value={formData.dueDate}
+                onChange={handleChange}
             />
 
-            <select className="form-styling-inf" value={priority} onChange={(e) => setPriority(e.target.value)}>
+            <select className="form-styling-inf" name="priority" value={formData.priority} onChange={handleChange}>
                 <option className='text-dark' value="">Selecciona una prioridad</option>
                 <option className='text-dark' value="LOW">Baja</option>
                 <option className='text-dark' value="MEDIUM">Media</option>
                 <option className='text-dark' value="HIGH">Alta</option>
             </select>
 
-            <select className="form-styling-inf" value={status} onChange={(e) => setStatus(e.target.value)}>
+            <select className="form-styling-inf" name="status" value={formData.status} onChange={handleChange}>
                 <option className='text-dark' value="">Selecciona un estado</option>
                 <option className='text-dark' value="PENDING">Pendiente</option>
                 <option className='text-dark' value="IN_PROGRESS">En progreso</option>
@@ -61,7 +80,7 @@ function TaskForm(props) {
 
             <button className="btn-animate" type="submit">Guardar tarea</button>
         </form>
-    );
+    )
 }
 
-export default TaskForm;
+export default TaskForm

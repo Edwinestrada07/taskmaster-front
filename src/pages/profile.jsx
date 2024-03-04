@@ -111,12 +111,14 @@ function Profile() {
 
             <div className="row">
                 <div className="col-md-6">
-                    <p className="form-styling-inf">Nombre: {user.name}</p>
-                    <p className="form-styling-inf">Email: {user.email}</p>
-                    
+
                     <h3 className="text m-3">Perfil de Usuario</h3>
-                    <p className="text-ul">Puedes modificar la información del usuario aquí</p>
-                    {error && <p>{error}</p>}
+                    <p className="form-styling-inf"><strong>Nombre: </strong> {user.name}</p>
+                    <p className="form-styling-inf"><strong>Email: </strong> {user.email}</p>
+                    
+                    <p className="text-ul"><strong>Puedes modificar la información del usuario aquí ↓</strong></p>
+                    
+                    {error && <div className="alert alert-danger">{error}</div>}
 
                     <form onSubmit={handleFormSubmit}>
                         <label className="text-a">

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 const Home = () => {
     return (
@@ -21,19 +21,25 @@ const Home = () => {
             <h4 className='text-a m-4'>Ejemplo de Lista de Tareas:</h4>
             
             <div className="row justify-content-center">
+
                 <div className="col-lg-4 col-md-6 mb-4">
                     <div className="card bg-dark bg-opacity-25">
+
+                        <img src="image/blog-1.jpg" className="card-img-top p-2" alt="blog-1" />
                         <div className="card-body">
                             <h5 className="text m-3">Comprar víveres para la semana</h5>
                             <p className="text-a"><strong>Fecha de vencimiento:</strong> 03/03/2024</p>
                             <p className="text-a"><strong>Prioridad:</strong> Alta</p>
-                            <p className="text-a"><strong>Descripción:</strong> Comprar frutas, verduras, carne y productos básicos para la semana.</p>
+                            <p className="text-a"><strong>Descripción:</strong> Comprar frutas, verduras, carne y productos básicos para la semana. Organiza tdoda tus tareas en la semana.</p>
                             <a href="/task" className="btn btn-primary d-block mx-auto">Realizar una prueba</a>
                         </div>
                     </div>
                 </div>
+
                 <div className="col-lg-4 col-md-6 mb-4">
                     <div className="card bg-dark bg-opacity-25">
+
+                        <img src="image/blog-2.jpg" className="card-img-top p-2" alt="blog-2" />
                         <div className="card-body">
                             <h5 className="text m-4">Preparar informe mensual</h5>
                             <p className="text-a"><strong>Fecha de vencimiento:</strong> 10/03/2024</p>
@@ -43,8 +49,11 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
+
                 <div className="col-lg-4">
                     <div className="card bg-dark bg-opacity-25">
+
+                        <img src="image/blog-3.jpg" className="card-img-top p-2" alt="blog-3" />
                         <div className="card-body">
                             <h5 className="text m-3">Cambia tu información de usuario</h5>
                             <p className="text-a">
@@ -55,10 +64,12 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    );
-};
 
-export default Home;
+            </div>
+
+        </div>
+    )
+}
+
+export default Home
 

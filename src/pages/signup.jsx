@@ -12,7 +12,7 @@ function Signup() {
         event.preventDefault()
     }
 
-    const [errorMessage, setErrorMessage] = useState('')
+    const [error, setError] = useState('')
     const [successMessage, setSuccessMessage] = useState('')
 
     const navigate = useNavigate()
@@ -36,7 +36,7 @@ function Signup() {
         try {
             // Validación de campos obligatorios
             if (!signup.name || !signup.email || !signup.password) {
-                setErrorMessage('Por favor, complete todos los campos.')
+                setError('Por favor, complete todos los campos.')
                 return
             }
 
@@ -54,12 +54,12 @@ function Signup() {
             localStorage.setItem('token', dataResponse.token)
 
             setSuccessMessage('Usuario registrado con éxito.')
-            setErrorMessage('') // Limpiar cualquier mensaje de error existente
+            setError('') // Limpiar cualquier mensaje de error existente
 
             navigate('/')
 
         } catch (error) {
-            setErrorMessage('Error al registrar usuario. Verifica la información proporcionada.')
+            setError('Error al registrar usuario. Verifica la información proporcionada.')
             console.error('error', error)
         }
     }
@@ -67,10 +67,11 @@ function Signup() {
     return (
 
         <div className='container'>
-            <form className="frame form-signup" onSubmit={handleSubmit}>
+  
+            {error && <div className="alert alert-danger">{error}</div>}
+            {successMessage && <div className="alert alert-success">{successMessage}</div>}
 
-                {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
-                {successMessage && <div className="alert alert-success">{successMessage}</div>}
+            <form className="frame form-signup" onSubmit={handleSubmit}>
 
                 <h3 className="text">Registrarse</h3> 
 

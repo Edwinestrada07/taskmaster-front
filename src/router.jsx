@@ -1,9 +1,10 @@
 import { createBrowserRouter } from 'react-router-dom'
 import Layout from './layouts/mainLayout'
+
 import Login from './pages/login'
 import Signup from './pages/signup'
 import Home from './pages/home'
-import Task from './pages/task'
+import TaskListPage from './pages/task'
 import Profile from './pages/profile'
 
 const router = createBrowserRouter([
@@ -12,12 +13,16 @@ const router = createBrowserRouter([
         Component: Layout,
         children: [
             {
+                path: '/',
+                Component: Home 
+            },
+            {
                 path: '/home',
                 Component: Home
             },
             {
                 path: '/task',
-                Component: Task
+                Component: TaskListPage
             },
             {
                 path: '/profile',

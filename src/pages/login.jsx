@@ -1,18 +1,19 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Link } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 function Login() {
     const [login, setLogin] = useState({
         email: '',
         password: ''
     })
+    const [error, setError] = useState('')
+    const [loading, setLoading] = useState(false)
 
     const navigate = useNavigate()
 
     useEffect(() => {
-        if(localStorage.getItem('token')) {
-            navigate ('/')
+        if (localStorage.getItem('token')) {
+            navigate('/')
         }
     }, [navigate])
 
@@ -27,43 +28,48 @@ function Login() {
         event.preventDefault()
 
         try {
-            //Con el fetch conectamos nuestro login al back
+            setLoading(true)
             const response = await fetch('http://localhost:5000/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(login) //Va la Data como un String
+                body: JSON.stringify(login)
             })
 
-            const dataResponse = await response.json() //await porque nos devuelve una promesa
+            // Validación de campos obligatorios
+            if (!login.email || !login.password) {
+                setError('Por favor, complete todos los campos.')
+                return
+            }
 
-            // Guardar el usuario y el token en el almacenamiento local
+            const dataResponse = await response.json()
+
             localStorage.setItem('user', JSON.stringify(dataResponse.user))
             localStorage.setItem('token', dataResponse.token)
-            
-            //este bloque de código se encarga de guardar el userId del usuario en el almacenamiento local 
-            //si está presente en la respuesta del servidor. Esto podría ser útil para mantener información 
-            //del usuario entre sesiones o para su uso posterior en la aplicación.
+
             if (dataResponse.user && dataResponse.user.userId) {
                 localStorage.setItem('userId', dataResponse.user.userId)
             }
 
             navigate('/')
-            
         } catch (error) {
-            console.error('error', error)
+            setError(error.message || 'Hubo un problema al iniciar sesión')
+        } finally {
+            setLoading(false)
         }
-        
     }
-    
+
     return (
         <div className="align-items-center vh-100">
             <div className="container">
 
+                {error && <div className="alert alert-danger">{error}</div>}
+                
                 <form className="frame form-signin" onSubmit={submit} id='form-login'>
-                    
+
                     <h3 className="text">Iniciar Sesión</h3>
+                    
                     <div className="mt-4">
                         <label className='text-a'>Correo</label>
                         <input
@@ -71,9 +77,10 @@ function Login() {
                             className="form-styling"
                             name="email"
                             id="email"
-                            onChange={ onChangeData }
+                            onChange={onChangeData}
                         />
                     </div>
+
                     <div className="mt-4">
                         <label className='text-a'>Contraseña</label>
                         <input
@@ -81,31 +88,30 @@ function Login() {
                             className="form-styling"
                             name="password"
                             id="password"
-                            onChange={ onChangeData }
+                            onChange={onChangeData}
                         />
                     </div>
+
                     <div className="d-grid">
-                        <button 
-                            className="btn-animate" 
+                        <button
+                            className="btn-animate"
                             type="submit"
+                            disabled={loading}
                         >
-                            Iniciar Sesión
+                            {loading ? 'Iniciando Sesión...' : 'Iniciar Sesión'}
                         </button>
                     </div>
+
                     <div className="link"> ¿Olvidaste tu contraseña? </div>
                     <div className="link">
                         ¿No tienes una cuenta?
-                            <Link to='/signup' className="link ms-2">Regístrate aquí</Link>
-                    </div>          
+                        <Link to='/signup' className="link ms-2">Regístrate aquí</Link>
+                    </div>
+
                 </form>
             </div>
         </div>
     )
 }
 
-export default Login 
-
-
-//event.preventDefault funciona que cada que se le de un submit el form solo envie los datos que se requiren al Javascript
-//console.log(event.target) --> Mostramos el formulario HTML en la consola
-//const [login, setLogin] = useState({email: '', password: ''}) --> Paa mostrar la información del formulario en consola
+export default Login
