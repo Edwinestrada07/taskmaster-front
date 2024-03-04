@@ -128,7 +128,7 @@ const TaskListPage = () => {
             {error && <p style={{ color: 'red' }}>{error}</p>}
             
             <TaskForm onSubmit={createTask} /> 
-
+            
             <button className="btn-animate-task btn-primary" onClick={() => setTaskStatus("status")}>Filtrar por estado</button>
             {taskStatus === "status" && (
                 <div>
@@ -141,49 +141,55 @@ const TaskListPage = () => {
 
             <h5 className="text-a m-3">Lista de Tareas</h5>
             {/* Renderizar el formulario de actualización si el modo de actualización está activado */}
+            
             {updateMode && taskToUpdate && (
                 <div className="frame-task">
                     <h2 className="text">Actualizar Tarea</h2>
                     {error && <p>{error}</p>}
+
                     <form onSubmit={() => updateTask(taskToUpdate.id, taskToUpdate)}>
+
                         <label className="text-a">Descripción:</label>
                         <input
-                                className="form-styling-inf"
-                                type="text"
-                                name="description"
-                                value={taskToUpdate.description}
-                                onChange={(e) => setTaskToUpdate({ ...taskToUpdate, description: e.target.value })}
-                            />
+                            className="form-styling-inf"
+                            type="text"
+                            name="description"
+                            value={taskToUpdate.description}
+                            onChange={(e) => setTaskToUpdate({ ...taskToUpdate, description: e.target.value })}
+                        />
+
                         <label className="text-a">Fecha de Vencimiento:</label>
                         <input
-                                className="form-styling-inf m-1"
-                                type="date"
-                                name="dueDate"
-                                value={taskToUpdate.dueDate}
-                                onChange={(e) => setTaskToUpdate({ ...taskToUpdate, dueDate: e.target.value })}
-                            />
+                            className="form-styling-inf"
+                            type="date"
+                            name="dueDate"
+                            value={taskToUpdate.dueDate}
+                            onChange={(e) => setTaskToUpdate({ ...taskToUpdate, dueDate: e.target.value })}
+                        />
+
                         <label className="text-a">Prioridad:</label>
                         <select
-                                className="form-styling-inf m-1"
-                                name="priority"
-                                value={taskToUpdate.priority}
-                                onChange={(e) => setTaskToUpdate({ ...taskToUpdate, priority: e.target.value })}
-                            >
-                                <option value="LOW">Baja</option>
-                                <option value="MEDIUM">Media</option>
-                                <option value="HIGH">Alta</option>
-                            </select>
+                            className="form-styling-inf"
+                            name="priority"
+                            value={taskToUpdate.priority}
+                            onChange={(e) => setTaskToUpdate({ ...taskToUpdate, priority: e.target.value })}
+                         >
+                            <option className='text-dark' value="LOW">Baja</option>
+                            <option className='text-dark' value="MEDIUM">Media</option>
+                            <option className='text-dark' value="HIGH">Alta</option>
+                        </select>
+
                         <label className="text-a">Estado:</label>
                         <select
-                                className="form-styling-inf m-1"
-                                name="status"
-                                value={taskToUpdate.status}
-                                onChange={(e) => setTaskToUpdate({ ...taskToUpdate, status: e.target.value })}
-                            >
-                                <option value="PENDING">Pendiente</option>
-                                <option value="IN_PROGRESS">En progreso</option>
-                                <option value="COMPLETED">Completada</option>
-                            </select>
+                            className="form-styling-inf"
+                            name="status"
+                            value={taskToUpdate.status}
+                            onChange={(e) => setTaskToUpdate({ ...taskToUpdate, status: e.target.value })}
+                         >
+                            <option className='text-dark' value="PENDING">Pendiente</option>
+                            <option className='text-dark' value="IN_PROGRESS">En progreso</option>
+                            <option className='text-dark' value="COMPLETED">Completada</option>
+                        </select>
                         <button className="btn-animate" type="submit">Actualizar Tarea</button>
                     </form>
                 </div>

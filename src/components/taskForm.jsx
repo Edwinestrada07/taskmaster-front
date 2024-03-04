@@ -38,25 +38,25 @@ function TaskForm(props) {
             />
 
             <input
-                className="form-styling"
+                className="form-styling-inf"
                 type="date"
                 placeholder="Fecha de vencimiento"
                 value={dueDate}
                 onChange={(e) => setDueDate(e.target.value)}
             />
 
-            <select className="form-styling" value={priority} onChange={(e) => setPriority(e.target.value)}>
-                <option value="">Selecciona una prioridad</option>
-                <option value="LOW">Baja</option>
-                <option value="MEDIUM">Media</option>
-                <option value="HIGH">Alta</option>
+            <select className="form-styling-inf" value={priority} onChange={(e) => setPriority(e.target.value)}>
+                <option className='text-dark' value="">Selecciona una prioridad</option>
+                <option className='text-dark' value="LOW">Baja</option>
+                <option className='text-dark' value="MEDIUM">Media</option>
+                <option className='text-dark' value="HIGH">Alta</option>
             </select>
 
-            <select className="form-styling" value={status} onChange={(e) => setStatus(e.target.value)}>
-                <option value="">Selecciona un estado</option>
-                <option value="PENDING">Pendiente</option>
-                <option value="IN_PROGRESS">En progreso</option>
-                <option value="COMPLETED">Completada</option>
+            <select className="form-styling-inf" value={status} onChange={(e) => setStatus(e.target.value)}>
+                <option className='text-dark' value="">Selecciona un estado</option>
+                <option className='text-dark' value="PENDING">Pendiente</option>
+                <option className='text-dark' value="IN_PROGRESS">En progreso</option>
+                <option className='text-dark' value="COMPLETED">Completada</option>
             </select>
 
             <button className="btn-animate" type="submit">Guardar tarea</button>

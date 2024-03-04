@@ -145,27 +145,36 @@ function Profile() {
                 <div className="col-md-6">
                     <div className="m-5">
                         <h3 className="text">Cambiar Contraseña</h3>
-                        <input
-                            className="form-styling-inf"
-                            type="password" 
-                            placeholder="Contraseña actual" 
-                            value={password} 
-                            onChange={e => setPassword(e.target.value)} 
-                        />
-                        <input
-                            className="form-styling-inf"
-                            type="password" 
-                            placeholder="Nueva contraseña" 
-                            value={newPassword} 
-                            onChange={e => setNewPassword(e.target.value)} 
-                        />
-                        <input
-                            className="form-styling-inf"
-                            type="password" 
-                            placeholder="Confirmar nueva contraseña" 
-                            value={confirmNewPassword} 
-                            onChange={e => setConfirmNewPassword(e.target.value)} 
-                        />
+                        <label className="text-a">
+                            Contraseña actual
+                            <input
+                                className="form-styling-inf"
+                                type="password" 
+                                value={password} 
+                                onChange={e => setPassword(e.target.value)} 
+                            />
+                        </label>
+                        
+                        <label className="text-a">
+                            Nueva contraseña
+                            <input
+                                className="form-styling-inf"
+                                type="password"  
+                                value={newPassword} 
+                                onChange={e => setNewPassword(e.target.value)} 
+                            />
+
+                        </label>
+
+                        <label className="text-a">
+                            Confirmar nueva contraseña
+                            <input
+                                className="form-styling-inf"
+                                type="password"  
+                                value={confirmNewPassword} 
+                                onChange={e => setConfirmNewPassword(e.target.value)} 
+                            />
+                        </label>
                         <button className="btn-animate" onClick={handlePasswordChange}>Cambiar Contraseña</button>
                     </div>
                 </div>
