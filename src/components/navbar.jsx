@@ -54,16 +54,16 @@ function Navbar() {
                 </div>
                 
             </div>
-
-            <div className="navbar-collapse collapse w-100 justify-content-end m-3">
-                <button
-                    className="nav-item nav-link btn "
-                    onClick={logout}
-                >
-                    Cerrar Sesión
-                </button>
+            <div className="navbar-collapse dual-collapse2 d-flex p-1">
+                <ul className="navbar-nav ml-auto">     
+                    <button
+                        className="nav-item nav-link btn"
+                        onClick={ logout }
+                    >
+                        Cerrar Sesión
+                    </button>
+                </ul>
             </div>
-
         </nav>  
     )
 }
