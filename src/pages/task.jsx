@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import TaskList from '../components/taskList'
 import TaskForm from '../components/taskForm'
 
@@ -9,29 +9,29 @@ const TaskListPage = () => {
     const [taskToUpdate, setTaskToUpdate] = useState(null) // Estado para almacenar la tarea a actualizar
     const [updateMode, setUpdateMode] = useState(false) // Estado para activar el modo de actualización
 
-    const getTasks = async () => {
+    const getTasks = useCallback(async () => {
         try {
-            const url = taskStatus ? `http://localhost:5000/task?status=${taskStatus}` : "http://localhost:5000/task"
+            const url = taskStatus ? `http://localhost:5000/task?status=${taskStatus}` : "http://localhost:5000/task";
             const response = await fetch(url, {
                 method: 'GET',
                 headers: {
-                    authorization: localStorage.getItem('token')
+                authorization: localStorage.getItem('token')
                 }
-            }) 
-    
+            })
+        
             if (!response.ok) {
                 throw new Error('No se pudo obtener la lista de tareas.')
             }
-
+        
             const tasksData = await response.json()
             setTasks(tasksData)
-            setError(null)
-            
+            setError(null);
+          
         } catch (error) {
-            console.error("Error al obtener las tareas:", error)
-            setError("Error al obtener las tareas. Por favor, inténtalo de nuevo más tarde.")
+          console.error("Error al obtener las tareas:", error)
+          setError("Error al obtener las tareas. Por favor, inténtalo de nuevo más tarde.")
         }
-    }
+    }, [taskStatus])
 
     const createTask = async (task) => {
         try {
@@ -120,7 +120,7 @@ const TaskListPage = () => {
 
     useEffect(() => {
         getTasks()
-    }, [taskStatus])
+    }, [getTasks])
 
     return (
         <div>
