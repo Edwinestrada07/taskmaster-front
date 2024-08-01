@@ -2,21 +2,25 @@ import { useEffect, useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 
 function Login() {
+    // Estado para almacenar los datos del formulario de inicio de sesión
     const [login, setLogin] = useState({
         email: '',
         password: ''
     })
-    const [error, setError] = useState('')
-    const [loading, setLoading] = useState(false)
+    
+    const [error, setError] = useState('') // Estado para manejar mensajes de error
+    const [loading, setLoading] = useState(false) // Estado para manejar el estado de carga
 
-    const navigate = useNavigate()
+    const navigate = useNavigate() // Hook para la navegación programática
 
+    // useEffect para redirigir al usuario si ya está autenticado
     useEffect(() => {
         if (localStorage.getItem('token')) {
             navigate('/')
         }
     }, [navigate])
 
+    // Función para manejar los cambios en los campos del formulario
     const onChangeData = (event) => {
         setLogin({
             ...login,
@@ -24,11 +28,20 @@ function Login() {
         })
     }
 
+    // Función para manejar el envío del formulario
     const submit = async (event) => {
         event.preventDefault()
 
         try {
             setLoading(true)
+            // Validación de campos obligatorios
+            if (!login.email || !login.password) {
+                setError('Por favor, complete todos los campos.')
+                setTimeout(() => setError(''), 2000)
+                return
+            }
+
+            // Petición al backend para iniciar sesión
             const response = await fetch('http://localhost:5000/login', {
                 method: 'POST',
                 headers: {
@@ -37,15 +50,9 @@ function Login() {
                 body: JSON.stringify(login)
             })
 
-            // Validación de campos obligatorios
-            if (!login.email || !login.password) {
-                setError('Por favor, complete todos los campos.')
-                setTimeout(() => setError(''), 2000)
-                return
-            }
-
             const dataResponse = await response.json()
 
+            // Guardar datos en localStorage
             localStorage.setItem('user', JSON.stringify(dataResponse.user))
             localStorage.setItem('token', dataResponse.token)
 
@@ -53,10 +60,13 @@ function Login() {
                 localStorage.setItem('userId', dataResponse.user.userId)
             }
 
+            // Redirigir al usuario a la página principal
             navigate('/')
         } catch (error) {
+            // Manejo de errores
             setError(error.message || 'Hubo un problema al iniciar sesión')
         } finally {
+            // Finalizar el estado de carga
             setLoading(false)
         }
     }
@@ -110,16 +120,16 @@ function Login() {
                                 <div className="flex items-start">
                                     <div className="flex items-center h-5">
                                         <input
-                                        id="remember"
-                                        aria-describedby="remember"
-                                        type="checkbox"
-                                        className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600"
-                                        required
+                                            id="remember"
+                                            aria-describedby="remember"
+                                            type="checkbox"
+                                            className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600"
+                                            required
                                         />
                                     </div>
                                     <div className="ml-3 text-sm">
                                         <label htmlFor="remember" className="text-gray-500 dark:text-gray-300">
-                                        Remember me
+                                            Remember me
                                         </label>
                                     </div>
                                 </div>
