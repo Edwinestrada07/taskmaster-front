@@ -16,12 +16,11 @@ function AuthChecker({ children }) {
                     return
                 }
                 setLoading(false)
-
             } catch (error) {
                 console.error('Error al verificar la autenticación:', error)
                 navigate('/login')
             }
-        }
+        };
 
         checkAuthentication()
     }, [navigate])
@@ -30,6 +29,12 @@ function AuthChecker({ children }) {
 }
 
 function Layout() {
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        navigate('/home') // Redirigir a /home cada vez que el usuario ingrese a la raíz (/)
+    }, [navigate])
+
     return (
         <AuthChecker>
             <Navbar />
@@ -40,3 +45,4 @@ function Layout() {
 }
 
 export default Layout
+

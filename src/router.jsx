@@ -21,10 +21,6 @@ const router = createBrowserRouter([
         Component: Layout,
         children: [
             {
-                path: '/',
-                Component: Home,
-            },
-            {
                 path: '/home',
                 Component: Home,
             },
@@ -51,6 +47,7 @@ const router = createBrowserRouter([
 ])
 
 export default router
+
 
 
 
