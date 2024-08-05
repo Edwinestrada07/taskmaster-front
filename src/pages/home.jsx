@@ -1,40 +1,60 @@
-import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Carousel } from 'react-responsive-carousel'
-import 'react-responsive-carousel/lib/styles/carousel.min.css'
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { ReactTyped as Typed } from 'react-typed';
+import Slider from 'react-slick';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 const Home = () => {
-    const [loggedIn, setLoggedIn] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
         // Verifica si el usuario está autenticado
         if (!localStorage.getItem('token')) {
             // Redirige al login si no está autenticado
-            navigate('/login')
-        } else {
-            setLoggedIn(true)
+            navigate('/login');
         }
-    }, [navigate])
+    }, [navigate]);
+
+    const settings = {
+        dots: false,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        centerMode: false,
+        centerPadding: '200px',
+    };
 
     return (
         <section className="bg-gradient-to-b from-[#E8E3F5] via-[#EDEAFB] to-[#F7FAFC]">
             <div className="items-center px-8 mx-auto max-w-7xl lg:px-16 md:px-12">
                 <div className="justify-center w-full text-center lg:p-5 max-auto">
                     <div className="justify-center w-full mx-auto">
-                        <div class="flex flex-col p-4 items-center justify-center max-w-xl gap-3 mx-auto lg:flex-row">
+                        <div className="flex flex-col p-4 items-center justify-center max-w-xl gap-3 mx-auto lg:flex-row">
                             <img
-                                class='w-28 h-28 rounded-full border border-[#E8E3F4]'
-                                src='https://i.pinimg.com/736x/97/f0/cb/97f0cb0bd91313be32a74ff14584d0f7.jpg'
+                                className="w-32 h-32 rounded-full border border-[#E8E3F4]"
+                                src='./assets/logo.jpg'
+                                alt='TaskMaster Logo'
                             />
                         </div>
 
-                        <p class="sm:mt-8 sm:px-31 text-[#10172A] text-4xl sm:text-6xl font-semibold tracking-tighter">
-                            <span class="underline leading-8 underline-offset-8	decoration-8 decoration-[#8B5CF6]">TaskMaster </span> 
-                            es tu aliado perfecto para organizar tus tareas diarias.
+                        <h1 className="sm:mt-6 sm:px-31 text-[#10172A] text-4xl sm:text-5xl font-semibold tracking-tighter">
+                            <Typed
+                                strings={["TaskMaster"]}
+                                className="underline leading-8 underline-offset-8 decoration-8 decoration-[#8B5CF6]"
+                                typeSpeed={220}
+                                backSpeed={130}
+                                loop
+                            />
+                        </h1>
+
+                        <p className="sm:mt-8 sm:px-31 text-[#10172A] text-4xl sm:text-4xl font-semibold tracking-tighter">
+                            Es tu aliado perfecto para organizar tus tareas diarias.
                         </p>
 
-                        <p class="sm:mt-8 mt-10 text-[#10172A] sm:leading-loose text-lg font-normal tracking-tighter">
+                        <p className="sm:mt-8 mt-10 text-[#10172A] sm:leading-loose text-lg font-normal tracking-tighter">
                             TaskMaster transforma tu manera de gestionar tus tareas, haciéndolo todo más simple y eficiente. ¡Empieza ahora y alcanza tus metas con facilidad!
                         </p>
 
@@ -45,7 +65,7 @@ const Home = () => {
                             >
                                 Empezar
                             </a>
-                            <a 
+                            <a
                                 href="#learn-more"
                                 className="text-sm font-semibold leading-6 text-gray-900"
                             >
@@ -55,38 +75,61 @@ const Home = () => {
 
                         <div id="learn-more" className="mt-8 flex flex-col lg:flex-row">
                             <div className="lg:w-1/2 pr-4">
-                                <p class="text-[#10172A] text-2xl sm:text-3xl font-semibold tracking-tighter">
-                                    <span class="underline leading-8 underline-offset-8	decoration-5 decoration-[#8B5CF6]">TaskMaster </span>
+                                <p className="text-[#10172A] text-2xl sm:text-3xl font-semibold tracking-tighter">
+                                    <span className="underline leading-8 underline-offset-8 decoration-5 decoration-[#8B5CF6]">TaskMaster </span>
                                 </p>
-                                <p className="m-3 font-semibold">TaskMaster es tu aliado perfecto para organizar tus tareas diarias con eficiencia y facilidad. Descubre todas las funcionalidades que te ofrece:</p>
-                                <ul className="list-disc list-inside mb-4">
-                                    <li><strong>Agrega nuevas tareas:</strong> Incluye detalles importantes como descripción, fecha de vencimiento, prioridad y estado.</li>
-                                    <li><strong>Edita y actualiza:</strong> Modifica la información de tus tareas en cualquier momento para mantener todo al día.</li>
-                                    <li><strong>Marca como completadas:</strong> Da por finalizadas tus tareas y sigue avanzando en tus objetivos.</li>
-                                    <li><strong>Elimina tareas innecesarias:</strong> Borra las tareas que ya no necesitas para mantener tu lista limpia y enfocada.</li>
-                                    <li><strong>Disfruta de una interfaz intuitiva:</strong> Navega por nuestra plataforma con facilidad gracias a su diseño amigable y sencillo de usar.</li>
-                                </ul>
+                                <p className="m-3 font-semibold">
+                                    TaskMaster es tu aliado perfecto para organizar tus tareas diarias con eficiencia y facilidad. Descubre todas las funcionalidades que te ofrece:
+                                </p>
+                                <Slider {...settings}>
+                                    {[
+                                        "Agrega nuevas tareas",
+                                        "Edita y actualiza",
+                                        "Marca como completadas",
+                                        "Elimina tareas innecesarias",
+                                        "Disfruta de una interfaz intuitiva"
+                                    ].map((title, index) => (
+                                        <div key={index} className="p-16 border rounded-lg shadow-sm bg-white transform transition-transform duration-300 hover:scale-105 cursor-pointer">
+                                            <h2 className="text-xl font-bold mb-2">{title}</h2>
+                                            <p>
+                                                {[
+                                                    "Incluye detalles importantes como descripción, fecha de vencimiento, prioridad y estado. Organiza cada aspecto de tus tareas para asegurarte de que nada se te escape.",
+                                                    "Modifica la información de tus tareas en cualquier momento para mantener todo al día. Actualiza detalles a medida que cambian las circunstancias.",
+                                                    "Da por finalizadas tus tareas y sigue avanzando en tus objetivos. Mantén un registro claro de lo que has logrado y lo que aún necesitas hacer.",
+                                                    "Borra las tareas que ya no necesitas para mantener tu lista limpia y enfocada. Deshazte del desorden y concéntrete en lo que realmente importa.",
+                                                    "Navega por nuestra plataforma con facilidad gracias a su diseño amigable y sencillo de usar. Encuentra lo que necesitas rápidamente y gestiona tus tareas."
+                                                ][index]}
+                                            </p>
+                                        </div>
+                                    ))}
+                                </Slider>
                             </div>
 
-                            <div className="lg:w-1/2">
-                                <Carousel showThumbs={false} autoPlay infiniteLoop>
+                            <div className="sm:w-1/2">
+                                <Slider {...settings} showThumbs={false} autoPlay infiniteLoop>
                                     <div>
-                                        <img className="h-50 object-cover" src="./assets/blog-1.jpg" alt="Imagen 1" />
+                                        <img className="h-50 object-cover" src="./assets/imagen-1.png" alt="Imagen 1" />
+                                        <a href="https://iradesign.io" target='_blank' rel="noopener noreferrer">
+                                            Illustrations by IRA Design
+                                        </a>
                                     </div>
                                     <div>
-                                        <img className="h-50 object-cover" src="./assets/blog-2.jpg" alt="Imagen 2" />
+                                        <img className="h-50 object-cover" src="./assets/imagen-2.png" alt="Imagen 2" />
                                     </div>
                                     <div>
-                                        <img className="h-50 object-cover" src="./assets/blog-3.jpg" alt="Imagen 3" />
+                                        <img className="h-50 object-cover" src="./assets/imagen-3.png" alt="Imagen 3" />
                                     </div>
-                                </Carousel>
+                                    <div>
+                                        <img className="h-50 object-cover" src="./assets/imagen-4.png" alt="Imagen 4" />
+                                    </div>
+                                </Slider>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-    )
-}
+    );
+};
 
-export default Home
+export default Home;
