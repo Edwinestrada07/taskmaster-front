@@ -21,37 +21,37 @@ const customStyles = {
     },
 };
 
-Modal.setAppElement('#root');
+Modal.setAppElement('#root')
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-export default function Navbar() {
-    const navigate = useNavigate();
-    const [showOptions, setShowOptions] = useState(false);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [modalIsOpen, setModalIsOpen] = useState(false);
+function Navbar() {
+    const navigate = useNavigate()
+    const [showOptions, setShowOptions] = useState(false)
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
+    const [modalIsOpen, setModalIsOpen] = useState(false)
 
     useEffect(() => {
-        const token = localStorage.getItem('token');
-        setIsLoggedIn(!!token);
-    }, []);
+        const token = localStorage.getItem('token')
+        setIsLoggedIn(!!token)
+    }, [])
 
     const handleLogout = () => {
-        setModalIsOpen(true);
-    };
+        setModalIsOpen(true)
+    }
 
     const confirmLogout = () => {
-        localStorage.removeItem('token');
-        setIsLoggedIn(false);
-        navigate('/home');
-        setModalIsOpen(false);
+        localStorage.removeItem('token')
+        setIsLoggedIn(false)
+        navigate('/home')
+        setModalIsOpen(false)
     };
 
     const toggleOptions = () => {
-        setShowOptions(!showOptions);
-    };
+        setShowOptions(!showOptions)
+    }
 
     return (
         <Disclosure as="nav" className="bg-gray-800 text-white">
@@ -68,14 +68,14 @@ export default function Navbar() {
                         <div className="flex flex-shrink-0 items-center">
                             <Link to='/home'>
                                 <img
-                                    alt="Your Company"
-                                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                                    className="h-8 w-auto"
+                                    alt="logo"
+                                    src="./assets/logo copia.png"
+                                    className="h-9 w-auto"
                                 />
                             </Link>
                         </div>
-                        <div className="hidden sm:ml-6 sm:block">
-                            <div className="flex space-x-4">
+                        <div className="hidden sm:ml-6 sm:block text-sm font-medium">
+                            <div className="flex space-x-2">
                                 {isLoggedIn ? (
                                     <>
                                         <NavLink 
@@ -83,7 +83,7 @@ export default function Navbar() {
                                             className={({ isActive }) =>
                                                 classNames(
                                                     isActive ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                                                    'rounded-md px-3 py-2 text-sm font-medium'
+                                                    'rounded-md px-3 py-2'
                                                 )
                                             }
                                         >
@@ -94,18 +94,12 @@ export default function Navbar() {
                                             className={({ isActive }) =>
                                                 classNames(
                                                     isActive ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                                                    'rounded-md px-3 py-2 text-sm font-medium'
+                                                    'rounded-md px-3 py-2'
                                                 )
                                             }
                                         >
                                             Perfil
                                         </NavLink>
-                                        <button
-                                            className="rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-gray-700"
-                                            onClick={handleLogout}
-                                        >
-                                            Cerrar Sesión
-                                        </button>
                                     </>
                                 ) : (
                                     <>
@@ -114,22 +108,22 @@ export default function Navbar() {
                                             className={({ isActive }) =>
                                                 classNames(
                                                     isActive ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                                                    'rounded-md px-3 py-2 text-sm font-medium'
+                                                    'rounded-md px-3 py-2'
                                                 )
                                             }
                                         >
-                                            Login
+                                            Iniciar Sesión
                                         </NavLink>
                                         <NavLink 
                                             to='/signup'
                                             className={({ isActive }) =>
                                                 classNames(
                                                     isActive ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                                                    'rounded-md px-3 py-2 text-sm font-medium'
+                                                    'rounded-md px-3 py-2'
                                                 )
                                             }
                                         >
-                                            Signup
+                                            Registrarse
                                         </NavLink>
                                     </>
                                 )}
@@ -151,12 +145,12 @@ export default function Navbar() {
                                 >
                                     <MenuItem>
                                         <Link to='/profile' className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                            Your Profile
+                                            Tu perfil
                                         </Link>
                                     </MenuItem>
                                     <MenuItem>
                                         <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                            Settings
+                                            Configuración
                                         </a>
                                     </MenuItem>
                                     <MenuItem>
@@ -165,7 +159,7 @@ export default function Navbar() {
                                             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                             onClick={handleLogout}
                                         >
-                                            Sign out
+                                            Cerrar Sesión
                                         </a>
                                     </MenuItem>
                                 </MenuItems>
@@ -203,13 +197,6 @@ export default function Navbar() {
                             >
                                 Perfil
                             </DisclosureButton>
-                            <DisclosureButton
-                                as="button"
-                                className="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-gray-700"
-                                onClick={handleLogout}
-                            >
-                                Cerrar Sesión
-                            </DisclosureButton>
                         </>
                     ) : (
                         <>
@@ -223,7 +210,7 @@ export default function Navbar() {
                                     )
                                 }
                             >
-                                Login
+                                Iniciar Sesión
                             </DisclosureButton>
                             <DisclosureButton
                                 as={NavLink}
@@ -235,7 +222,7 @@ export default function Navbar() {
                                     )
                                 }
                             >
-                                Signup
+                                Registrarse
                             </DisclosureButton>
                         </>
                     )}
@@ -268,3 +255,5 @@ export default function Navbar() {
         </Disclosure>
     )
 }
+
+export default Navbar

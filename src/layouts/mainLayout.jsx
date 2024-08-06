@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from 'react-router-dom'
+import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import Navbar from '../components/navbar'
 import Footer from '../components/footer'
@@ -30,10 +30,13 @@ function AuthChecker({ children }) {
 
 function Layout() {
     const navigate = useNavigate()
+    const location = useLocation()
 
     useEffect(() => {
-        navigate('/home') // Redirigir a /home cada vez que el usuario ingrese a la raíz (/)
-    }, [navigate])
+        if (location.pathname === '/') {
+            navigate('/home') // Redirigir a /home solo cuando la ruta es exactamente /
+        }
+    }, [navigate, location.pathname])
 
     return (
         <AuthChecker>

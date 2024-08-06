@@ -75,10 +75,10 @@ function Login() {
         <div className="dark:bg-gray-900">
             <div className="container flex flex-col items-center justify-center">
 
-                <Link to="/" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-                    <img className="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo" />
-                    Flowbite
-                </Link>
+                <h1 className="flex mb-6 text-3xl font-semibold text-white">
+                    <img className="w-10 h-10 mr-2" src="./assets/logo copia.png" alt="logo" />
+                    TaskMaster
+                </h1>
 
                 <div className="w-full bg-gray-500 rounded-lg shadow-md dark:bg-gray-800 dark:border dark:border-gray-700 md:mt-0 sm:max-w-md xl:p-0">
                     <div className="p-4 space-y-2 md:space-y-4 sm:p-8">
@@ -117,22 +117,7 @@ function Login() {
                             </div>
 
                             <div className="flex items-center justify-between">
-                                <div className="flex items-start">
-                                    <div className="flex items-center h-5">
-                                        <input
-                                            id="remember"
-                                            aria-describedby="remember"
-                                            type="checkbox"
-                                            className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600"
-                                            required
-                                        />
-                                    </div>
-                                    <div className="ml-3 text-sm">
-                                        <label htmlFor="remember" className="text-gray-500 dark:text-gray-300">
-                                            Remember me
-                                        </label>
-                                    </div>
-                                </div>
+                                
                                 <Link to="/forgot-password" className="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">
                                     ¿Olvidaste tu contraseña?
                                 </Link>
@@ -148,7 +133,6 @@ function Login() {
                             <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                                 ¿No tienes una cuenta? <Link to="/signup" className="font-medium text-blue-600 hover:underline dark:text-blue-500">Regístrate aquí</Link>
                             </p>
-
                         </form>
                     </div>
                 </div>

@@ -78,10 +78,10 @@ function Signup() {
         <div className="dark:bg-gray-900">
             <div className="container flex flex-col items-center justify-center">
 
-                <Link to="/" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-                    <img className="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo" />
-                    Flowbite
-                </Link>
+                <h1 className="flex mb-6 text-3xl font-semibold text-white">
+                    <img className="w-10 h-10 mr-2" src="./assets/logo copia.png" alt="logo" />
+                    TaskMaster
+                </h1>
 
                 <div className="w-full bg-gray-500 rounded-lg shadow-md dark:bg-gray-800 dark:border dark:border-gray-700 md:mt-0 sm:max-w-md xl:p-0">
                     <div className="p-4 space-y-2 md:space-y-4 sm:p-8">
