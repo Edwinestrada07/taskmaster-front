@@ -28,19 +28,19 @@ const Home = () => {
     };
 
     return (
-        <section className="bg-gradient-to-b from-[#E8E3F5] via-[#EDEAFB] to-[#F7FAFC]">
+        <section className="bg-gradient-to-b from-[#E8E3F5] via-[#EDEAFB] to-[#F7FAFC] dark:bg-gradient-to-b dark:from-[#1a202c] dark:via-[#2d3748] dark:to-[#2d3748]">
             <div className="items-center px-8 mx-auto max-w-7xl lg:px-16 md:px-12">
                 <div className="justify-center w-full text-center lg:p-5 max-auto">
                     <div className="justify-center w-full mx-auto">
                         <div className="flex flex-col p-4 items-center justify-center max-w-xl gap-3 mx-auto lg:flex-row">
                             <img
-                                className="w-32 h-32 rounded-full border border-[#E8E3F4]"
+                                className="w-32 h-32 rounded-full shadow hover:shadow-lg"
                                 src='./assets/logo.jpg'
                                 alt='TaskMaster Logo'
                             />
                         </div>
 
-                        <h1 className="sm:mt-6 sm:px-31 text-[#10172A] text-4xl sm:text-5xl font-semibold tracking-tighter">
+                        <h1 className="sm:mt-6 sm:px-31 text-[#10172A] text-4xl sm:text-5xl font-semibold tracking-tighter dark:text-[#e2e8f0]">
                             <Typed
                                 strings={["TaskMaster"]}
                                 className="underline leading-8 underline-offset-8 decoration-8 decoration-[#8B5CF6]"
@@ -50,11 +50,11 @@ const Home = () => {
                             />
                         </h1>
 
-                        <p className="sm:mt-8 sm:px-31 text-[#10172A] text-4xl sm:text-4xl font-semibold tracking-tighter">
+                        <p className="sm:mt-8 sm:px-31 text-[#10172A] text-4xl sm:text-4xl font-semibold tracking-tighter dark:text-[#e2e8f0]">
                             Es tu aliado perfecto para organizar tus tareas diarias.
                         </p>
 
-                        <p className="sm:mt-8 mt-10 text-[#10172A] sm:leading-loose text-lg font-normal tracking-tighter">
+                        <p className="sm:mt-8 mt-10 text-[#10172A] sm:leading-loose text-lg font-normal tracking-tighter dark:text-[#e2e8f0]">
                             TaskMaster transforma tu manera de gestionar tus tareas, haciéndolo todo más simple y eficiente. ¡Empieza ahora y alcanza tus metas con facilidad!
                         </p>
 
@@ -67,18 +67,18 @@ const Home = () => {
                             </a>
                             <a
                                 href="#learn-more"
-                                className="text-sm font-semibold leading-6 text-gray-900"
+                                className="text-sm font-semibold leading-6 text-gray-900 dark:text-gray-300"
                             >
                                 Leer más <span aria-hidden="true">→</span>
                             </a>
                         </div>
 
                         <div id="learn-more" className="mt-8 flex flex-col lg:flex-row">
-                            <div className="lg:w-1/2 pr-4">
-                                <p className="text-[#10172A] text-2xl sm:text-3xl font-semibold tracking-tighter">
-                                    <span className="underline leading-8 underline-offset-8 decoration-5 decoration-[#8B5CF6]">TaskMaster </span>
+                            <div className="lg:w-1/2 pr-4 lg:pr-16">
+                                <p className="text-[#10172A] text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tighter dark:text-[#e2e8f0]">
+                                    <span className="underline leading-8 underline-offset-8 decoration-5 decoration-[#8B5CF6]">TaskMaster</span>
                                 </p>
-                                <p className="m-3 font-semibold">
+                                <p className="m-3 font-semibold dark:text-[#e2e8f0]">
                                     TaskMaster es tu aliado perfecto para organizar tus tareas diarias con eficiencia y facilidad. Descubre todas las funcionalidades que te ofrece:
                                 </p>
                                 <Slider {...settings}>
@@ -89,8 +89,8 @@ const Home = () => {
                                         "Elimina tareas innecesarias",
                                         "Disfruta de una interfaz intuitiva"
                                     ].map((title, index) => (
-                                        <div key={index} className="p-16 border rounded-lg shadow-sm bg-white transform transition-transform duration-300 hover:scale-105 cursor-pointer">
-                                            <h2 className="text-xl font-bold mb-2">{title}</h2>
+                                        <div key={index} className="p-6 sm:p-8 lg:p-16 border rounded-lg shadow-sm bg-white dark:bg-[#EDEAFB] dark:text-[#10172A] transform transition-transform duration-300 hover:scale-105 cursor-pointer">
+                                            <h2 className="text-lg sm:text-xl font-bold mb-2">{title}</h2>
                                             <p>
                                                 {[
                                                     "Incluye detalles importantes como descripción, fecha de vencimiento, prioridad y estado. Organiza cada aspecto de tus tareas para asegurarte de que nada se te escape.",
@@ -105,22 +105,22 @@ const Home = () => {
                                 </Slider>
                             </div>
 
-                            <div className="sm:w-1/2">
+                            <div className="w-full lg:w-1/2 pl-4 lg:pl-16 mt-8 lg:mt-0">
                                 <Slider {...settings} showThumbs={false} autoPlay infiniteLoop>
                                     <div>
-                                        <img className="h-50 object-cover" src="./assets/imagen-1.png" alt="Imagen 1" />
-                                        <a href="https://iradesign.io" target='_blank' rel="noopener noreferrer">
+                                        <img className="w-full h-auto object-cover" src="./assets/imagen-1.png" alt="Imagen 1" />
+                                        <a href="https://iradesign.io" target='_blank' rel="noopener noreferrer" className="block mt-2 dark:text-[#e2e8f0]">
                                             Illustrations by IRA Design
                                         </a>
                                     </div>
                                     <div>
-                                        <img className="h-50 object-cover" src="./assets/imagen-2.png" alt="Imagen 2" />
+                                        <img className="w-full h-auto object-cover" src="./assets/imagen-2.png" alt="Imagen 2" />
                                     </div>
                                     <div>
-                                        <img className="h-50 object-cover" src="./assets/imagen-3.png" alt="Imagen 3" />
+                                        <img className="w-full h-auto object-cover" src="./assets/imagen-3.png" alt="Imagen 3" />
                                     </div>
                                     <div>
-                                        <img className="h-50 object-cover" src="./assets/imagen-4.png" alt="Imagen 4" />
+                                        <img className="w-full h-auto object-cover" src="./assets/imagen-4.png" alt="Imagen 4" />
                                     </div>
                                 </Slider>
                             </div>

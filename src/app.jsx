@@ -5,10 +5,11 @@ import Navbar from './components/navbar'
 function App() {
     return (
         <div>
-        <Navbar />
-        <RouterProvider router={router} />
+            <Navbar />
+            <RouterProvider router={router} />
         </div>
     )
 }
 
 export default App
+
