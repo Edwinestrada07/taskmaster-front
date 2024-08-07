@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import Navbar from '../components/navbar'
 import Footer from '../components/footer'
 
+// AuthChecker se asegura de que las rutas protegidas solo sean accesibles para usuarios autenticados
 function AuthChecker({ children }) {
     const [loading, setLoading] = useState(true)
     const navigate = useNavigate()
@@ -10,41 +11,44 @@ function AuthChecker({ children }) {
     useEffect(() => {
         const checkAuthentication = async () => {
             try {
-                const token = localStorage.getItem('token')
+                const token = localStorage.getItem('token');
                 if (!token) {
-                    navigate('/login')
-                    return
+                    navigate('/login'); // Redirige a la página de login si no está autenticado
+                    return;
                 }
-                setLoading(false)
+                setLoading(false);
             } catch (error) {
-                console.error('Error al verificar la autenticación:', error)
-                navigate('/login')
+                console.error('Error al verificar la autenticación:', error);
+                navigate('/home'); // Redirige a la página de login en caso de error
             }
         };
 
-        checkAuthentication()
-    }, [navigate])
+        checkAuthentication();
+    }, [navigate]);
 
-    return loading ? <p>Cargando...</p> : children
+    // Muestra un mensaje de carga mientras se verifica la autenticación
+    return loading ? <p>Cargando...</p> : children;
 }
 
 function Layout() {
-    const navigate = useNavigate()
-    const location = useLocation()
+    const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
         if (location.pathname === '/') {
-            navigate('/home') // Redirigir a /home solo cuando la ruta es exactamente /
+            navigate('/home'); // Redirige a /home solo cuando la ruta es exactamente /
         }
-    }, [navigate, location.pathname])
+    }, [navigate, location.pathname]);
 
     return (
-        <AuthChecker>
-            <Navbar />
-            <Outlet />
-            <Footer />
-        </AuthChecker>
-    )
+        <>
+            <AuthChecker>
+                <Navbar />
+                <Outlet />
+                <Footer />
+            </AuthChecker>
+        </>
+    );
 }
 
 export default Layout

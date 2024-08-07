@@ -1,21 +1,21 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ReactTyped as Typed } from 'react-typed';
-import Slider from 'react-slick';
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { ReactTyped as Typed } from 'react-typed'
+import Slider from 'react-slick'
+import 'react-responsive-carousel/lib/styles/carousel.min.css'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
 
 const Home = () => {
-    const navigate = useNavigate();
+    const navigate = useNavigate()
 
     useEffect(() => {
         // Verifica si el usuario está autenticado
         if (!localStorage.getItem('token')) {
             // Redirige al login si no está autenticado
-            navigate('/login');
+            navigate('/login')
         }
-    }, [navigate]);
+    }, [navigate])
 
     const settings = {
         dots: false,
@@ -25,7 +25,7 @@ const Home = () => {
         slidesToScroll: 1,
         centerMode: false,
         centerPadding: '200px',
-    };
+    }
 
     return (
         <section className="bg-gradient-to-b from-[#E8E3F5] via-[#EDEAFB] to-[#F7FAFC] dark:bg-gradient-to-b dark:from-[#1a202c] dark:via-[#2d3748] dark:to-[#2d3748]">
@@ -74,12 +74,12 @@ const Home = () => {
                         </div>
 
                         <div id="learn-more" className="mt-8 flex flex-col lg:flex-row">
-                            <div className="lg:w-1/2 pr-4 lg:pr-16">
+                            <div className="lg:w-1/2 lg:pr-16">
                                 <p className="text-[#10172A] text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tighter dark:text-[#e2e8f0]">
                                     <span className="underline leading-8 underline-offset-8 decoration-5 decoration-[#8B5CF6]">TaskMaster</span>
                                 </p>
                                 <p className="m-3 font-semibold dark:text-[#e2e8f0]">
-                                    TaskMaster es tu aliado perfecto para organizar tus tareas diarias con eficiencia y facilidad. Descubre todas las funcionalidades que te ofrece:
+                                    TaskMaster es tu compañero ideal para gestionar tus tareas diarias de manera eficiente y sencilla. Explora todas las características que tiene para ofrecerte:
                                 </p>
                                 <Slider {...settings}>
                                     {[
@@ -105,11 +105,11 @@ const Home = () => {
                                 </Slider>
                             </div>
 
-                            <div className="w-full lg:w-1/2 pl-4 lg:pl-16 mt-8 lg:mt-0">
+                            <div className="w-full lg:w-1/2 lg:pl-16 mt-8 lg:mt-0">
                                 <Slider {...settings} showThumbs={false} autoPlay infiniteLoop>
                                     <div>
                                         <img className="w-full h-auto object-cover" src="./assets/imagen-1.png" alt="Imagen 1" />
-                                        <a href="https://iradesign.io" target='_blank' rel="noopener noreferrer" className="block mt-2 dark:text-[#e2e8f0]">
+                                        <a href="https://iradesign.io" target='_blank' rel="noopener noreferrer" className="block mb-2 dark:text-[#e2e8f0]">
                                             Illustrations by IRA Design
                                         </a>
                                     </div>

@@ -75,74 +75,85 @@ function Signup() {
     }, [navigate])
 
     return (
-        <div className="dark:bg-gray-900">
-            <div className="container flex flex-col items-center justify-center">
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#E8E3F5] via-[#EDEAFB] to-[#F7FAFC] dark:bg-gradient-to-b dark:from-[#1a202c] dark:via-[#2d3748] dark:to-[#2d3748]">
+            <div className="container mx-auto px-4 py-8">
+                <div className="flex flex-col items-center">
 
-                <h1 className="flex mb-6 text-3xl font-semibold text-white">
-                    <img className="w-10 h-10 mr-2" src="./assets/logo copia.png" alt="logo" />
-                    TaskMaster
-                </h1>
+                    <h1 className="flex items-center mb-6 text-4xl font-semibold text-gray-900 dark:text-white">
+                        <img className="w-12 h-12 mr-3 rounded-full" src="./assets/logo.jpg" alt="logo" />
+                        TaskMaster
+                    </h1>
 
-                <div className="w-full bg-gray-500 rounded-lg shadow-md dark:bg-gray-800 dark:border dark:border-gray-700 md:mt-0 sm:max-w-md xl:p-0">
-                    <div className="p-4 space-y-2 md:space-y-4 sm:p-8">
-                        <h1 className="text-2xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                            Registrarse
-                        </h1>
+                    <div className="w-full max-w-md bg-gray-900 rounded-lg shadow-md dark:bg-gray-800 dark:border dark:border-gray-700">
+                        <div className="p-6 sm:p-8">
+                            <h1 className="text-2xl font-bold leading-tight tracking-tight text-white dark:text-white mb-4">
+                                Registrarse
+                            </h1>
 
-                        {error && <div className="alert alert-danger text-bg-danger text-lg font-medium leading-tight">{error}</div>}
-                        {successMessage && <div className="alert alert-success">{successMessage}</div>}
-                        <form className="space-y-2 md:space-y-4" onSubmit={handleSubmit} >
-                            <div className="mt-4">
-                                <label htmlFor="name" className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Nombre</label>
-                                <input
-                                    type="text"
-                                    name="name"
-                                    id="name"
-                                    value={signup.name}
-                                    onChange={onChangeData}
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    required
-                                />
-                            </div>
+                            {error && (
+                                <div className="alert alert-danger text-red-600 text-lg font-medium leading-tight mb-4">
+                                    {error}
+                                </div>
+                            )}
+                            {successMessage && (
+                                <div className="alert alert-success text-green-600 text-lg font-medium leading-tight mb-4">
+                                    {successMessage}
+                                </div>
+                            )}
 
-                            <div>
-                                <label htmlFor="email" className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Correo</label>
-                                <input
-                                    type="text"
-                                    name="email"
-                                    id="email"
-                                    value={signup.email}
-                                    onChange={onChangeData}
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    required
-                                />
-                            </div>
+                            <form className="space-y-6" onSubmit={handleSubmit} >
+                                <div>
+                                    <label htmlFor="name" className="block mb-2 text-lg font-medium text-white dark:text-white">Nombre</label>
+                                    <input
+                                        type="text"
+                                        name="name"
+                                        id="name"
+                                        value={signup.name}
+                                        onChange={onChangeData}
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        required
+                                    />
+                                </div>
 
-                            <div>
-                                <label htmlFor="password" className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Contraseña</label>
-                                <input
-                                    type="password"
-                                    name="password"
-                                    id="password"
-                                    value={signup.password}
-                                    onChange={onChangeData}
-                                    placeholder="••••••••"
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    required
-                                />
-                            </div>
+                                <div>
+                                    <label htmlFor="email" className="block mb-2 text-lg font-medium text-white dark:text-white">Correo</label>
+                                    <input
+                                        type="text"
+                                        name="email"
+                                        id="email"
+                                        value={signup.email}
+                                        onChange={onChangeData}
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        required
+                                    />
+                                </div>
 
-                            <button
-                                type="submit"
-                                className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                disabled={loading}
-                            >
-                                {loading ? 'Registrando...' : 'Registrarse'}
-                            </button>
-                            <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                                ¿Ya tienes una cuenta? <Link to="/login" className="font-medium text-blue-600 hover:underline dark:text-blue-500">Iniciar Sesión</Link>
-                            </p>
-                        </form>
+                                <div>
+                                    <label htmlFor="password" className="block mb-2 text-lg font-medium text-white dark:text-white">Contraseña</label>
+                                    <input
+                                        type="password"
+                                        name="password"
+                                        id="password"
+                                        value={signup.password}
+                                        onChange={onChangeData}
+                                        placeholder="••••••••"
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        required
+                                    />
+                                </div>
+
+                                <button
+                                    type="submit"
+                                    className="w-full text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                    disabled={loading}
+                                >
+                                    {loading ? 'Registrando...' : 'Registrarse'}
+                                </button>
+                                <p className="text-sm font-light text-gray-500 dark:text-gray-400 mt-4">
+                                    ¿Ya tienes una cuenta? <Link to="/login" className="font-medium text-blue-500 hover:underline dark:text-blue-500">Iniciar Sesión</Link>
+                                </p>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

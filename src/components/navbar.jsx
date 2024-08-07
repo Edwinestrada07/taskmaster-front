@@ -3,7 +3,7 @@ import { Bars3Icon, XMarkIcon, UserCircleIcon } from '@heroicons/react/24/outlin
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import Modal from 'react-modal'
-import { ThemeDarkMode, toggleTheme } from '../themeDarkMode/themeDark';
+import { ThemeDarkMode, toggleTheme } from '../themeDarkMode/themeDark'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMoon, faSun } from '@fortawesome/free-regular-svg-icons'
 
@@ -22,7 +22,7 @@ const customStyles = {
         borderRadius: '10px',
         border: 'none',
     },
-};
+}
 
 Modal.setAppElement('#root')
 
