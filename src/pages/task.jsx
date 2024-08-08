@@ -123,83 +123,109 @@ const TaskListPage = () => {
     }, [getTasks])
 
     return (
-        <div>
-            <h5 className="text m-3">Formulario para la creación de Tareas</h5>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
+        <div className="bg-gray-900 p-4 rounded-lg shadow-md">
             
-            <TaskForm onSubmit={createTask} /> 
-            
-            <button className="btn-animate-task btn-primary" onClick={() => setTaskStatus("status")}>Filtrar por estado</button>
+            <h5 className="text-2xl font-bold text-white mb-4">Formulario para la creación de Tareas</h5>
+            {error && <p className="text-red-500 mb-4">{error}</p>}
+
+            <TaskForm onSubmit={createTask} />
+
+            <button
+                className="bg-blue-600 text-white px-4 py-2 rounded-md mt-4 transition-transform transform hover:scale-105"
+                onClick={() => setTaskStatus("status")}
+            >
+                Filtrar por estado
+            </button>
+
             {taskStatus === "status" && (
-                <div>
-                    <button className="btn-animate-task btn-danger" onClick={() => setTaskStatus("PENDING")}>Pendiente</button>
-                    <button className="btn-animate-task btn btn-warning" onClick={() => setTaskStatus("IN_PROGRESS")}>En progreso</button>
-                    <button className="btn-animate-task btn-success" onClick={() => setTaskStatus("COMPLETED")}>Completada</button>
-                    <button className="btn-animate-task btn-primary" onClick={() => setTaskStatus(null)}>Borrar Filtros</button>
+                <div className="mt-4 space-y-2">
+                    <button
+                        className="bg-red-600 text-white px-4 py-2 rounded-md transition-transform transform hover:scale-105"
+                        onClick={() => setTaskStatus("PENDING")}
+                    >
+                        Pendiente
+                    </button>
+                    <button
+                        className="bg-yellow-500 text-white px-4 py-2 rounded-md transition-transform transform hover:scale-105"
+                        onClick={() => setTaskStatus("IN_PROGRESS")}
+                    >
+                        En progreso
+                    </button>
+                    <button
+                        className="bg-green-600 text-white px-4 py-2 rounded-md transition-transform transform hover:scale-105"
+                        onClick={() => setTaskStatus("COMPLETED")}
+                    >
+                        Completada
+                    </button>
+                    <button
+                        className="bg-blue-600 text-white px-4 py-2 rounded-md transition-transform transform hover:scale-105"
+                        onClick={() => setTaskStatus(null)}
+                    >
+                        Borrar Filtros
+                    </button>
                 </div>
             )}
 
-            <h5 className="text-a m-3">Lista de Tareas</h5>
-            {/* Renderizar el formulario de actualización si el modo de actualización está activado */}
-            
-            {/* formulario de actualización */}
+            <h5 className="text-xl font-bold text-white mt-8 text-center">Lista de Tareas</h5>
+
             {updateMode && taskToUpdate && (
-                <div className="frame-task">
-                    <h2 className="text">Actualizar Tarea</h2>
-                    {error && <p>{error}</p>}
+                <div className="bg-gray-800 p-6 mt-4 rounded-lg shadow-md">
+                    <h2 className="text-xl font-bold text-white mb-4">Actualizar Tarea</h2>
+                    {error && <p className="text-red-500 mb-4">{error}</p>}
 
                     <form onSubmit={() => updateTask(taskToUpdate.id, taskToUpdate)}>
-
-                        <label className="text-a">Descripción:</label>
+                        <label className="block text-white mb-2">Descripción:</label>
                         <input
-                            className="form-styling-inf"
+                            className="w-full p-2 mb-4 bg-gray-700 text-white rounded-md"
                             type="text"
                             name="description"
                             value={taskToUpdate.description}
                             onChange={(e) => setTaskToUpdate({ ...taskToUpdate, description: e.target.value })}
                         />
 
-                        <label className="text-a">Fecha de Vencimiento:</label>
+                        <label className="block text-white mb-2">Fecha de Vencimiento:</label>
                         <input
-                            className="form-styling-inf"
+                            className="w-full p-2 mb-4 bg-gray-700 text-white rounded-md"
                             type="date"
                             name="dueDate"
                             value={taskToUpdate.dueDate}
                             onChange={(e) => setTaskToUpdate({ ...taskToUpdate, dueDate: e.target.value })}
                         />
 
-                        <label className="text-a">Prioridad:</label>
+                        <label className="block text-white mb-2">Prioridad:</label>
                         <select
-                            className="form-styling-inf"
+                            className="w-full p-2 mb-4 bg-gray-700 text-white rounded-md"
                             name="priority"
                             value={taskToUpdate.priority}
                             onChange={(e) => setTaskToUpdate({ ...taskToUpdate, priority: e.target.value })}
-                         >
-                            <option className='text-dark' value="LOW">Baja</option>
-                            <option className='text-dark' value="MEDIUM">Media</option>
-                            <option className='text-dark' value="HIGH">Alta</option>
+                        >
+                            <option value="LOW">Baja</option>
+                            <option value="MEDIUM">Media</option>
+                            <option value="HIGH">Alta</option>
                         </select>
 
-                        <label className="text-a">Estado:</label>
+                        <label className="block text-white mb-2">Estado:</label>
                         <select
-                            className="form-styling-inf"
+                            className="w-full p-2 mb-4 bg-gray-700 text-white rounded-md"
                             name="status"
                             value={taskToUpdate.status}
                             onChange={(e) => setTaskToUpdate({ ...taskToUpdate, status: e.target.value })}
-                         >
-                            <option className='text-dark' value="PENDING">Pendiente</option>
-                            <option className='text-dark' value="IN_PROGRESS">En progreso</option>
-                            <option className='text-dark' value="COMPLETED">Completada</option>
+                        >
+                            <option value="PENDING">Pendiente</option>
+                            <option value="IN_PROGRESS">En progreso</option>
+                            <option value="COMPLETED">Completada</option>
                         </select>
-                        <button className="btn-animate" type="submit">Actualizar Tarea</button>
+
+                        <button className="bg-blue-600 text-white px-4 py-2 rounded-md transition-transform transform hover:scale-105" type="submit">
+                            Actualizar Tarea
+                        </button>
                     </form>
                 </div>
             )}
 
-            {/* Renderizar la lista de tareas */}
             {!updateMode && <TaskList tasks={tasks} onDeleteTask={deleteTask} onUpdateTask={handleUpdateMode} />}
         </div>
-    )
+    );
 }
 
 export default TaskListPage
