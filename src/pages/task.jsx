@@ -8,6 +8,7 @@ const TaskListPage = () => {
     const [taskStatus, setTaskStatus] = useState(null)
     const [taskToUpdate, setTaskToUpdate] = useState(null) // Estado para almacenar la tarea a actualizar
     const [updateMode, setUpdateMode] = useState(false) // Estado para activar el modo de actualización
+    const [isFormVisible, setFormVisible] = useState(false);
 
     const getTasks = useCallback(async () => {
         try {
@@ -122,13 +123,71 @@ const TaskListPage = () => {
         getTasks()
     }, [getTasks])
 
-    return (
-        <div className="bg-gray-900 p-4 rounded-lg shadow-md">
-            
-            <h5 className="text-2xl font-bold text-white mb-4">Formulario para la creación de Tareas</h5>
-            {error && <p className="text-red-500 mb-4">{error}</p>}
+    //Funcion para activar los formularios del dashboard
+    const toggleFormVisibility = () => {
+        setFormVisible(!isFormVisible);
+    };
 
-            <TaskForm onSubmit={createTask} />
+    return (
+        
+        <div className="bg-gray-900 p-4 rounded-lg shadow-md">
+
+            <aside className="relative bg-gray-800 h-screen w-64 hidden sm:block shadow-xl">
+                <div className="p-6">
+                    <a href="index.html" className="text-white text-3xl font-semibold uppercase hover:text-gray-300">
+                        TaskMaster
+                    </a>
+                    <button className="w-full bg-white text-gray-800 font-semibold py-2 mt-5 rounded-lg shadow-lg hover:shadow-xl hover:bg-gray-200 flex items-center justify-center">
+                        <i className="fas fa-plus mr-3"></i> New Report
+                    </button>
+                </div>
+                <nav className="text-white text-base font-semibold pt-3">
+                <>
+                    <button 
+                        className="flex items-center text-white opacity-75 hover:opacity-100 py-3 pl-6 hover:bg-gray-700 rounded-md" 
+                        onClick={toggleFormVisibility}
+                    >
+                        <i className="fas fa-sticky-note mr-3"></i> Crear Tarea
+                    </button>
+                    
+                    {isFormVisible && (
+                        <div className="fixed inset-0 flex items-center justify-center bg-opacity-50 z-50">
+                            <div className="text-white p-6 rounded-lg w-full max-w-md">
+                                <button 
+                                    className="text-white font-bold mb-4 hover:text-gray-900"
+                                    onClick={toggleFormVisibility}
+                                >
+                                    Cerrar
+                                </button>
+                                {error && <p className="text-red-500 mb-4">{error}</p>}
+                                <TaskForm onSubmit={createTask} />
+                            </div>
+                        </div>
+                    )}
+                </>
+                    <a href="blank.html" className="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 hover:bg-gray-700 rounded-md">
+                        <i className="fas fa-sticky-note mr-3"></i> Blank Page
+                    </a>
+                    <a href="tables.html" className="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 hover:bg-gray-700 rounded-md">
+                        <i className="fas fa-table mr-3"></i> Tables
+                    </a>
+                    <a href="forms.html" className="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 hover:bg-gray-700 rounded-md">
+                        <i className="fas fa-align-left mr-3"></i> Forms
+                    </a>
+                    <a href="tabs.html" className="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 hover:bg-gray-700 rounded-md">
+                        <i className="fas fa-tablet-alt mr-3"></i> Tabbed Content
+                    </a>
+                    <a href="calendar.html" className="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 hover:bg-gray-700 rounded-md">
+                        <i className="fas fa-calendar mr-3"></i> Calendar
+                    </a>
+                </nav>
+                <a href="#" className="absolute w-full bg-gray-700 hover:bg-gray-600 text-white flex items-center justify-center py-4 bottom-0 rounded-md">
+                    <i className="fas fa-arrow-circle-up mr-3"></i> Upgrade to Pro!
+                </a>
+            </aside>
+
+            
+            
 
             <button
                 className="bg-blue-600 text-white px-4 py-2 rounded-md mt-4 transition-transform transform hover:scale-105"
@@ -170,7 +229,7 @@ const TaskListPage = () => {
 
             {updateMode && taskToUpdate && (
                 <div className="bg-gray-800 p-6 mt-4 rounded-lg shadow-md">
-                    <h2 className="text-xl font-bold text-white mb-4">Actualizar Tarea</h2>
+                    
                     {error && <p className="text-red-500 mb-4">{error}</p>}
 
                     <form onSubmit={() => updateTask(taskToUpdate.id, taskToUpdate)}>
