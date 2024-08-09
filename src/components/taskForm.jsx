@@ -44,13 +44,13 @@ function TaskForm(props) {
 
     return (
         <form className="frame-task" onSubmit={handleSubmit}>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-
-            <label className='text-a'>Descripción</label> 
+            {error && <p style={{ color: 'red' }} className='mb-4'>{error}</p>}
+            
             <input
-                className="form-styling"
+                className="form-styling-inf"
                 type="text"
                 name="description"
+                placeholder="Descripción"
                 value={formData.description}
                 onChange={handleChange}
             />
@@ -64,14 +64,22 @@ function TaskForm(props) {
                 onChange={handleChange}
             />
 
-            <select className="form-styling-inf" name="priority" value={formData.priority} onChange={handleChange}>
+            <select className="form-styling-inf" 
+                name="priority" 
+                value={formData.priority} 
+                onChange={handleChange}
+            >
                 <option className='text-dark' value="">Selecciona una prioridad</option>
                 <option className='text-dark' value="LOW">Baja</option>
                 <option className='text-dark' value="MEDIUM">Media</option>
                 <option className='text-dark' value="HIGH">Alta</option>
             </select>
 
-            <select className="form-styling-inf" name="status" value={formData.status} onChange={handleChange}>
+            <select className="form-styling-inf" 
+                name="status" 
+                value={formData.status} 
+                onChange={handleChange}
+            >
                 <option className='text-dark' value="">Selecciona un estado</option>
                 <option className='text-dark' value="PENDING">Pendiente</option>
                 <option className='text-dark' value="IN_PROGRESS">En progreso</option>
