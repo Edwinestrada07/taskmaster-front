@@ -2,8 +2,8 @@ import React, { useState, useEffect, useCallback } from 'react'
 import TaskList from '../components/taskList'
 import TaskForm from '../components/taskForm'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStickyNote } from '@fortawesome/free-regular-svg-icons'
-import { faAlignLeft } from '@fortawesome/free-solid-svg-icons'
+import { faBookmark, faStickyNote } from '@fortawesome/free-regular-svg-icons'
+import { faAlignLeft, faRotateRight } from '@fortawesome/free-solid-svg-icons'
 
 const TaskListPage = () => {
     const [tasks, setTasks] = useState([])
@@ -149,13 +149,13 @@ const TaskListPage = () => {
             <aside className={`relative bg-gray-800 h-screen ${isAsideVisible ? 'w-64' : 'w-16'} hidden sm:flex flex-col items-center rounded-lg shadow-[0px_1px_25px_1px_rgba(165,_39,_255,_0.48)] transition-all duration-300`}>
                 <div className="p-3 w-full flex justify-between items-center">
                     {isAsideVisible && (
-                        <a href="/start" className="text-white text-2xl font-semibold">
+                        <a href="/start" className="text-white text-xl font-extrabold">
                             TaskMaster
                         </a>
                     )}
 
                     <button 
-                        className="bg-white text-gray-800 rounded-full p-1 focus:outline-none" 
+                        className="bg-white text-gray-800 rounded-full ml-2 p-1 focus:outline-none" 
                         onClick={toggleAsideVisibility}
                     >
                         <i className={`fas ${isAsideVisible ? 'fa-chevron-left' : 'fa-chevron-right'}`}></i>
@@ -200,21 +200,31 @@ const TaskListPage = () => {
                         className="flex items-center text-white opacity-75 py-3 cursor-pointer hover:bg-gray-600 w-full justify-center"
                         onClick={() => handleViewMode('registered')}
                     >
-                        <FontAwesomeIcon icon={faStickyNote} className='mr-3'/>
-                        {isAsideVisible && <span>Registradas</span>}
+                        <FontAwesomeIcon icon={faStickyNote} className='justify-center'/>
+                        {isAsideVisible && <span className='ml-3'>Registros</span>}
                     </button>
                     
                     <button 
                         className="flex items-center text-white opacity-75 py-3 cursor-pointer hover:bg-gray-600 w-full justify-center"
                         onClick={() => handleViewMode('byStatus')}
                     >   
-                        <FontAwesomeIcon icon={faAlignLeft} className='mr-3'/>
-                        {isAsideVisible && <span>Estados</span>}
+                        <FontAwesomeIcon icon={faAlignLeft} className='justify-center'/>
+                        {isAsideVisible && <span className='ml-3'>Estados</span>}
                     </button>
 
                     <a href="calendar.html" className="flex items-center text-white opacity-75 py-3 w-full justify-center hover:bg-gray-600">
-                        <i className="fas fa-calendar mr-3"></i>
-                        {isAsideVisible && <span>Calendario</span>}
+                        <FontAwesomeIcon icon={faBookmark} className='justify-center'/>
+                        {isAsideVisible && <span className='ml-3'>Favoritos</span>}
+                    </a>
+
+                    <a href="calendar.html" className="flex items-center text-white opacity-75 py-3 w-full justify-center hover:bg-gray-600">
+                        <FontAwesomeIcon icon={faRotateRight} className='justify-center'/>
+                        {isAsideVisible && <span className='ml-3'>Historial</span>}
+                    </a>
+
+                    <a href="calendar.html" className="flex items-center text-white opacity-75 py-3 w-full justify-center hover:bg-gray-600">
+                        <i className="fas fa-calendar justify-center"></i>
+                        {isAsideVisible && <span className='ml-3'>Calendario</span>}
                     </a>      
                 </div>
 
@@ -224,30 +234,38 @@ const TaskListPage = () => {
             </aside>
 
             <div className="flex-1">
-                <h5 className="text-xl font-bold text-white mt-4 text-center">Tareas</h5>
+                <h5 className="text-2xl font-extrabold text-[#10172A] dark:text-[#e2e8f0] m-3 text-center">Tareas</h5>
 
                 {viewMode === 'byStatus' && (
-                    <nav className="bg-gray-800 dark:bg-gray-700 p-3 rounded-lg shadow-md flex justify-center space-x-4 ml-3 mb-3">
+                    <nav className="bg-gray-800 dark:bg-gray-700 p-3 rounded-lg shadow-md flex justify-center space-x-3 ml-2 mb-3">
+                        <input
+                            type="text"
+                            name="text"
+                            id="text"
+                            className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Buscar Tarea"
+                            required
+                        />
                         <button
-                            className="bg-red-600 text-white px-4 py-2 rounded-md transition-transform transform hover:scale-105"
+                            className="bg-red-400 text-gray-900 px-3 py-1 text-sm rounded-lg transition-transform transform hover:scale-105"
                             onClick={() => setTaskStatus("PENDING")}
                         >
                             Pendiente
                         </button>
                         <button
-                            className="bg-yellow-500 text-white px-4 py-2 rounded-md transition-transform transform hover:scale-105"
+                            className="bg-yellow-400 text-gray-900 px-3 py-1 text-sm rounded-lg transition-transform transform hover:scale-105"
                             onClick={() => setTaskStatus("IN_PROGRESS")}
                         >
                             En progreso
                         </button>
                         <button
-                            className="bg-green-600 text-white px-4 py-2 rounded-md transition-transform transform hover:scale-105"
+                            className="bg-green-400 text-gray-900 px-3 py-1 text-sm rounded-lg transition-transform transform hover:scale-105"
                             onClick={() => setTaskStatus("COMPLETED")}
                         >
                             Completada
                         </button>
                         <button
-                            className="bg-blue-600 text-white px-4 py-2 rounded-md transition-transform transform hover:scale-105"
+                            className="bg-blue-500 text-gray-900 px-3 py-1 text-sm rounded-lg transition-transform transform hover:scale-105"
                             onClick={() => setTaskStatus(null)}
                         >
                             Borrar Filtros

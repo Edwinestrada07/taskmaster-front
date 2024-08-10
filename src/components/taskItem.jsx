@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Draggable } from '@hello-pangea/dnd';
 
 const translations = {
     "LOW": "Baja",
@@ -19,7 +20,7 @@ const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('es-ES', options);
 };
 
-const TaskItem = ({ task, onUpdateTask, onDeleteTask }) => {
+const TaskItem = ({ task, onUpdateTask, onDeleteTask, index }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     if (!task) return null;
@@ -40,42 +41,51 @@ const TaskItem = ({ task, onUpdateTask, onDeleteTask }) => {
     };
 
     return (
-        <div className={`col-lg-12 mb-2 ${getStatusClass()} p-2 rounded-lg`}>
-            <div className="card bg-gray-900 rounded-xl shadow-md">
-                <div className="card-header flex justify-between items-center py-2">
-                    <h3 className="card-title font-semibold text-lg">{description}</h3>
-                    <button
-                        className="text-blue-700 hover:text-blue-800"
-                        onClick={() => setIsOpen(!isOpen)}
-                    >
-                        {isOpen ? 'Ocultar' : 'Mostrar'}
-                    </button>
-                </div>
-
-                {isOpen && (
-                    <div className="card-body">
-                        <p className="text-sm text-gray-600 mb-1">Fecha: {formatDate(dueDate)}</p>
-                        <p className="text-sm text-gray-600 mb-1">Prioridad: {translate(priority)}</p>
-                        <p className="text-sm text-gray-600 mb-1">Estado: {translate(status)}</p>
-
-                        <div className="flex justify-between px-6">
+        <Draggable draggableId={id.toString()} index={index}>
+            {(provided, snapshot) => (
+                <div
+                    ref={provided.innerRef}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+                    className={`col-lg-12 mb-2 ${getStatusClass()} p-2 rounded-lg ${snapshot.isDragging ? 'border-2 border-blue-500' : ''}`}
+                >
+                    <div className="card bg-gray-900 rounded-xl shadow-md">
+                        <div className="card-header flex justify-between items-center py-2">
+                            <h3 className="card-title font-semibold text-lg">{description}</h3>
                             <button
-                                className="px-3 py-1.5 text-sm text-indigo-600 duration-150 bg-indigo-50 rounded-lg hover:bg-indigo-100 active:bg-indigo-200"
-                                onClick={() => onUpdateTask(id, task)}
+                                className="text-blue-700 hover:text-blue-800"
+                                onClick={() => setIsOpen(!isOpen)}
                             >
-                                Actualizar
-                            </button>
-                            <button
-                                className="px-3 py-1.5 text-sm text-danger duration-150 bg-indigo-50 rounded-lg hover:bg-indigo-100 active:bg-indigo-200"
-                                onClick={() => onDeleteTask(id)}
-                            >
-                                Eliminar
+                                {isOpen ? 'Ocultar' : 'Mostrar'}
                             </button>
                         </div>
+
+                        {isOpen && (
+                            <div className="card-body">
+                                <p className="text-sm text-gray-600 mb-1">Fecha: {formatDate(dueDate)}</p>
+                                <p className="text-sm text-gray-600 mb-1">Prioridad: {translate(priority)}</p>
+                                <p className="text-sm text-gray-600 mb-1">Estado: {translate(status)}</p>
+
+                                <div className="flex justify-between px-6">
+                                    <button
+                                        className="px-3 py-1.5 text-sm text-indigo-600 duration-150 bg-indigo-50 rounded-lg hover:bg-indigo-100 active:bg-indigo-200"
+                                        onClick={() => onUpdateTask(id, task)}
+                                    >
+                                        Actualizar
+                                    </button>
+                                    <button
+                                        className="px-3 py-1.5 text-sm text-danger duration-150 bg-indigo-50 rounded-lg hover:bg-indigo-100 active:bg-indigo-200"
+                                        onClick={() => onDeleteTask(id)}
+                                    >
+                                        Eliminar
+                                    </button>
+                                </div>
+                            </div>
+                        )}
                     </div>
-                )}
-            </div>
-        </div>
+                </div>
+            )}
+        </Draggable>
     );
 };
 
