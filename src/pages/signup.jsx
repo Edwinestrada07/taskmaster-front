@@ -75,7 +75,7 @@ function Signup() {
     }, [navigate])
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#E8E3F5] via-[#EDEAFB] to-[#F7FAFC] dark:bg-gradient-to-b dark:from-[#1a202c] dark:via-[#2d3748] dark:to-[#2d3748]">
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#E8E3F5] via-[#EDEAFB] to-[#F7FAFC] dark:bg-gradient-to-b dark:from-[#0f172a] dark:via-[#4c1d95] dark:to-[#0f172a]">
             <div className="container mx-auto px-4 py-8">
                 <div className="flex flex-col items-center">
 

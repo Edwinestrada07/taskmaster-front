@@ -69,7 +69,7 @@ function Navbar() {
     }
 
     return (
-        <Disclosure as="nav" className="bg-gray-800 dark:bg-gray-700 text-white dark:text-gray-100">
+        <Disclosure as="nav" className="bg-gray-800 dark:bg-gray-700 text-white dark:text-gray-100 rounded-xl mx-2 mt-2 md:mx-0 md:mt-0 md:relative md:bg-transparent">
             <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
                 <div className="relative flex h-16 items-center justify-between">
                     <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">

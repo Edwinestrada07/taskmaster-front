@@ -227,7 +227,7 @@ const TaskListPage = () => {
                 <h5 className="text-xl font-bold text-white mt-4 text-center">Tareas</h5>
 
                 {viewMode === 'byStatus' && (
-                    <div className="mt-4 space-y-2">
+                    <nav className="bg-gray-800 dark:bg-gray-700 p-3 rounded-lg shadow-md flex justify-center space-x-4 ml-3 mb-3">
                         <button
                             className="bg-red-600 text-white px-4 py-2 rounded-md transition-transform transform hover:scale-105"
                             onClick={() => setTaskStatus("PENDING")}
@@ -252,7 +252,7 @@ const TaskListPage = () => {
                         >
                             Borrar Filtros
                         </button>
-                    </div>
+                    </nav>
                 )}
 
                 {updateMode && taskToUpdate && (

@@ -16,19 +16,19 @@ const settings = {
 
 function Start() {
     return (
-        <section className="bg-gradient-to-b from-[#E8E3F5] via-[#EDEAFB] to-[#F7FAFC] dark:bg-gradient-to-b dark:from-[#1a202c] dark:via-[#2d3748] dark:to-[#2d3748]">
+        <section className="bg-gradient-to-b from-[#E8E3F5] via-[#EDEAFB] to-[#F7FAFC] dark:bg-gradient-to-b dark:from-[#0f172a] dark:via-[#4c1d95] dark:to-[#0f172a]">
             <div className="items-center px-8 mx-auto max-w-7xl lg:px-16 md:px-12">
                 <div className="justify-center w-full text-center lg:p-5 max-auto">
                     <div className="justify-center w-full mx-auto">
-                        <div className="flex flex-col p-4 items-center justify-center max-w-xl gap-3 mx-auto lg:flex-row">
+                        <div className="flex flex-col p-2 items-center justify-center max-w-xl gap-3 mx-auto lg:flex-row">
                             <img
-                                className="w-32 h-32 rounded-full shadow hover:shadow-lg"
+                                className="w-28 h-28 rounded-full shadow hover:shadow-lg"
                                 src='./assets/logo.jpg'
                                 alt='TaskMaster Logo'
                             />
                         </div>
 
-                        <h1 className="sm:mt-6 sm:px-31 text-[#10172A] text-4xl sm:text-5xl font-semibold tracking-tighter dark:text-[#e2e8f0]">
+                        <h1 className="p-2 text-4xl font-extrabold mx-auto md:text-5xl text-[#10172A] dark:text-[#e2e8f0]">
                             <Typed
                                 strings={["TaskMaster"]}
                                 className="underline leading-8 underline-offset-8 decoration-8 decoration-[#8B5CF6]"
@@ -38,11 +38,11 @@ function Start() {
                             />
                         </h1>
 
-                        <p className="sm:mt-8 sm:px-31 text-[#10172A] text-4xl sm:text-4xl font-semibold tracking-tighter dark:text-[#e2e8f0]">
+                        <p className="mt-3 text-3xl font-extrabold mx-auto md:text-5xl text-[#1e2538] dark:text-[#e2e8f0]">
                             Es tu aliado perfecto para organizar tus tareas diarias.
                         </p>
 
-                        <p className="sm:mt-8 mt-10 text-[#10172A] sm:leading-loose text-lg font-normal tracking-tighter dark:text-[#e2e8f0]">
+                        <p className="mt-4 max-w-2xl mx-auto text-gray-600 dark:text-[#e2e8f0]">
                             TaskMaster transforma tu manera de gestionar tus tareas, haciéndolo todo más simple y eficiente. ¡Empieza ahora y alcanza tus metas con facilidad!
                         </p>
 

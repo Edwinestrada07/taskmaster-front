@@ -8,28 +8,28 @@ const TaskList = ({ tasks, onUpdateTask, onDeleteTask }) => {
     const completedTasks = tasks.filter(task => task.status === 'COMPLETED')
 
     return (
-        <div className="row">
+        <div className="flex flex-col md:flex-row gap-4">
             {pendingTasks.length > 0 && (
-                <div className="col-md-4">
-                    <h4 className="text m-2">Pendiente</h4>
+                <div className="flex-1 bg-gray-100 p-3 rounded-xl ml-3">
+                    <h4 className="text-base font-medium text-gray-800 mb-2">Pendiente</h4>
                     {pendingTasks.map(task => (
                         <TaskItem key={task.id} task={task} onUpdateTask={onUpdateTask} onDeleteTask={onDeleteTask} />
                     ))}
                 </div>
             )}
-
+    
             {inProgressTasks.length > 0 && (
-                <div className="col-md-4">
-                    <h4 className="text m-2">En Progreso</h4>
+                <div className="flex-1 bg-gray-100 p-3 rounded-xl">
+                    <h4 className="text-base font-medium text-gray-800 mb-2">En Progreso</h4>
                     {inProgressTasks.map(task => (
-                        <TaskItem key={task.id} task={task} onUpdateTask={onUpdateTask} onDeleteTask={onDeleteTask} />
+                         <TaskItem key={task.id} task={task} onUpdateTask={onUpdateTask} onDeleteTask={onDeleteTask} />
                     ))}
                 </div>
             )}
-
+    
             {completedTasks.length > 0 && (
-                <div className="col-md-4">
-                    <h4 className="text m-2">Completada</h4>
+                <div className="flex-1 bg-gray-100 p-3 rounded-xl">
+                    <h4 className="text-base font-medium text-gray-800 mb-2">Completada</h4>
                     {completedTasks.map(task => (
                         <TaskItem key={task.id} task={task} onUpdateTask={onUpdateTask} onDeleteTask={onDeleteTask} />
                     ))}
@@ -37,6 +37,7 @@ const TaskList = ({ tasks, onUpdateTask, onDeleteTask }) => {
             )}
         </div>
     )
+    
 }
 
 export default TaskList

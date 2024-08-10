@@ -36,7 +36,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
   height: 100vh;
   box-sizing: border-box;
-  background: url(data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwcNDQ0NBw0HBwgNBw0HDQcHBw8ICQcNFREWFhURExUYHSggGBolGxUVITEhJSkrLi4uFx8zODMsNygtLisBCgoKDQ0NDw0NDisZFRkrNysrKystKysrKy0rKzcrKy0tKysrKysrKy0tKy0tKysrKysrKysrKysrKysrKysrK//AABEIALwBDAMBIgACEQEDEQH/xAAYAAEBAQEBAAAAAAAAAAAAAAABAgAGB//EABYQAQEBAAAAAAAAAAAAAAAAAAABEf/EABkBAQEBAQEBAAAAAAAAAAAAAAIBBgUAA//EABURAQEAAAAAAAAAAAAAAAAAAAAB/9oADAMBAAIRAxEAPwDzxmZtnzZmLzzQsRKGGCKiUoYY0VBONDGInDC0MGlDDGioNONDGkVBpRoYyohRoqCKgnGioIqDTjGNDBOQxUEVBpRoqCKgnI0VBFQacMLESjkWZncZllQQosJjQwThhjQwaUMUIqIcaKgihKNDGhg04YYyoNKNFQRQnGioFQaUjKgioNONCxgnIYqCKiUo0VGMGnGio0I05DDGhg04YWhEpHHkKjuMuxYxDhhjQwaUMVBFDTjKgioJyNDGioNKNFQQwacMVBFRCjKgioJRoqCKgnGioFQacjQxoqCcaKjSEaUaKgioJyNFSNDBpwwxoUKQwscE446KgLuMvDDGiolONDGipBpRoYyhORooRUGlGioIoacZUEVBpRoqCKgnGioIqDSjRUaFKcaKgioJyNFQRUGlIYY0ME4YY0hg04YY0VBONFQQwaUMUIoTkcaYxjusvDIY0VBpRooRUE40VBFRKcaKgioJRoqCKg040VBFQSjRUEUNORoqNIYJRoqBUE5GioIqJThhjQhSkMMaFKchioIqCcaKEVBONFQRUGlGVgihOONioIqO7WXjRUEUJRoqCKg05GVBFQaUaKEVBONFRoRKNFRoYlOGGNDBpQwxjBORoqCKgnGkVGhg05CY0MGlIYqCKg040VBFQTjRUEVINKNFMYNOGERSHHGxUEVHcrLQwwRUQ5GigqDTjKgihKNFQSKgnDDGhEoYWhgnDDGI0o0VBFRDkMMjQwachMaGCUhhjRUGnGioIqCcaKEVBpxoqNDBpSNFRoYJyGFpChyONimhjuMtGioIqCcaKEVBpRoqCKiU4YY0MEoYY0MGnIYY0MEoTGhgnIYY0MGnDDGhgnDDGiolKRoqCKgHGioFRKcaKjSGDSkJgioJyGGNDBpyGFiJyONio0Md1loyoIqDSjRTQwacMMaGCUMLQxKchMaGCcMMaGDSkaKjQyCcMVBFQacjQxoqCcjRUEVBpRoqCKgnI0VBFSDThkLGCUhMaGIcMLQwachhaQicjjoYxjustI0VBFDSjRUaGCcMMaGCUMMYwacMLQjSkMMaGCchioIqJTkZUgioJyNFQRUGlGioIqCcjRUEVBpwwxoYNOQwxoYJQxUEihpyNDGipBpyNDjRSHI42GNDHcZWGGNDBpwwxjEKGGNDBOQxUEMEoTGME5DDI0VBpxooKgnI0VBFQacjSKgioJSNFRoYlORoqNCNOQmRoYJSGKkEVBpyNDGVBpyNIoKg05GihFYJyONhEVHdrKwwxoYNOGGNDBpQqkEMSnDCxg0oYZGME4YoQwacMVBFQacaKgioNKGGCKgnGipAqCcMMYwacMMaGDShioClOGKgioNONFQRUE40UIoSkf/Z) no-repeat center center fixed;
+  background: linear-gradient(
+        to bottom left, /* Dirección del gradiente */
+        #0f172a, /* from-slate-900 */
+        #0f172a, /* via-purple-900 */
+        #0f172a  /* to-slate-900 */
+    );
   background-size: cover
   
 }
@@ -59,28 +64,6 @@ body {
   box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2);
   overflow: hidden;
   transition: all .5s ease
-}
-
-.form-signin {
-  width: 430px;
-  height: 460px;
-  font-size: 16px;
-  font-weight: 300;
-  padding-left: 37px;
-  padding-right: 37px;
-  padding-top: 55px;
-  transition: opacity .5s ease, transform .5s ease
-}
-
-.form-signup {
-  width: 430px;
-  height: 560px;
-  font-size: 16px;
-  font-weight: 300;
-  padding-left: 37px;
-  padding-right: 37px;
-  padding-top: 55px;
-  transition: opacity .5s ease, transform .5s ease
 }
 
 .form-styling {
@@ -132,37 +115,6 @@ body {
 
 /*navbar*/
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
-
-.navbar {
-  font-family: 'Segoe UI', 'Arial Narrow Bold', sans-serif;
-  font-size: large;
-  background: rgba(22, 15, 15, 0.747);
-  box-shadow: 0 2px 4px rgba(241, 236, 236, 0.2);
-  text-transform: uppercase;
-  color: rgba(221, 221, 221, 0.6);
-}
-
-.navbar-text{
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-  margin-left: 5px; 
-}
-
-/*home*/
-.text-ul {
-  color: rgba(221, 221, 221, 0.6);
-  font-size: 18px;
-}
-.frame-card {
-  height: 350px;
-  width: 550px;
-  margin-left: auto;
-  margin-right: auto;
-  border-top: solid 1px rgba(255, 255, 255, .5);
-  border-radius: 5px;
-  box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2);
-  transition: all .5s ease
-}
 
 /*task*/
 .frame-task {
