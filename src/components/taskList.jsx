@@ -2,7 +2,7 @@ import React from 'react';
 import TaskItem from '../components/taskItem';
 import { Droppable } from '@hello-pangea/dnd';
 
-const TaskList = ({ tasks, onUpdateTask, onDeleteTask }) => {
+const TaskList = ({ tasks, onUpdateTask, onDeleteTask, onFavoriteTask }) => {
     const pendingTasks = tasks.filter(task => task.status === 'PENDING');
     const inProgressTasks = tasks.filter(task => task.status === 'IN_PROGRESS');
     const completedTasks = tasks.filter(task => task.status === 'COMPLETED');
@@ -24,6 +24,7 @@ const TaskList = ({ tasks, onUpdateTask, onDeleteTask }) => {
                                 index={index}
                                 onUpdateTask={onUpdateTask}
                                 onDeleteTask={onDeleteTask}
+                                onFavoriteTask={onFavoriteTask} // Pasando la función onFavoriteTask
                             />
                         ))}
                         {provided.placeholder}
@@ -45,6 +46,7 @@ const TaskList = ({ tasks, onUpdateTask, onDeleteTask }) => {
                                 index={index}
                                 onUpdateTask={onUpdateTask}
                                 onDeleteTask={onDeleteTask}
+                                onFavoriteTask={onFavoriteTask} // Pasando la función onFavoriteTask
                             />
                         ))}
                         {provided.placeholder}
@@ -66,6 +68,7 @@ const TaskList = ({ tasks, onUpdateTask, onDeleteTask }) => {
                                 index={index}
                                 onUpdateTask={onUpdateTask}
                                 onDeleteTask={onDeleteTask}
+                                onFavoriteTask={onFavoriteTask} // Pasando la función onFavoriteTask
                             />
                         ))}
                         {provided.placeholder}

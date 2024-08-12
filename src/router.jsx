@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, redirect } from 'react-router-dom';
 import Layout from './layouts/mainLayout';
 import Start from './pages/start';
 import Home from './pages/home';
@@ -7,11 +7,15 @@ import Signup from './pages/signup';
 import TaskListPage from './pages/task';
 import Profile from './pages/profile';
 import ErrorPage from './pages/errorPage';
+import FavoriteTasksPage from './pages/favoriteTasksPage';
 
 // Define la función loader para las rutas protegidas
 const loaderProtected = async () => {
     if (!localStorage.getItem('token')) {
-        throw new Response('No Autorizado', { status: 401 });
+        // Si no está autenticado, redirigir a la página de login
+        return redirect('/login');
+        // O puedes lanzar un error si prefieres manejarlo en el ErrorPage
+        // throw new Response('No Autorizado', { status: 401 });
     }
     return null;
 }
@@ -38,6 +42,11 @@ const router = createBrowserRouter([
                 path: 'profile',
                 element: <Profile />,
                 loader: loaderProtected,
+            },
+            {
+                path: 'favorites',
+                element: <FavoriteTasksPage />,
+                loader: loaderProtected,
             }
         ],
         errorElement: <ErrorPage /> // Manejo de errores
@@ -53,3 +62,4 @@ const router = createBrowserRouter([
 ]);
 
 export default router;
+

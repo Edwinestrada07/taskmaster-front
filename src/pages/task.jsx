@@ -3,7 +3,7 @@ import TaskList from '../components/taskList'
 import TaskForm from '../components/taskForm'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBookmark, faStickyNote } from '@fortawesome/free-regular-svg-icons'
-import { faAlignLeft, faRotateRight } from '@fortawesome/free-solid-svg-icons'
+import { faAlignLeft, faArrowCircleUp, faRotateRight } from '@fortawesome/free-solid-svg-icons'
 
 const TaskListPage = () => {
     const [tasks, setTasks] = useState([])
@@ -125,12 +125,16 @@ const TaskListPage = () => {
     }
 
     useEffect(() => {
-        getTasks()
+        getTasks() // Obtiene todas las tareas, incluidas las favoritas
     }, [getTasks])
 
     //Funcion para activar los formularios del dashboard
     const toggleFormVisibility = () => {
-        setFormVisible(!isFormVisible)
+        setFormVisible(!isFormVisible);
+        if (updateMode) {
+            setUpdateMode(false);
+            setTaskToUpdate(null);
+        }
     }
 
     // Función para manejar la vista de opciones en la parte derecha
@@ -143,6 +147,31 @@ const TaskListPage = () => {
         setIsAsideVisible(prevState => !prevState);
     }
 
+    //Función para controlar tareas favoritas
+    const handleFavoriteTask = async (id, isFavorite) => {
+        try {
+            const response = await fetch(`http://localhost:5000/task/${id}/favorite`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    authorization: localStorage.getItem('token')
+                },
+                body: JSON.stringify({ isFavorite }) // Enviar el estado deseado de favorita
+            });
+    
+            if (!response.ok) {
+                throw new Error('No se pudo actualizar el estado de favorita.');
+            }
+    
+            // Actualiza la lista de tareas favoritas en el frontend
+            getTasks(); // Llama a getTasks para actualizar la lista de tareas
+        } catch (error) {
+            console.error('Error al actualizar el estado de favorita:', error);
+            setError("Error al actualizar el estado de favorita. Por favor, inténtalo de nuevo más tarde.");
+        }
+    };
+    
+    
     return (
         <div className="p-3 bg-gradient-to-b from-[#E8E3F5] via-[#EDEAFB] to-[#F7FAFC] dark:bg-gradient-to-b dark:from-[#1a202c] dark:via-[#2d3748] dark:to-[#2d3748] flex">
 
@@ -212,10 +241,13 @@ const TaskListPage = () => {
                         {isAsideVisible && <span className='ml-3'>Estados</span>}
                     </button>
 
-                    <a href="calendar.html" className="flex items-center text-white opacity-75 py-3 w-full justify-center hover:bg-gray-600">
+                    <button 
+                        className="flex items-center text-white opacity-75 py-3 w-full justify-center hover:bg-gray-600"
+                        onClick={() => handleViewMode('byFavorites')}
+                    >
                         <FontAwesomeIcon icon={faBookmark} className='justify-center'/>
                         {isAsideVisible && <span className='ml-3'>Favoritos</span>}
-                    </a>
+                    </button>
 
                     <a href="calendar.html" className="flex items-center text-white opacity-75 py-3 w-full justify-center hover:bg-gray-600">
                         <FontAwesomeIcon icon={faRotateRight} className='justify-center'/>
@@ -229,7 +261,8 @@ const TaskListPage = () => {
                 </div>
 
                 <a href="/profile" className={`absolute w-full bg-gray-700 hover:bg-gray-600 text-white flex items-center justify-center py-4 bottom-0 rounded-md ${isAsideVisible ? '' : 'hidden'}`}>
-                    <i className="fas fa-arrow-circle-up mr-3"></i> Upgrade to Pro!
+                    <FontAwesomeIcon icon={faArrowCircleUp} />
+                    <span className='ml-2'>Ver Perfil</span>
                 </a>
             </aside>
 
@@ -247,25 +280,25 @@ const TaskListPage = () => {
                             required
                         />
                         <button
-                            className="bg-red-400 text-gray-900 px-3 py-1 text-sm rounded-lg transition-transform transform hover:scale-105"
+                            className="bg-red-400 text-white px-3 py-1 text-bold rounded-lg transition-transform transform hover:scale-105"
                             onClick={() => setTaskStatus("PENDING")}
                         >
                             Pendiente
                         </button>
                         <button
-                            className="bg-yellow-400 text-gray-900 px-3 py-1 text-sm rounded-lg transition-transform transform hover:scale-105"
+                            className="bg-yellow-400 text-white px-3 py-1 text-bold rounded-lg transition-transform transform hover:scale-105"
                             onClick={() => setTaskStatus("IN_PROGRESS")}
                         >
                             En progreso
                         </button>
                         <button
-                            className="bg-green-400 text-gray-900 px-3 py-1 text-sm rounded-lg transition-transform transform hover:scale-105"
+                            className="bg-green-500 text-white px-3 py-1 text-bold rounded-lg transition-transform transform hover:scale-105"
                             onClick={() => setTaskStatus("COMPLETED")}
                         >
                             Completada
                         </button>
                         <button
-                            className="bg-blue-500 text-gray-900 px-3 py-1 text-sm rounded-lg transition-transform transform hover:scale-105"
+                            className="bg-blue-400 text-white px-3 py-1 text-bold rounded-lg transition-transform transform hover:scale-105"
                             onClick={() => setTaskStatus(null)}
                         >
                             Borrar Filtros
@@ -278,7 +311,9 @@ const TaskListPage = () => {
                         
                         {error && <p className="text-red-500 mb-4">{error}</p>}
 
-                        <form onSubmit={() => updateTask(taskToUpdate.id, taskToUpdate)}>
+                        <form onSubmit={(e) => {e.preventDefault();
+                                updateTask(taskToUpdate.id, taskToUpdate);
+                            }}>
                             <input
                                 className="form-styling-inf"
                                 type="text"
@@ -339,7 +374,23 @@ const TaskListPage = () => {
                     </div>
                 )}
 
-                {!updateMode && <TaskList tasks={tasks} onDeleteTask={deleteTask} onUpdateTask={handleUpdateMode} />}
+                {viewMode === 'byFavorites' && (
+                    <div className="p-3">
+                        <h2 className="text-2xl font-bold mb-4 text-[#10172A] dark:text-[#e2e8f0]">Tareas Favoritas</h2>
+                        {tasks.some(task => task.isFavorite) ? (
+                            <TaskList 
+                                tasks={tasks.filter(task => task.isFavorite)} // Filtra para mostrar solo las tareas favoritas
+                                onDeleteTask={deleteTask} 
+                                onUpdateTask={handleUpdateMode} 
+                                onFavoriteTask={handleFavoriteTask}
+                            />
+                        ) : (
+                            <p className='text-[#10172A] dark:text-[#e2e8f0]'>No hay tareas marcadas como favoritas.</p>
+                        )}
+                    </div>
+                )}
+
+                {!updateMode && <TaskList tasks={tasks} onDeleteTask={deleteTask} onUpdateTask={handleUpdateMode} onFavoriteTask={handleFavoriteTask}/>}
             </div>
         </div>
     )
