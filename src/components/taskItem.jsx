@@ -24,7 +24,7 @@ const formatDate = (dateString) => {
 };
 
 // Componente que representa un elemento de tarea individual
-const TaskItem = ({ task, onUpdateTask, onDeleteTask, onFavoriteTask, index }) => {
+const TaskItem = ({ task, index, onUpdateTask, onDeleteTask, onFavoriteTask, onMoveToHistory }) => {
     const [isOpen, setIsOpen] = useState(false); // Estado para controlar la visibilidad de los detalles de la tarea
 
     if (!task) return null; // Si no hay tarea, no renderiza nada
@@ -97,6 +97,13 @@ const TaskItem = ({ task, onUpdateTask, onDeleteTask, onFavoriteTask, index }) =
                                     >
                                         Eliminar
                                     </button>
+                                    {/* Botón para mover la tarea al historial */}
+                                    <button
+                                        className="px-3 py-1.5 text-sm text-green-600 duration-150 bg-green-50 rounded-lg hover:bg-green-100 active:bg-green-200"
+                                        onClick={() => onMoveToHistory(id)}
+                                    >
+                                        Mover a Historial
+                                    </button>
                                 </div>
                             </div>
                         )}
@@ -108,4 +115,3 @@ const TaskItem = ({ task, onUpdateTask, onDeleteTask, onFavoriteTask, index }) =
 };
 
 export default TaskItem;
-

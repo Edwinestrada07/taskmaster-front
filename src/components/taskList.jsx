@@ -2,7 +2,7 @@ import React from 'react';
 import TaskItem from '../components/taskItem';
 import { Droppable } from '@hello-pangea/dnd';
 
-const TaskList = ({ tasks, onUpdateTask, onDeleteTask, onFavoriteTask }) => {
+const TaskList = ({ tasks, onUpdateTask, onDeleteTask, onFavoriteTask, onMoveToHistory }) => {
     const pendingTasks = tasks.filter(task => task.status === 'PENDING');
     const inProgressTasks = tasks.filter(task => task.status === 'IN_PROGRESS');
     const completedTasks = tasks.filter(task => task.status === 'COMPLETED');
@@ -24,7 +24,8 @@ const TaskList = ({ tasks, onUpdateTask, onDeleteTask, onFavoriteTask }) => {
                                 index={index}
                                 onUpdateTask={onUpdateTask}
                                 onDeleteTask={onDeleteTask}
-                                onFavoriteTask={onFavoriteTask} // Pasando la función onFavoriteTask
+                                onFavoriteTask={onFavoriteTask}
+                                onMoveToHistory={onMoveToHistory} // Agregado para mover al historial
                             />
                         ))}
                         {provided.placeholder}
@@ -46,7 +47,8 @@ const TaskList = ({ tasks, onUpdateTask, onDeleteTask, onFavoriteTask }) => {
                                 index={index}
                                 onUpdateTask={onUpdateTask}
                                 onDeleteTask={onDeleteTask}
-                                onFavoriteTask={onFavoriteTask} // Pasando la función onFavoriteTask
+                                onFavoriteTask={onFavoriteTask}
+                                onMoveToHistory={onMoveToHistory} // Agregado para mover al historial
                             />
                         ))}
                         {provided.placeholder}
@@ -68,7 +70,8 @@ const TaskList = ({ tasks, onUpdateTask, onDeleteTask, onFavoriteTask }) => {
                                 index={index}
                                 onUpdateTask={onUpdateTask}
                                 onDeleteTask={onDeleteTask}
-                                onFavoriteTask={onFavoriteTask} // Pasando la función onFavoriteTask
+                                onFavoriteTask={onFavoriteTask}
+                                onMoveToHistory={onMoveToHistory} // Agregado para mover al historial
                             />
                         ))}
                         {provided.placeholder}
