@@ -29,7 +29,7 @@ const TaskItem = ({ task, index, onUpdateTask, onDeleteTask, onFavoriteTask, onM
 
     if (!task) return null; // Si no hay tarea, no renderiza nada
 
-    const { id, description, dueDate, priority, status, isFavorite } = task;
+    const { id, taskId, description, dueDate, priority, status, isFavorite } = task;
 
     // Función para asignar clases CSS según el estado de la tarea
     const getStatusClass = () => {
@@ -56,7 +56,7 @@ const TaskItem = ({ task, index, onUpdateTask, onDeleteTask, onFavoriteTask, onM
                 >
                     <div className="card bg-gray-900 rounded-xl shadow-md">
                         <div className="card-header flex justify-between">
-                            <h3 className="card-title font-semibold text-lg">{description}</h3>
+                            <h3 className="text-lg font-semibold text-gray-700 text-dark">{description}</h3>
                             <div className="">
                                 {/* Botón para marcar como favorito */}
                                 <button
@@ -100,9 +100,9 @@ const TaskItem = ({ task, index, onUpdateTask, onDeleteTask, onFavoriteTask, onM
                                     {/* Botón para mover la tarea al historial */}
                                     <button
                                         className="px-3 py-1.5 text-sm text-green-600 duration-150 bg-green-50 rounded-lg hover:bg-green-100 active:bg-green-200"
-                                        onClick={() => onMoveToHistory(id)}
+                                        onClick={() => onMoveToHistory(taskId)}
                                     >
-                                        Mover a Historial
+                                        Mover al Historial
                                     </button>
                                 </div>
                             </div>

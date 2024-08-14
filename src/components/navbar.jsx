@@ -169,18 +169,17 @@ function Navbar() {
                                         </Link>
                                     </MenuItem>
                                     <MenuItem>
-                                        <a href="/#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                        <Link to="" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                             Configuración
-                                        </a>
+                                        </Link>
                                     </MenuItem>
                                     <MenuItem>
-                                        <a
-                                            href="#"
+                                        <Link
                                             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                             onClick={handleLogout}
                                         >
                                             Cerrar Sesión
-                                        </a>
+                                        </Link>
                                     </MenuItem>
                                 </MenuItems>
                             </Menu>

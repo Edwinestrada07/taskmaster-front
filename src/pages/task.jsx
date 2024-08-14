@@ -15,29 +15,48 @@ const TaskListPage = () => {
     const [viewMode, setViewMode] = useState('') // Estado para controlar qué vista mostrar en la parte derecha
     const [isAsideVisible, setIsAsideVisible] = useState(true)
 
+    // Función para obtener las tareas con filtros según el modo de vista
     const getTasks = useCallback(async () => {
         try {
-            const url = taskStatus ? `http://localhost:5000/task?status=${taskStatus}` : "http://localhost:5000/task";
+            let url;
+            switch (viewMode) {
+                case 'registered':
+                    url = 'http://localhost:5000/task';
+                    break;
+                case 'byFavorites':
+                    url = 'http://localhost:5000/task/favorites';
+                    break;
+                case 'byStatus':
+                    url = taskStatus ? `http://localhost:5000/task?status=${taskStatus}` : 'http://localhost:5000/task';
+                    break;
+                default:
+                    url = 'http://localhost:5000/task';
+                    break;
+            }
+
             const response = await fetch(url, {
                 method: 'GET',
                 headers: {
-                authorization: localStorage.getItem('token')
-                }
-            })
-        
+                    authorization: localStorage.getItem('token'),
+                },
+            });
+
             if (!response.ok) {
-                throw new Error('No se pudo obtener la lista de tareas.')
+                throw new Error('No se pudo obtener la lista de tareas.');
             }
-        
-            const tasksData = await response.json()
-            setTasks(tasksData)
+
+            const tasksData = await response.json();
+            setTasks(tasksData);
             setError(null);
-          
         } catch (error) {
-          console.error("Error al obtener las tareas:", error)
-          setError("Error al obtener las tareas. Por favor, inténtalo de nuevo más tarde.")
+            console.error('Error al obtener las tareas:', error);
+            setError('Error al obtener las tareas. Por favor, inténtalo de nuevo más tarde.');
         }
-    }, [taskStatus])
+    }, [taskStatus, viewMode]);
+
+    useEffect(() => {
+        getTasks() // Obtiene todas las tareas, incluidas las favoritas
+    }, [getTasks])
 
     const createTask = async (task) => {
         try {
@@ -98,36 +117,31 @@ const TaskListPage = () => {
         }
     }
 
-    const moveToHistory = async (id) => {
+    const deleteTask = async (id) => {
         try {
-            const response = await fetch(`http://localhost:5000/task/${id}/move`, {
-                method: 'POST',
+            const response = await fetch(`http://localhost:5000/task/${id}`, {
+                method: 'DELETE',
                 headers: {
-                    'Content-Type': 'application/json',
-                    authorization: localStorage.getItem('token')
-                }
+                    authorization: localStorage.getItem('token'),
+                },
             });
-    
+
             if (!response.ok) {
-                throw new Error('No se pudo mover la tarea al historial.');
+                throw new Error('No se pudo eliminar la tarea.');
             }
-    
+
             getTasks(); // Actualiza la lista de tareas
         } catch (error) {
-            console.error('Error al mover la tarea al historial:', error);
-            setError("Error al mover la tarea al historial. Por favor, inténtalo de nuevo más tarde.");
+            console.error('Error al eliminar la tarea:', error);
+            setError('Error al eliminar la tarea. Por favor, inténtalo de nuevo más tarde.');
         }
-    }    
+    };
 
     // Función para activar el modo de actualización
     const handleUpdateMode = (id, task) => {
         setTaskToUpdate({ ...task, id }) // Almacenar la tarea a actualizar
         setUpdateMode(true) // Activar el modo de actualización
     }
-
-    useEffect(() => {
-        getTasks() // Obtiene todas las tareas, incluidas las favoritas
-    }, [getTasks])
 
     //Funcion para activar los formularios del dashboard
     const toggleFormVisibility = () => {
@@ -138,10 +152,11 @@ const TaskListPage = () => {
         }
     }
 
-    // Función para manejar la vista de opciones en la parte derecha
+    // Función para manejar el cambio de vista
     const handleViewMode = (mode) => {
-        setViewMode(mode)
-    }
+        setViewMode(mode);
+        setTaskStatus(null); // Reinicia el filtro de estado al cambiar de vista
+    };
 
     //Función para reducir el aside
     const toggleAsideVisibility = () => {
@@ -171,9 +186,31 @@ const TaskListPage = () => {
             setError("Error al actualizar el estado de favorita. Por favor, inténtalo de nuevo más tarde.");
         }
     };
+
+    const moveToHistory = async (taskId) => {
+        try {
+            const response = await fetch(`http://localhost:5000/task/${taskId}/move`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
     
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error('Error en la respuesta:', errorData);
+                throw new Error('No se pudo mover la tarea al historial.');
+            }
+            
+            const data = await response.json();
+            console.log('Tarea movida al historial:', data);
+        } catch (error) {
+            console.error('Error al mover la tarea al historial:', error);
+        }
+    };
+        
     //Función para controlar el historial de tareas
-    const viewHistory = async () => {
+    /*const viewHistory = async () => {
         try {
             const response = await fetch('http://localhost:5000/task/history', {
                 method: 'GET',
@@ -193,8 +230,35 @@ const TaskListPage = () => {
             console.error('Error al obtener el historial de tareas:', error);
             setError("Error al obtener el historial de tareas. Por favor, inténtalo de nuevo más tarde.");
         }
-    }
+    }*/
 
+    //Funcion para actualizar el estado de la tarea en la base de datos
+    const updateTaskStatus = async (taskId, newStatus) => {
+        try {
+            const response = await fetch(`http://localhost:5000/task/${taskId}/status`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    authorization: localStorage.getItem('token'),
+                },
+                body: JSON.stringify({ status: newStatus }),
+            });
+    
+            if (!response.ok) {
+                throw new Error('No se pudo actualizar el estado de la tarea.');
+            }
+    
+            const responseData = await response.json();
+            console.log('Estado de la tarea actualizado:', responseData);
+    
+            // Actualizar la lista de tareas después de la actualización
+            getTasks();
+        } catch (error) {
+            console.error('Error al actualizar el estado de la tarea:', error);
+            setError('Error al actualizar el estado de la tarea. Por favor, inténtalo de nuevo más tarde.');
+        }
+    };
+    
     return (
         <div className="p-3 bg-gradient-to-b from-[#E8E3F5] via-[#EDEAFB] to-[#F7FAFC] dark:bg-gradient-to-b dark:from-[#1a202c] dark:via-[#2d3748] dark:to-[#2d3748] flex">
 
@@ -274,7 +338,7 @@ const TaskListPage = () => {
 
                     <button 
                         className="flex items-center text-white opacity-75 py-3 w-full justify-center hover:bg-gray-600"
-                        onClick={viewHistory}
+                        onClick={() => handleViewMode('history')}
                     >
                         <FontAwesomeIcon icon={faRotateRight} className='justify-center'/>
                         {isAsideVisible && <span className='ml-3'>Historial</span>}
@@ -406,7 +470,7 @@ const TaskListPage = () => {
                         {tasks.some(task => task.isFavorite) ? (
                             <TaskList 
                                 tasks={tasks.filter(task => task.isFavorite)} // Filtra para mostrar solo las tareas favoritas
-                                onDeleteTask={moveToHistory} 
+                                onDeleteTask={deleteTask} 
                                 onUpdateTask={handleUpdateMode} 
                                 onFavoriteTask={handleFavoriteTask}
                             />
@@ -422,9 +486,10 @@ const TaskListPage = () => {
                         {tasks.length ? (
                             <TaskList 
                                 tasks={tasks} 
-                                onDeleteTask={moveToHistory} // Cambia la función a `moveToHistory`
+                                onDeleteTask={deleteTask} // Cambia la función a `moveToHistory`
                                 onUpdateTask={handleUpdateMode} 
                                 onFavoriteTask={handleFavoriteTask}
+                                onMoveToHistory={moveToHistory}
                             />
                         ) : (
                             <p className='text-[#10172A] dark:text-[#e2e8f0]'>No hay tareas en el historial.</p>
@@ -435,9 +500,11 @@ const TaskListPage = () => {
                 {!updateMode && 
                     <TaskList 
                         tasks={tasks} 
-                        onDeleteTask={moveToHistory} 
+                        onDeleteTask={deleteTask} 
                         onUpdateTask={handleUpdateMode} 
                         onFavoriteTask={handleFavoriteTask}
+                        onMoveToHistory={moveToHistory}
+                        onUpdateTaskStatus={updateTaskStatus}
                     />
                 }
             </div>
