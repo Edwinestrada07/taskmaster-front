@@ -8,7 +8,6 @@ import TaskListPage from './pages/task';
 import Profile from './pages/profile';
 import ErrorPage from './pages/errorPage';
 import FavoriteTasksPage from './pages/favoriteTasksPage';
-import TaskHistoryPage from './pages/history';
 
 // Define la función loader para las rutas protegidas
 const loaderProtected = async () => {
@@ -48,12 +47,7 @@ const router = createBrowserRouter([
                 path: 'favorites',
                 element: <FavoriteTasksPage />,
                 loader: loaderProtected,
-            },
-            {
-                path: 'history',
-                element: <TaskHistoryPage />,
-                loader: loaderProtected,
-            }
+            }  
         ],
         errorElement: <ErrorPage /> // Manejo de errores
     },

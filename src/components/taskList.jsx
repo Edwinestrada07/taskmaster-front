@@ -35,7 +35,8 @@ const TaskList = ({ tasks, onUpdateTask, onDeleteTask, onFavoriteTask, onHistory
                         <div
                             ref={provided.innerRef}
                             {...provided.droppableProps}
-                            className={`flex-1 ${snapshot.isDraggingOver ? 'bg-gray-200' : 'bg-gray-100'} p-3 rounded-xl ml-2`}
+                            className={`flex-1 ${snapshot.isDraggingOver ? 'bg-gray-600 dark:bg-gray-500' : 'bg-purple-300 dark:bg-purple-200'} p-3 rounded-xl ml-2`}
+
                         >
                             <h4 className="text-base font-medium text-gray-800 mb-2">Pendiente</h4>
                             {pendingTasks.map((task, index) => (

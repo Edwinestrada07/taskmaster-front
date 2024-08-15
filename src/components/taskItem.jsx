@@ -31,7 +31,7 @@ const TaskItem = ({ task, index, onUpdateTask, onDeleteTask, onFavoriteTask, onM
 
     if (!task) return null; // Si no hay tarea, no renderiza nada
 
-    const { id, taskId, description, dueDate, priority, status, isFavorite } = task;
+    const { id, description, dueDate, priority, status, isFavorite } = task;
 
     const handleMoveToHistory = async () => {
         try {
@@ -68,12 +68,12 @@ const TaskItem = ({ task, index, onUpdateTask, onDeleteTask, onFavoriteTask, onM
                     ref={provided.innerRef}
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
-                    className={`col-lg-12 mb-2 ${getStatusClass()} p-2 rounded-lg ${snapshot.isDragging ? 'border-2 border-blue-500' : ''}`}
+                    className={`w-full mb-2 ${getStatusClass()} p-2 rounded-lg ${snapshot.isDragging ? 'border-2 border-blue-500' : ''}`}
                 >
                     <div className="card bg-gray-900 rounded-xl shadow-md">
-                        <div className="card-header flex justify-between">
-                            <h3 className="text-lg font-semibold text-gray-700 text-dark">{description}</h3>
-                            <div className="">
+                        <div className="card-header flex flex-col sm:flex-row justify-between items-start sm:items-center">
+                            <h3 className="text-lg font-semibold text-gray-700">{description}</h3>
+                            <div className="flex mt-2 sm:mt-0">
                                 {/* Botón para marcar como favorito */}
                                 <button
                                     className={`mr-2 ${isFavorite ? 'text-yellow-600' : 'text-gray-600'} hover:text-yellow-500 text-2xl`}
@@ -98,7 +98,7 @@ const TaskItem = ({ task, index, onUpdateTask, onDeleteTask, onFavoriteTask, onM
                                 <p className="text-sm text-gray-600">Prioridad: {translate(priority)}</p>
                                 <p className="text-sm text-gray-600">Estado: {translate(status)}</p>
 
-                                <div className="flex justify-between px-5">
+                                <div className="flex flex-col sm:flex-row gap-2 mt-2">
                                     {/* Botón para actualizar la tarea */}
                                     <button
                                         className="px-3 py-1.5 text-sm text-indigo-600 duration-150 bg-indigo-50 rounded-lg hover:bg-indigo-100 active:bg-indigo-200"
@@ -108,7 +108,7 @@ const TaskItem = ({ task, index, onUpdateTask, onDeleteTask, onFavoriteTask, onM
                                     </button>
                                     {/* Botón para eliminar la tarea */}
                                     <button
-                                        className="px-3 py-1.5 text-sm text-danger duration-150 bg-indigo-50 rounded-lg hover:bg-indigo-100 active:bg-indigo-200"
+                                        className="px-3 py-1.5 text-sm text-red-600 duration-150 bg-red-50 rounded-lg hover:bg-red-100 active:bg-red-200"
                                         onClick={() => onDeleteTask(id)}
                                     >
                                         Eliminar
