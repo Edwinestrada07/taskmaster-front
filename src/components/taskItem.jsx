@@ -26,10 +26,26 @@ const formatDate = (dateString) => {
 // Componente que representa un elemento de tarea individual
 const TaskItem = ({ task, index, onUpdateTask, onDeleteTask, onFavoriteTask, onMoveToHistory }) => {
     const [isOpen, setIsOpen] = useState(false); // Estado para controlar la visibilidad de los detalles de la tarea
+    const [errorMessage, setErrorMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
 
     if (!task) return null; // Si no hay tarea, no renderiza nada
 
     const { id, taskId, description, dueDate, priority, status, isFavorite } = task;
+
+    const handleMoveToHistory = async () => {
+        try {
+            await onMoveToHistory(task.id, true, task.status);
+            setSuccessMessage('Tarea movida al historial con éxito.');
+            setErrorMessage(''); // Limpiar el mensaje de error si la acción es exitosa
+
+            // Limpiar el mensaje de éxito después de 3 segundos
+            setTimeout(() => setSuccessMessage(''), 3000);
+        } catch (error) {
+            setSuccessMessage(''); // Limpiar el mensaje de éxito si hay un error
+            setErrorMessage(error.message); // Mostrar mensaje de error si la tarea no está completada
+        }
+    };
 
     // Función para asignar clases CSS según el estado de la tarea
     const getStatusClass = () => {
@@ -100,11 +116,25 @@ const TaskItem = ({ task, index, onUpdateTask, onDeleteTask, onFavoriteTask, onM
                                     {/* Botón para mover la tarea al historial */}
                                     <button
                                         className="px-3 py-1.5 text-sm text-green-600 duration-150 bg-green-50 rounded-lg hover:bg-green-100 active:bg-green-200"
-                                        onClick={() => onMoveToHistory(taskId)}
+                                        onClick={handleMoveToHistory}
                                     >
                                         Mover al Historial
                                     </button>
                                 </div>
+
+                                {/* Mostrar el mensaje de éxito si se ha movido la tarea con éxito */}
+                                {successMessage && (
+                                    <div className="text-green-500 mt-2">
+                                        {successMessage}
+                                    </div>
+                                )}
+
+                                {/* Mostrar el mensaje de advertencia si hay un error */}
+                                {errorMessage && (
+                                    <div className="text-red-500 mt-2">
+                                        {errorMessage}
+                                    </div>
+                                )}
                             </div>
                         )}
                     </div>

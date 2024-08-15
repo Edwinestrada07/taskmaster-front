@@ -2,7 +2,7 @@ import React from 'react';
 import TaskItem from '../components/taskItem';
 import { Droppable, DragDropContext } from '@hello-pangea/dnd';
 
-const TaskList = ({ tasks, onUpdateTask, onDeleteTask, onFavoriteTask, onMoveToHistory, onUpdateTaskStatus }) => {
+const TaskList = ({ tasks, onUpdateTask, onDeleteTask, onFavoriteTask, onHistoryTask, onMoveToHistory, onUpdateTaskStatus }) => {
     const pendingTasks = tasks.filter(task => task.status === 'PENDING');
     const inProgressTasks = tasks.filter(task => task.status === 'IN_PROGRESS');
     const completedTasks = tasks.filter(task => task.status === 'COMPLETED');
@@ -46,6 +46,8 @@ const TaskList = ({ tasks, onUpdateTask, onDeleteTask, onFavoriteTask, onMoveToH
                                     onUpdateTask={onUpdateTask}
                                     onDeleteTask={onDeleteTask}
                                     onFavoriteTask={onFavoriteTask}
+                                    onHistoryTask={onHistoryTask}
+                                    onMoveToHistory={onMoveToHistory}
                                 />
                             ))}
                             {provided.placeholder}
@@ -68,6 +70,8 @@ const TaskList = ({ tasks, onUpdateTask, onDeleteTask, onFavoriteTask, onMoveToH
                                     onUpdateTask={onUpdateTask}
                                     onDeleteTask={onDeleteTask}
                                     onFavoriteTask={onFavoriteTask}
+                                    onHistoryTask={onHistoryTask}
+                                    onMoveToHistory={onMoveToHistory}
                                 />
                             ))}
                             {provided.placeholder}
@@ -90,6 +94,7 @@ const TaskList = ({ tasks, onUpdateTask, onDeleteTask, onFavoriteTask, onMoveToH
                                     onUpdateTask={onUpdateTask}
                                     onDeleteTask={onDeleteTask}
                                     onFavoriteTask={onFavoriteTask}
+                                    onHistoryTask={onHistoryTask}
                                     onMoveToHistory={onMoveToHistory} // Agregado para mover al historial
                                 />
                             ))}

@@ -8,6 +8,7 @@ import { faAlignLeft, faArrowCircleUp, faRotateRight } from '@fortawesome/free-s
 const TaskListPage = () => {
     const [tasks, setTasks] = useState([])
     const [error, setError] = useState(null)
+    const [errorMessage, setErrorMessage] = useState('')
     const [taskStatus, setTaskStatus] = useState(null)
     const [taskToUpdate, setTaskToUpdate] = useState(null) // Estado para almacenar la tarea a actualizar
     const [updateMode, setUpdateMode] = useState(false) // Estado para activar el modo de actualización
@@ -187,34 +188,41 @@ const TaskListPage = () => {
         }
     };
 
-    const moveToHistory = async (taskId) => {
+    const moveToHistory = async (taskId, isHistory, taskStatus) => {
         try {
+            if (taskStatus !== 'COMPLETED') {
+                throw new Error('Solo se pueden mover tareas completadas al historial.');
+            }
+    
             const response = await fetch(`http://localhost:5000/task/${taskId}/move`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                }
+                    authorization: localStorage.getItem('token'),
+                },
+                body: JSON.stringify({ isHistory }),
             });
     
             if (!response.ok) {
-                const errorData = await response.json();
-                console.error('Error en la respuesta:', errorData);
                 throw new Error('No se pudo mover la tarea al historial.');
             }
             
-            const data = await response.json();
-            console.log('Tarea movida al historial:', data);
+            const responseData = await response.json();
+            console.log('Tarea movida al historial con éxito:', responseData);
+    
         } catch (error) {
             console.error('Error al mover la tarea al historial:', error);
+            throw error; // Lanza el error para que pueda ser capturado en otro lugar
         }
-    };
+    };    
         
     //Función para controlar el historial de tareas
-    /*const viewHistory = async () => {
+    const handleHistoryTask = async () => {
         try {
             const response = await fetch('http://localhost:5000/task/history', {
                 method: 'GET',
                 headers: {
+                    'Content-Type': 'application/json',
                     authorization: localStorage.getItem('token')
                 }
             });
@@ -222,15 +230,18 @@ const TaskListPage = () => {
             if (!response.ok) {
                 throw new Error('No se pudo obtener el historial de tareas.');
             }
-    
+            
+            // Parsear la respuesta como JSON
             const historyData = await response.json();
+
+            // Actualizar el estado 'tasks' con las tareas obtenidas
             setTasks(historyData); // Cargar las tareas del historial
     
         } catch (error) {
             console.error('Error al obtener el historial de tareas:', error);
             setError("Error al obtener el historial de tareas. Por favor, inténtalo de nuevo más tarde.");
         }
-    }*/
+    }
 
     //Funcion para actualizar el estado de la tarea en la base de datos
     const updateTaskStatus = async (taskId, newStatus) => {
@@ -262,6 +273,7 @@ const TaskListPage = () => {
     return (
         <div className="p-3 bg-gradient-to-b from-[#E8E3F5] via-[#EDEAFB] to-[#F7FAFC] dark:bg-gradient-to-b dark:from-[#1a202c] dark:via-[#2d3748] dark:to-[#2d3748] flex">
 
+            {/*Barra lateral, con todos sus botones*/}      
             <aside className={`relative bg-gray-800 h-screen ${isAsideVisible ? 'w-64' : 'w-16'} hidden sm:flex flex-col items-center rounded-lg shadow-[0px_1px_25px_1px_rgba(165,_39,_255,_0.48)] transition-all duration-300`}>
                 <div className="p-3 w-full flex justify-between items-center">
                     {isAsideVisible && (
@@ -288,6 +300,7 @@ const TaskListPage = () => {
                             {isAsideVisible && 'Crear Tarea'}
                         </button>
 
+                        {/*Formulario para la creación de tareas (Llamado de TaskForm)*/}
                         {isFormVisible && (
                             <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75 z-50">
                                 <div className="bg-gray-800 text-white p-6 rounded-lg w-full max-w-md relative">
@@ -338,7 +351,7 @@ const TaskListPage = () => {
 
                     <button 
                         className="flex items-center text-white opacity-75 py-3 w-full justify-center hover:bg-gray-600"
-                        onClick={() => handleViewMode('history')}
+                        onClick={handleHistoryTask}
                     >
                         <FontAwesomeIcon icon={faRotateRight} className='justify-center'/>
                         {isAsideVisible && <span className='ml-3'>Historial</span>}
@@ -358,7 +371,8 @@ const TaskListPage = () => {
 
             <div className="flex-1">
                 <h5 className="text-2xl font-extrabold text-[#10172A] dark:text-[#e2e8f0] m-3 text-center">Tareas</h5>
-
+                
+                {/*Formulario para filtrar por estados*/}
                 {viewMode === 'byStatus' && (
                     <nav className="bg-gray-800 dark:bg-gray-700 p-3 rounded-lg shadow-md flex justify-center space-x-3 ml-2 mb-3">
                         <input
@@ -396,8 +410,10 @@ const TaskListPage = () => {
                     </nav>
                 )}
 
+                {/*Formulario para actualizar tareas*/}
                 {updateMode && taskToUpdate && (
                     <div className="frame-task">
+                        <h2 className="text-2xl font-bold mb-4 text-[#10172A] dark:text-[#e2e8f0]">Formulario de Actualización</h2>
                         
                         {error && <p className="text-red-500 mb-4">{error}</p>}
 
@@ -483,12 +499,13 @@ const TaskListPage = () => {
                 {viewMode === 'history' && (
                     <div className="p-3">
                         <h2 className="text-2xl font-bold mb-4 text-[#10172A] dark:text-[#e2e8f0]">Historial de Tareas</h2>
-                        {tasks.length ? (
-                            <TaskList 
+                        {tasks.some(task => task.isHistory) ? (
+                            <TaskList
                                 tasks={tasks} 
                                 onDeleteTask={deleteTask} // Cambia la función a `moveToHistory`
                                 onUpdateTask={handleUpdateMode} 
                                 onFavoriteTask={handleFavoriteTask}
+                                onHistoryTask={handleHistoryTask}
                                 onMoveToHistory={moveToHistory}
                             />
                         ) : (
@@ -498,11 +515,12 @@ const TaskListPage = () => {
                 )}
 
                 {!updateMode && 
-                    <TaskList 
+                    <TaskList
                         tasks={tasks} 
                         onDeleteTask={deleteTask} 
                         onUpdateTask={handleUpdateMode} 
                         onFavoriteTask={handleFavoriteTask}
+                        onHistoryTask={handleHistoryTask}
                         onMoveToHistory={moveToHistory}
                         onUpdateTaskStatus={updateTaskStatus}
                     />
