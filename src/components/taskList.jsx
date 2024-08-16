@@ -35,10 +35,10 @@ const TaskList = ({ tasks, onUpdateTask, onDeleteTask, onFavoriteTask, onHistory
                         <div
                             ref={provided.innerRef}
                             {...provided.droppableProps}
-                            className={`flex-1 ${snapshot.isDraggingOver ? 'bg-gray-600 dark:bg-gray-500' : 'bg-purple-300 dark:bg-purple-200'} p-3 rounded-xl ml-2`}
+                            className={`flex-1 ${snapshot.isDraggingOver ? 'bg-gray-200' : 'bg-[#f1f0f7] dark:bg-[#e5e3f1]'} p-3 rounded-xl ml-2 shadow-[0px_1px_15px_1px_rgba(94,_40,_90,_0.17)]`}
 
                         >
-                            <h4 className="text-base font-medium text-gray-800 mb-2">Pendiente</h4>
+                            <h4 className="text-center font-bold text-[#10172A] mb-2">Pendiente</h4>
                             {pendingTasks.map((task, index) => (
                                 <TaskItem
                                     key={task.id}
@@ -60,9 +60,9 @@ const TaskList = ({ tasks, onUpdateTask, onDeleteTask, onFavoriteTask, onHistory
                         <div
                             ref={provided.innerRef}
                             {...provided.droppableProps}
-                            className={`flex-1 ${snapshot.isDraggingOver ? 'bg-gray-200' : 'bg-gray-100'} p-3 rounded-xl ml-2`}
+                            className={`flex-1 ${snapshot.isDraggingOver ? 'bg-gray-200' : 'bg-[#f1f0f7] dark:bg-[#e5e3f1]'} p-3 rounded-xl ml-2 shadow-[0px_1px_15px_1px_rgba(94,_40,_90,_0.17)]`}
                         >
-                            <h4 className="text-base font-medium text-gray-800 mb-2">En Progreso</h4>
+                            <h4 className="text-center font-bold text-[#10172A] mb-2">En Progreso</h4>
                             {inProgressTasks.map((task, index) => (
                                 <TaskItem
                                     key={task.id}
@@ -84,9 +84,9 @@ const TaskList = ({ tasks, onUpdateTask, onDeleteTask, onFavoriteTask, onHistory
                         <div
                             ref={provided.innerRef}
                             {...provided.droppableProps}
-                            className={`flex-1 ${snapshot.isDraggingOver ? 'bg-gray-200' : 'bg-gray-100'} p-3 rounded-xl ml-2`}
+                            className={`flex-1 ${snapshot.isDraggingOver ? 'bg-gray-200' : 'bg-[#f1f0f7] dark:bg-[#e5e3f1]'} p-3 rounded-xl ml-2 shadow-[0px_1px_15px_1px_rgba(94,_40,_90,_0.17)]`}
                         >
-                            <h4 className="text-base font-medium text-gray-800 mb-2">Completada</h4>
+                            <h4 className="text-center font-bold text-[#10172A] mb-2">Completada</h4>
                             {completedTasks.map((task, index) => (
                                 <TaskItem
                                     key={task.id}

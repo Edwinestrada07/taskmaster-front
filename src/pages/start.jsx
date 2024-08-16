@@ -16,7 +16,7 @@ const settings = {
 
 function Start() {
     return (
-        <section className="bg-gradient-to-b from-[#E8E3F5] via-[#EDEAFB] to-[#F7FAFC] dark:bg-gradient-to-b dark:from-[#0f172a] dark:via-[#4c1d95] dark:to-[#0f172a]">
+        <section className="bg-gradient-to-b from-[#d3c7eb] via-[#EDEAFB] to-[#e8f0f6] dark:bg-gradient-to-b dark:from-[#0f172a] dark:via-[#311065] dark:to-[#0f172a]">
             <div className="items-center px-8 mx-auto max-w-7xl lg:px-16 md:px-12">
                 <div className="justify-center w-full text-center lg:p-5 max-auto">
                     <div className="justify-center w-full mx-auto">
@@ -53,15 +53,9 @@ function Start() {
                             >
                                 Empezar
                             </a>
-                            <a
-                                href="#learn-more"
-                                className="text-sm font-semibold leading-6 text-gray-900 dark:text-gray-300"
-                            >
-                                Leer más <span aria-hidden="true">→</span>
-                            </a>
                         </div>
 
-                        <div id="learn-more" className="mt-8 flex flex-col lg:flex-row gap-12 lg:gap-16">
+                        <div className="mt-8 flex flex-col lg:flex-row gap-12 lg:gap-16">
                             {/* Sección de Cards */}
                             <div className="lg:w-1/2 lg:pr-8">
                                 <p className="text-[#10172A] text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tighter dark:text-[#e2e8f0] mb-4">

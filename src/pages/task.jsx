@@ -3,7 +3,7 @@ import TaskList from '../components/taskList'
 import TaskForm from '../components/taskForm'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBookmark, faStickyNote } from '@fortawesome/free-regular-svg-icons'
-import { faAlignLeft, faArrowCircleUp, faRotateRight } from '@fortawesome/free-solid-svg-icons'
+import { faAlignLeft, faRotateRight } from '@fortawesome/free-solid-svg-icons'
 
 const TaskListPage = () => {
     const [tasks, setTasks] = useState([])
@@ -280,10 +280,10 @@ const TaskListPage = () => {
     };
     
     return (
-        <div className="p-1 bg-gradient-to-b from-[#E8E3F5] via-[#EDEAFB] to-[#F7FAFC] dark:bg-gradient-to-b dark:from-[#1a202c] dark:via-[#2d3748] dark:to-[#2d3748] flex">
+        <div className="p-1 flex bg-gradient-to-b from-[#d3c7eb] via-[#EDEAFB] to-[#e8f0f6] dark:bg-gradient-to-b dark:from-[#2d384d] dark:via-[#2d3748] dark:to-[#292F38]">
 
             {/*Barra lateral, con todos sus botones*/}      
-            <aside className={`relative inset-y-0 h-screem bg-gray-800 ${isAsideVisible ? 'w-64' : 'w-16'} sm:flex flex-col items-center rounded-lg shadow-[0px_1px_25px_1px_rgba(165,_39,_255,_0.48)] transition-all duration-300`}>
+            <aside className={`relative inset-y-0 h-screem bg-gray-800 ${isAsideVisible ? 'w-64' : 'w-16'} sm:flex flex-col items-center rounded-lg shadow-[0px_1px_15px_1px_rgba(165,_39,_255,_0.48)] transition-all duration-300`}>
                 <div className="p-3 w-full flex justify-between items-center">
                     {isAsideVisible && (
                         <a href="/start" className="text-white text-xl font-extrabold">
@@ -371,11 +371,6 @@ const TaskListPage = () => {
                         {isAsideVisible && <span className='ml-3'>Calendario</span>}
                     </a>      
                 </div>
-
-                <a href="/profile" className={`absolute w-full bg-gray-700 hover:bg-gray-600 text-white flex items-center justify-center py-4 bottom-0 rounded-md ${isAsideVisible ? '' : 'hidden'}`}>
-                    <FontAwesomeIcon icon={faArrowCircleUp} />
-                    <span className='ml-2'>Ver Perfil</span>
-                </a>
             </aside>
 
             <div className="flex-1">
