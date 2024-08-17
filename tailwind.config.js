@@ -2,6 +2,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: 'class',
+  
   content: [
     './src/**/*.{js,jsx,ts,tsx}', // Asegúrate de que Tailwind escanee tus archivos de componentes
     './public/index.html',
@@ -19,6 +20,7 @@ module.exports = {
   },
   plugins: [],
 };
+
 
 
 

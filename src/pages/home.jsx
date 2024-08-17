@@ -1,130 +1,128 @@
-import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { ReactTyped as Typed } from 'react-typed'
-import { useInView } from 'react-intersection-observer'
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { ReactTyped as Typed } from 'react-typed';
 
 const Home = () => {
-    const navigate = useNavigate()
-    const [ref1, inView1] = useInView({ triggerOnce: true, threshold: 0.5 })
-    const [ref2, inView2] = useInView({ triggerOnce: true, threshold: 0.5 })
-    const [ref3, inView3] = useInView({ triggerOnce: true, threshold: 0.5 })
-    const [ref4, inView4] = useInView({ triggerOnce: true, threshold: 0.5 })
-    const [ref5, inView5] = useInView({ triggerOnce: true, threshold: 0.5 })
-    const [ref6, inView6] = useInView({ triggerOnce: true, threshold: 0.5 })
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (!localStorage.getItem('token')) {
-            navigate('/login')
+            navigate('/login');
         }
-    }, [navigate])
-
-    const imagesAndTexts = [
-        {
-            img: "url('./assets/imagen-2.jpg')",
-            text: 'Organiza tus tareas de manera efectiva.',
-            ref: ref1,
-            inView: inView1
-        },
-        {
-            img: "url('./assets/imagen-5.png')",
-            text: 'Prioriza lo más importante.',
-            ref: ref2,
-            inView: inView2
-        },
-        {
-            img: "url('/assets/imagen-6.png')",
-            text: 'Logra más en menos tiempo.',
-            ref: ref3,
-            inView: inView3
-        },
-        {
-            img: "url('/path-to-image4.jpg')",
-            text: 'Mantén todo bajo control.',
-            ref: ref4,
-            inView: inView4
-        },
-        {
-            img: "url('/path-to-image5.jpg')",
-            text: 'Haz seguimiento de tu progreso.',
-            ref: ref5,
-            inView: inView5
-        },
-        {
-            img: "url('/path-to-image6.jpg')",
-            text: 'Alcanza tus metas con TaskMaster.',
-            ref: ref6,
-            inView: inView6
-        },
-    ]
+    }, [navigate]);
 
     return (
-        <div className="flex flex-col items-center justify-center bg-gradient-to-b from-[#d3c7eb] via-[#EDEAFB] to-[#e8f0f6] dark:bg-gradient-to-b dark:from-[#0f172a] dark:via-[#311065] dark:to-[#0f172a]">
-            {/* Hero Section */}
-            <div className="flex flex-col lg:flex-row justify-between items-center px-6 py-16 bg-[#e5e3f1] dark:bg-[#0f172a] shadow-[0px_5px_70px_5px_rgba(165,_39,_255,_0.48)] w-full max-w-7xl">
-                {/* Sección de texto */}
-                <div className="text-left lg:w-1/2 mb-6 lg:mb-0 px-4">
-                    <h1 className="text-4xl ml-10 md:text-5xl lg:text-6xl font-extrabold bg-gradient-to-tl from-slate-800 via-violet-500 to-zinc-400 bg-clip-text text-transparent">
-                        Bienvenido a TaskMaster
-                    </h1>
-                    <p className="text-base md:text-lg lg:text-2xl mt-4 text-[#10172A] dark:text-[#e2e8f0]">
-                        <Typed
-                            strings={[
-                                "Gestiona tus proyectos con facilidad",
-                                "Mantén el control de tus prioridades",
-                                "Simplifica tu vida con TaskMaster"
-                            ]}
-                            typeSpeed={20}
-                            backSpeed={50}
-                            loop
-                        />
-                    </p>
-                    <button
-                        className="mt-4 rounded-md bg-indigo-600 px-4 py-2 text-sm md:text-base font-semibold text-white shadow-md hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                        onClick={() => navigate('/task')}
-                    >
-                        Empezar con la prueba
-                    </button>
-                    <a
-                        href="#learn-more"
-                        className="mt-2 block text-sm font-semibold leading-6 text-gray-900 dark:text-gray-300"
-                    >
-                        Leer más <span aria-hidden="true">→</span>
-                    </a>
+        <section className="relative overflow-hidden py-10 px-4 md:px-8 bg-gradient-to-b from-[#d3c7eb] via-[#EDEAFB] to-[#e8f0f6] dark:bg-gradient-to-b dark:from-[#0f172a] dark:via-[#311065] dark:to-[#0f172a] transition-colors duration-500 shadow-[0px_2px_25px_1px_rgba(165,_39,_255,_0.48)]">
+            <div className="absolute inset-0 w-full h-full rounded-full bg-gradient-to-r from-[#58AEF1] to-pink-500 blur-2xl opacity-10"></div>
+            <div className="relative flex flex-col md:flex-row max-w-6xl mx-auto items-center">
+                <div className="md:w-1/2 text-left">
+                    <div className="py-4">
+                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold bg-gradient-to-tl from-slate-800 via-violet-500 to-zinc-400 bg-clip-text text-transparent ">
+                            Bienvenido a TaskMaster
+                        </h1>
+                        <p className="text-lg md:text-xl lg:text-2xl mt-4 text-[#10172A] dark:text-[#e2e8f0]">
+                            <Typed
+                                strings={[
+                                    "Gestiona tus proyectos con facilidad",
+                                    "Mantén el control de tus prioridades",
+                                    "Simplifica tu vida con TaskMaster"
+                                ]}
+                                typeSpeed={35}
+                                backSpeed={20}
+                                loop
+                            />
+                        </p>
+                    </div>
+                    <div className="mt-5 flex gap-3">
+                        <button
+                            className="py-2.5 px-8 text-gray-700 bg-white rounded-md duration-150 hover:bg-gray-100 dark:text-gray-700 dark:bg-gray-700 dark:hover:bg-gray-800"
+                            onClick={() => navigate('/task')}
+                        >
+                            Empezar con la prueba
+                        </button>
+                        <a
+                            href="#learn-more"
+                            className="py-2.5 text-decoration-none px-8 text-gray-300 bg-gray-700 rounded-md duration-150 hover:bg-gray-800 dark:text-gray-300 dark:bg-gray-800 dark:hover:bg-gray-700"
+                        >
+                            Leer más <span aria-hidden="true">→</span>
+                        </a>
+                    </div>
                 </div>
-                {/* Sección de la imagen */}
-                <div className="lg:w-1/2 flex justify-center">
+                <div className="md:w-1/2 mt-8 md:mt-0 md:pl-15 flex justify-center">
                     <img
-                        src="./assets/imagen-1.jpg"
-                        alt="TaskMaster"
-                        className="w-full max-w-lg h-auto rounded-lg shadow-lg"
+                        src="./assets/imagen-7.png"
+                        alt="Imagen de TaskMaster"
+                        className="w-full h-auto dark:shadow-none transition-shadow duration-500"
                     />
                 </div>
             </div>
 
-            {/* Sección de imágenes y textos alternados */}
-            <div id="learn-more" className="flex flex-col gap-12 w-full max-w-7xl px-6 py-12">
-                {imagesAndTexts.map((item, index) => (
-                    <div
-                        key={index}
-                        ref={item.ref}
-                        className={`w-full flex flex-col md:flex-row items-center justify-between transition-all duration-500 ${
-                            item.inView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full md:translate-x-0'
-                        } ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}
-                    >
-                        <div
-                            className="w-full md:w-1/2 h-80 bg-cover bg-center rounded-lg shadow-lg mb-6 md:mb-0"
-                            style={{ backgroundImage: item.img }}
-                        />
-                        <div className="w-full md:w-1/2 text-center md:text-left px-4">
-                            <p className="text-xl md:text-2xl font-bold text-[#10172A] dark:text-[#e2e8f0]">
-                                {item.text}
+
+            <div className="container mx-auto px-4 py-16">
+                <div className="bg-gray-100 dark:bg-gray-800 p-8 rounded-lg shadow-lg mb-16">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        {/* Texto del lado izquierdo */}
+                        <div className="flex justify-start">
+                            <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-gray-200">
+                                Mantén todo bajo control y haz seguimiento de tu progreso.
+                            </h2>
+                        </div>
+
+                        {/* Texto del lado derecho */}
+                        <div className="flex justify-end">
+                            <p className="text-xl font-xs mb-4 text-gray-400 dark:text-gray-100">
+                                Alcanza tus metas con TaskMaster.
                             </p>
                         </div>
                     </div>
-                ))}
+                </div>
+
+                {/* Sección central con dos divs/imágenes */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                    {/* Columna izquierda (más pequeña) */}
+                    <div className="relative overflow-hidden bg-gray-100 dark:bg-gray-800 rounded-lg shadow-lg md:col-span-1">
+                        <img
+                            src="./assets/imagen-5.png"
+                            alt="Imagen 1"
+                            className="w-full h-64 object-cover transition-transform duration-500 transform hover:scale-105"
+                        />
+                        <div className="p-8">
+                            <p className="text-gray-600 dark:text-gray-400 text-left">
+                                Prioriza lo más importante.
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* Columna derecha (más grande) */}
+                    <div className="relative overflow-hidden bg-gray-100 dark:bg-gray-800 rounded-lg shadow-lg md:col-span-2">
+                        <img
+                            src="./assets/imagen-6.png"
+                            alt="Imagen 2"
+                            className="w-full h-64 object-cover transition-transform duration-500 transform hover:scale-105"
+                        />
+                        <div className="p-8">
+                            <p className="text-gray-600 dark:text-gray-400 text-right">
+                                Logra más en menos tiempo.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+
+                {/* Sección inferior con div o imagen grande */}
+                <div className="relative overflow-hidden bg-gray-100 dark:bg-gray-800 rounded-lg shadow-lg">
+                    <img
+                        src="./assets/imagen-8.png"
+                        alt="Imagen Grande"
+                        className="w-full h-64 object-cover transition-transform duration-500 transform hover:scale-105"
+                    />
+                    <div className="p-8">
+                        <h3 className="text-2xl font-bold mb-2 text-gray-900 dark:text-gray-200">Organiza tus tareas de manera efectiva.</h3>
+                    </div>
+                </div>
             </div>
-        </div>
-    )
+        </section>  
+    );
 }
 
-export default Home
+export default Home;
