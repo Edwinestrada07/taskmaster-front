@@ -16,7 +16,8 @@ const settings = {
 
 function Start() {
     return (
-        <section className="bg-gradient-to-b from-[#d3c7eb] via-[#EDEAFB] to-[#e8f0f6] dark:bg-gradient-to-b dark:from-[#0f172a] dark:via-[#311065] dark:to-[#0f172a]">
+        <section className="relative overflow-hidden py-10 px-4 md:px-8 bg-gradient-to-b from-[#d3c7eb] via-[#EDEAFB] to-[#e8f0f6] dark:bg-gradient-to-b dark:from-[#08090e] dark:via-[#08090e] dark:to-[#08090e] transition-colors duration-500 shadow-[0px_1px_2px_1px_rgba(165,_39,_255,_0.48)]">
+            <div className="absolute inset-0 w-full h-full rounded-full bg-gradient-to-r from-[#7d96d1] to-[#914bb9] blur-2xl opacity-5"></div>
             <div className="items-center px-8 mx-auto max-w-7xl lg:px-16 md:px-12">
                 <div className="justify-center w-full text-center lg:p-5 max-auto">
                     <div className="justify-center w-full mx-auto">
@@ -42,7 +43,7 @@ function Start() {
                             Es tu aliado perfecto para organizar tus tareas diarias.
                         </p>
 
-                        <p className="mt-4 max-w-2xl mx-auto text-gray-600 dark:text-[#e2e8f0]">
+                        <p className="mt-4 max-w-2xl font-semibold mx-auto text-gray-600 dark:text-[#e2e8f0]">
                             TaskMaster transforma tu manera de gestionar tus tareas, haciéndolo todo más simple y eficiente. ¡Empieza ahora y alcanza tus metas con facilidad!
                         </p>
 

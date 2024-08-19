@@ -75,16 +75,18 @@ function Signup() {
     }, [navigate])
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#E8E3F5] via-[#EDEAFB] to-[#F7FAFC] dark:bg-gradient-to-b dark:from-[#0f172a] dark:via-[#4c1d95] dark:to-[#0f172a]">
-            <div className="container mx-auto px-4 py-8">
+        <div className="relative overflow-hidden  bg-gradient-to-b from-[#d3c7eb] via-[#EDEAFB] to-[#e8f0f6] dark:bg-gradient-to-b dark:from-[#08090e] dark:via-[#08090e] dark:to-[#08090e] transition-colors duration-500 shadow-[0px_1px_5px_1px_rgba(165,_39,_255,_0.48)]">
+            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#7d96d1] to-[#914bb9] blur-2xl opacity-5"></div>
+
+            <div className="container mx-auto">
                 <div className="flex flex-col items-center">
 
-                    <h1 className="flex items-center mb-6 text-4xl font-semibold text-gray-900 dark:text-white">
+                    <h1 className="flex items-center mb-2 text-4xl font-semibold text-gray-900 dark:text-white">
                         <img className="w-12 h-12 mr-3 rounded-full" src="./assets/logo.jpg" alt="logo" />
                         TaskMaster
                     </h1>
 
-                    <div className="w-full max-w-md bg-gray-900 rounded-lg shadow-md dark:bg-gray-800 dark:border dark:border-gray-700">
+                    <div className="w-full max-w-md bg-gray-900 rounded-2xl shadow-md dark:bg-gray-800 dark:border dark:border-gray-700">
                         <div className="p-6 sm:p-8">
                             <h1 className="text-2xl font-bold leading-tight tracking-tight text-white dark:text-white mb-4">
                                 Registrarse
