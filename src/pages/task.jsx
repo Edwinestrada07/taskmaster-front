@@ -280,7 +280,7 @@ const TaskListPage = () => {
     };
     
     return (
-        <div className="p-1 flex bg-gradient-to-b from-[#d3c7eb] via-[#EDEAFB] to-[#e8f0f6] dark:bg-gradient-to-b dark:from-[#2d384d] dark:via-[#2d3748] dark:to-[#292F38]">
+        <div className="p-1 flex bg-gradient-to-b from-[#d3c7eb] via-[#EDEAFB] to-[#e8f0f6] dark:bg-gradient-to-b dark:from-[#08090e] dark:via-[#08090e] dark:to-[#08090e]">
 
             {/*Barra lateral, con todos sus botones*/}      
             <aside className={`relative inset-y-0 h-screem bg-gray-800 ${isAsideVisible ? 'w-64' : 'w-16'} sm:flex flex-col items-center rounded-lg shadow-[0px_1px_15px_1px_rgba(165,_39,_255,_0.48)] transition-all duration-300`}>

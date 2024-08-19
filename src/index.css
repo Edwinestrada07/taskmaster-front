@@ -185,3 +185,22 @@ code {
   }
   
 }
+
+
+/* Añade esto a tu archivo de estilos globales o CSS module */
+
+@keyframes pulse-border {
+  0% {
+      border-color: #7e3f8c;
+  }
+  25% {
+      border-color: #d53f8c;
+  }
+  50% {
+      border-color: #7e3f8c;
+  }
+}
+
+.animate-pulse-border {
+  animation: pulse-border 2s infinite;
+}

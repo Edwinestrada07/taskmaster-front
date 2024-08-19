@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ReactTyped as Typed } from 'react-typed';
+import { ReactTyped as Typed } from 'react-typed'
+import MagicCard from '../components/MagicCard';
 
 const Home = () => {
     const navigate = useNavigate();
@@ -10,6 +11,39 @@ const Home = () => {
             navigate('/login');
         }
     }, [navigate]);
+
+    const cardsData = [
+        {
+            title: "Agrega nuevas tareas",
+            description:
+                "Incluye detalles importantes como descripción, fecha de vencimiento, prioridad y estado. Organiza cada aspecto de tus tareas para asegurarte de que nada se te escape.",
+            size: 'small',
+        },
+        {
+            title: "Edita y actualiza",
+            description:
+                "Modifica la información de tus tareas en cualquier momento para mantener todo al día. Actualiza detalles a medida que cambian las circunstancias.",
+            size: 'small',
+        },
+        {
+            title: "Marca como completadas",
+            description:
+                "Da por finalizadas tus tareas y sigue avanzando en tus objetivos. Mantén un registro claro de lo que has logrado y lo que aún necesitas hacer.",
+            size: 'small',
+        },
+        {
+            title: "Elimina tareas innecesarias",
+            description:
+                "Borra las tareas que ya no necesitas para mantener tu lista limpia y enfocada. Deshazte del desorden y concédele atención a lo que realmente importa.",
+            size: 'large',
+        },
+        {
+            title: "Disfruta de una interfaz intuitiva",
+            description:
+                "Navega por nuestra plataforma con facilidad gracias a su diseño amigable y sencillo de usar. Encuentra lo que necesitas rápidamente y gestiona tus tareas.",
+            size: 'small',
+        },
+    ];
 
     return (
         <section className="relative overflow-hidden py-10 px-4 md:px-8 bg-gradient-to-b from-[#d3c7eb] via-[#EDEAFB] to-[#e8f0f6] dark:bg-gradient-to-b dark:from-[#08090e] dark:via-[#08090e] dark:to-[#08090e] transition-colors duration-500 shadow-[0px_1px_5px_1px_rgba(165,_39,_255,_0.48)]">
@@ -58,16 +92,16 @@ const Home = () => {
             </div>
 
             <div id="learn-more" className="container mx-auto px-4 py-20">
-                <div className="bg-gray-100 dark:bg-gray-900 p-10 rounded-2xl shadow-lg mb-7 mx-24">
+                <div className="bg-gray-100 dark:bg-gray-900 p-10 rounded-3xl shadow-lg mb-7 mx-24">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        {/* Texto del lado izquierdo */}
                         <div className="flex justify-start">
                             <h2 className="text-3xl font-extrabold mb-4 text-center ml-10 text-gray-900 dark:text-gray-200">
-                                Mantén todo bajo control y haz seguimiento de tu <span className='bg-gradient-to-tl from-slate-800 via-violet-500 to-zinc-400 bg-clip-text text-transparent'>PROGRESO.</span>
+                                Mantén todo bajo control y haz seguimiento de tu{" "}
+                                <span className='bg-gradient-to-tl from-slate-800 via-violet-500 to-zinc-400 bg-clip-text text-transparent'>
+                                    PROGRESO.
+                                </span>
                             </h2>
                         </div>
-
-                        {/* Texto del lado derecho */}
                         <div className="flex justify-end">
                             <p className="text-xl font-xs mt-10 mr-10 text-gray-600 dark:text-gray-300">
                                 Alcanza tus metas con TaskMaster.
@@ -76,34 +110,33 @@ const Home = () => {
                     </div>
                 </div>
 
-                {/* Sección central con dos divs/imágenes */}
                 <div className="grid grid-cols-1 md:grid-cols-3 mb-7">
-                    {/* Columna izquierda (más pequeña) */}
-                    <div className="relative overflow-hidden bg-gray-300 dark:bg-gray-900 rounded-2xl ml-24 shadow-lg">
+                    <div className="relative overflow-hidden bg-gray-100 dark:bg-gray-900 rounded-3xl ml-24 shadow-lg">
                         <img
                             src="./assets/imagen-5.png"
                             alt="Imagen 1"
-                            className="w-full h-auto scale-150 ml-16 mt-8"
+                            className="w-96 h-64 scale-150 ml-16 p-2"
                         />
-                        <div className="p-5">
-                            <p className="text-xl font-extrabold text-center text-gray-600 dark:text-gray-300">
+                        <div className="p-2 mb-3">
+                            <p className="text-xl font-semibold text-center text-gray-600 dark:text-gray-300">
                                 Prioriza lo más importante.
                             </p>
                         </div>
                     </div>
 
-
-                    {/* Columna derecha (más grande) */}
-                    <div className="relative overflow-hidden bg-gradient-to-b from-[#d3c7eb] via-[#EDEAFB] to-[#e8f0f6] dark:bg-gradient-to-b dark:from-[#1f2a44] dark:via-[#1f2a44] dark:to-[#1f2a44] rounded-2xl ml-7 mr-24 shadow-lg md:col-span-2">
-                        <div className="grid grid-cols-1 md:grid-cols-2">
+                    <div className="relative overflow-hidden bg-gradient-to-b from-[#d3c7eb] via-[#EDEAFB] to-[#e8f0f6] dark:bg-gradient-to-b dark:from-[#1f2a44] dark:via-[#1f2a44] dark:to-[#1f2a44] rounded-3xl ml-7 mr-24 shadow-lg md:col-span-2">
+                        <div className="grid grid-cols-1 md:grid-cols-2 p-2">
                             <img
-                                src="./assets/imagen-6.png"
+                                src="./assets/imagen-9.png"
                                 alt="Imagen 2"
-                                className="w-full h-full scale-150 mt-5 ml-2"
+                                className="w-full h-full scale-150 mt-2"
                             />
-                            <div className="mt-20">
-                                <p className="text-xl font-extrabold mt-32 text-center text-gray-600 dark:text-gray-300">
-                                    Logra más en menos tiempo.
+                            <div className="mt-5">
+                                <p className="text-xl font-semibold mt-5 text-center text-gray-600 dark:text-gray-300">
+                                    Filtra por estados{" "}
+                                    <span className="bg-gradient-to-tl from-slate-800 via-violet-500 to-zinc-400 bg-clip-text text-transparent">
+                                        y ten a la mano todas tus tareas.
+                                    </span>
                                 </p>
                             </div>
                         </div>
@@ -111,38 +144,56 @@ const Home = () => {
                 </div>
 
                 <div className="flex justify-center mb-5">
-                    <div className="relative overflow-hidden bg-gray-300 dark:bg-gray-900 rounded-2xl ml-24 mr-7 shadow-lg p-5">
+                    <div className="relative overflow-hidden bg-gradient-to-b from-[#d3c7eb] via-[#EDEAFB] to-[#e8f0f6] dark:bg-gradient-to-b dark:from-[#1f2a44] dark:via-[#1f2a44] dark:to-[#1f2a44] rounded-3xl ml-24 mr-7 shadow-lg p-4">
                         <img
                             src="./assets/imagen-6.png"
                             alt="Imagen 1"
-                            className="w-full h-auto scale-150 mt-8"
+                            className="w-full h-auto scale-150 p-4"
                         />
+                        <div>
+                            <p className="text-xl font-semibold text-center mt-5 text-gray-600 dark:text-gray-300">
+                                Logra más en menos tiempo.
+                            </p>
+                        </div>
                     </div>
 
-                    <div className="relative overflow-hidden bg-gray-300 dark:bg-gray-900 rounded-2xl mr-24 shadow-lg p-5">
+                    <div className="relative overflow-hidden bg-gray-100 dark:bg-gray-900 rounded-3xl mr-24 shadow-lg p-3">
                         <img
-                            src="./assets/imagen-5.png"
+                            src="./assets/imagen-10.png"
                             alt="Imagen 1"
-                            className="w-full h-auto scale-150 ml-16 mt-8"
-                        />  
+                            className="w-full h-auto scale-150"
+                        />
+                        <p className="text-xl font-semibold text-center bg-gradient-to-tl from-slate-800 via-violet-500 to-zinc-400 bg-clip-text text-transparent">
+                            TaskMaster es tu compañero ideal para gestionar tus
+                            tareas diarias de manera eficiente y sencilla.
+                        </p>
                     </div>
                 </div>
 
+                <div className="border-t-4 border-gray-900 dark:border-gray-500 rounded-3xl shadow-lg mb-4"></div>
 
-                {/* Sección inferior con div o imagen grande */}
-                <div className="relative overflow-hidden bg-gray-100 dark:bg-gray-800 rounded-lg shadow-lg">
-                    <img
-                        src="./assets/imagen-8.png"
-                        alt="Imagen Grande"
-                        className="w-full h-64 object-cover transition-transform duration-500 transform hover:scale-105"
-                    />
-                    <div className="p-8">
-                        <h3 className="text-2xl font-bold mb-2 text-gray-900 dark:text-gray-200">Organiza tus tareas de manera efectiva.</h3>
+                <div className="relative overflow-hidden bg-gradient-to-b from-[#d3c7eb] via-[#EDEAFB] to-[#e8f0f6] dark:bg-gradient-to-b dark:from-[#1f2a44] dark:via-[#1f2a44] dark:to-[#1f2a44] rounded-3xl ml-10 mr-10 mt-24 shadow-lg">
+                    <div className="absolute inset-0 pointer-events-none">
+                        {/* Destellos en forma de brillos */}
+                        <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-white opacity-20 rounded-full filter blur-xl animate-pulse"></div>
+                        <div className="absolute top-3/4 left-3/4 w-40 h-40 bg-purple-300 opacity-30 rounded-full filter blur-xl animate-pulse"></div>
+                        <div className="absolute bottom-1/4 right-1/4 w-32 h-32 bg-pink-300 opacity-20 rounded-full filter blur-xl animate-pulse"></div>
+                        <div className="absolute bottom-3/4 right-3/4 w-40 h-40 bg-blue-300 opacity-25 rounded-full filter blur-xl animate-pulse"></div>
+                    </div>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 m-5">
+                        {cardsData.map((card, index) => (
+                            <MagicCard
+                                key={index}
+                                title={card.title}
+                                description={card.description}
+                                size={card.size}
+                            />
+                        ))}
                     </div>
                 </div>
             </div>
-        </section>  
+        </section>
     );
-}
+};
 
 export default Home;
