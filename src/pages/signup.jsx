@@ -75,22 +75,20 @@ function Signup() {
     }, [navigate])
 
     return (
-        <div className="relative overflow-hidden  bg-gradient-to-b from-[#d3c7eb] via-[#EDEAFB] to-[#e8f0f6] dark:bg-gradient-to-b dark:from-[#08090e] dark:via-[#08090e] dark:to-[#08090e] transition-colors duration-500 shadow-[0px_1px_5px_1px_rgba(165,_39,_255,_0.48)]">
-            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#7d96d1] to-[#914bb9] blur-2xl opacity-5"></div>
-
-            <div className="container mx-auto">
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#d3c7eb] via-[#EDEAFB] to-[#e8f0f6] dark:bg-gradient-to-b dark:from-[#08090e] dark:via-[#08090e] dark:to-[#08090e]">
+            <div className="container mx-auto px-4 py-2">
                 <div className="flex flex-col items-center">
 
-                    <h1 className="flex items-center mb-2 text-4xl font-semibold text-gray-900 dark:text-white">
+                    <h1 className="flex items-center mb-6 text-4xl font-semibold text-gray-900 dark:text-white">
                         <img className="w-12 h-12 mr-3 rounded-full" src="./assets/logo.jpg" alt="logo" />
                         TaskMaster
                     </h1>
 
-                    <div className="w-full max-w-md bg-gray-900 rounded-2xl shadow-md dark:bg-gray-800 dark:border dark:border-gray-700">
+                    <div className="w-full max-w-md bg-gray-900 rounded-3xl shadow-md dark:bg-gray-800 dark:border dark:border-gray-700">
                         <div className="p-6 sm:p-8">
-                            <h1 className="text-2xl font-bold leading-tight tracking-tight text-white dark:text-white mb-4">
+                            <h2 className="text-2xl font-bold leading-tight tracking-tight text-white dark:text-white mb-4">
                                 Registrarse
-                            </h1>
+                            </h2>
 
                             {error && (
                                 <div className="alert alert-danger text-red-600 text-lg font-medium leading-tight mb-4">
@@ -113,6 +111,7 @@ function Signup() {
                                         value={signup.name}
                                         onChange={onChangeData}
                                         className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="full name"
                                         required
                                     />
                                 </div>
@@ -126,6 +125,7 @@ function Signup() {
                                         value={signup.email}
                                         onChange={onChangeData}
                                         className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="name@company.com"
                                         required
                                     />
                                 </div>
@@ -151,7 +151,7 @@ function Signup() {
                                 >
                                     {loading ? 'Registrando...' : 'Registrarse'}
                                 </button>
-                                <p className="text-sm font-light text-gray-500 dark:text-gray-400 mt-4">
+                                <p className="text-sm font-light text-gray-500 dark:text-gray-400 mt-2">
                                     ¿Ya tienes una cuenta? <Link to="/login" className="font-medium text-blue-500 hover:underline dark:text-blue-500">Iniciar Sesión</Link>
                                 </p>
                             </form>
