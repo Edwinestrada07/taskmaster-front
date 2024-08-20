@@ -12,13 +12,10 @@ import FavoriteTasksPage from './pages/favoriteTasksPage';
 // Define la función loader para las rutas protegidas
 const loaderProtected = async () => {
     if (!localStorage.getItem('token')) {
-        // Si no está autenticado, redirigir a la página de login
         return redirect('/login');
-        // O puedes lanzar un error si prefieres manejarlo en el ErrorPage
-        // throw new Response('No Autorizado', { status: 401 });
     }
     return null;
-}
+};
 
 const router = createBrowserRouter([
     {
@@ -47,7 +44,7 @@ const router = createBrowserRouter([
                 path: 'favorites',
                 element: <FavoriteTasksPage />,
                 loader: loaderProtected,
-            }  
+            }
         ],
         errorElement: <ErrorPage /> // Manejo de errores
     },
@@ -62,4 +59,3 @@ const router = createBrowserRouter([
 ]);
 
 export default router;
-

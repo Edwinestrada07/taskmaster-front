@@ -136,21 +136,21 @@ function Profile() {
                             <div className="absolute bottom-3/4 right-3/4 w-40 h-40 bg-blue-300 opacity-25 rounded-full filter blur-xl animate-pulse"></div>
                         </div>
 
+                        <div className="relative overflow-hidden bg-gradient-to-b from-[#d3c7eb] via-[#EDEAFB] to-[#e8f0f6] dark:bg-gradient-to-b dark:from-[#1f2a44] dark:via-[#1f2a44] dark:to-[#1f2a44] rounded-3xl p-3 shadow-lg w-full md:w-4/3">
+                            <p className="text-lg text-gray-700 dark:text-gray-300 mb-2">
+                                <strong>Nombre:</strong> {user.name}
+                            </p>
+                            <p className="text-lg text-gray-700 dark:text-gray-300 mb-4">
+                                <strong>Email:</strong> {user.email}
+                            </p>
+                        </div>
+
                         <div className="flex flex-col items-center m-3">
                             {successMessage && (
                                 <div className="alert alert-success text-green-600 text-lg font-medium leading-tight mb-4">
                                     {successMessage}
                                 </div>
-                            )}
-                            
-                            <div className="relative overflow-hidden bg-gradient-to-b from-[#d3c7eb] via-[#EDEAFB] to-[#e8f0f6] dark:bg-gradient-to-b dark:from-[#1f2a44] dark:via-[#1f2a44] dark:to-[#1f2a44] rounded-3xl p-3 shadow-lg w-full md:w-2/3">
-                                <p className="text-lg text-gray-700 dark:text-gray-300 mb-2">
-                                    <strong>Nombre:</strong> {user.name}
-                                </p>
-                                <p className="text-lg text-gray-700 dark:text-gray-300 mb-4">
-                                    <strong>Email:</strong> {user.email}
-                                </p>
-                            </div>
+                            )} 
 
                             <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 mt-6 text-center">
                                 <strong>Puedes modificar la información del usuario aquí ↓</strong>
@@ -159,9 +159,9 @@ function Profile() {
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full md:w-2/3">
                                 {/* Botón para abrir el modal de cambiar información */}
                                 <div className="flex flex-col items-center">
-                                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Cambiar Información</h3>
+                                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 text-center">Cambiar Información</h3>
                                     <button
-                                        className="py-2.5 px-8 text-gray-700 font-semibold bg-white rounded-md duration-150 hover:bg-gray-100 dark:text-gray-700 dark:bg-gray-700 dark:hover:bg-gray-800"
+                                        className="py-2.5 px-8 text-gray-700 font-semibold bg-white rounded-md duration-150 hover:bg-gray-500 dark:text-gray-700 dark:bg-gray-700 dark:hover:bg-gray-800"
                                         onClick={() => setShowModal('info')}
                                     >
                                         Cambiar Información 
@@ -170,7 +170,7 @@ function Profile() {
 
                                 {/* Botón para abrir el modal de cambiar contraseña */}
                                 <div className="flex flex-col items-center">
-                                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Cambiar Contraseña</h3>
+                                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 text-center">Cambiar Contraseña</h3>
                                     <button
                                         className="py-2.5 px-8 text-gray-700 font-semibold bg-white rounded-md duration-150 hover:bg-gray-100 dark:text-gray-700 dark:bg-gray-700 dark:hover:bg-gray-800"
                                         onClick={() => setShowModal('password')}

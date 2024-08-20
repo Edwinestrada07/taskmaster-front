@@ -7,9 +7,10 @@ function Login() {
         email: '',
         password: ''
     })
-    
+
     const [error, setError] = useState('') // Estado para manejar mensajes de error
     const [loading, setLoading] = useState(false) // Estado para manejar el estado de carga
+    const [successMessage, setSuccessMessage] = useState('') // Estado para manejar mensajes de éxito
 
     const navigate = useNavigate() // Hook para la navegación programática
 
@@ -34,12 +35,18 @@ function Login() {
 
         try {
             setLoading(true)
+            setError('') // Limpiar mensaje de error
+            setSuccessMessage('') // Limpiar mensaje de éxito
+
             // Validación de campos obligatorios
             if (!login.email || !login.password) {
                 setError('Por favor, complete todos los campos.')
-                setTimeout(() => setError(''), 2000)
+                setLoading(false)
                 return
             }
+
+            // Simulación de retraso para mostrar el spinner durante unos segundos
+            await new Promise((resolve) => setTimeout(resolve, 3000))
 
             // Petición al backend para iniciar sesión
             const response = await fetch('http://localhost:5000/login', {
@@ -60,11 +67,17 @@ function Login() {
                 localStorage.setItem('userId', dataResponse.user.userId)
             }
 
-            // Redirigir al usuario a la página principal
-            navigate('/')
+            // Mostrar mensaje de éxito si la respuesta es positiva
+            if (dataResponse.token) {
+                setSuccessMessage('Inicio de sesión exitoso...')
+                setTimeout(() => navigate('/start'), 3000) // Redirigir después de 3 segundos
+            } else {
+                throw new Error('Hubo un problema al iniciar sesión')
+            }
         } catch (error) {
             // Manejo de errores
-            setError(error.message || 'Hubo un problema al iniciar sesión')
+            setError('Hubo un problema al iniciar sesión, correo o contraseña incorrectas')
+            setTimeout(() => setError(''), 3000)
         } finally {
             // Finalizar el estado de carga
             setLoading(false)
@@ -90,6 +103,12 @@ function Login() {
                             {error && ( 
                                 <div className="alert alert-danger text-red-600 text-lg font-medium leading-tight mb-4">
                                     {error}
+                                </div>
+                            )}
+
+                            {successMessage && (
+                                <div className="alert alert-success text-green-600 text-lg font-medium leading-tight mb-4">
+                                    {successMessage}
                                 </div>
                             )}
 
@@ -123,7 +142,6 @@ function Login() {
                                 </div>
 
                                 <div className="flex items-center justify-between">
-                                    
                                     <Link to="/forgot-password" className="text-sm font-medium text-blue-500 hover:underline dark:text-blue-500">
                                         ¿Olvidaste tu contraseña?
                                     </Link>
@@ -134,7 +152,15 @@ function Login() {
                                     className="w-full text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                     disabled={loading}
                                 >
-                                    {loading ? 'Iniciando Sesión...' : 'Iniciar Sesión'}
+                                    {loading ? (
+                                        <div className="flex justify-center items-center">
+                                            <svg className="w-5 h-5 mr-2 text-white animate-spin" xmlns="http://www.w3.org/8000/svg" fill="none" viewBox="0 0 24 24">
+                                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                                            </svg>
+                                            Cargando...
+                                        </div>
+                                    ) : 'Iniciar Sesión'}
                                 </button>
 
                                 <p className="text-sm font-light text-white dark:text-gray-400">

@@ -32,8 +32,12 @@ function Signup() {
             // Validación de campos obligatorios
             if (!signup.name || !signup.email || !signup.password) {
                 setError('Por favor, complete todos los campos.')
+                setLoading(false)
                 return
             }
+
+            // Simulación del tiempo de espera para mostrar el spinner durante 2 segundos
+            await new Promise(resolve => setTimeout(resolve, 3000))
 
             // Petición al backend para registrar al usuario
             const response = await fetch('http://localhost:5000/signup', {
@@ -48,6 +52,7 @@ function Signup() {
 
             if (dataResponse.error) {
                 setError(dataResponse.error)
+                setLoading(false)
                 return
             }
 
@@ -56,11 +61,12 @@ function Signup() {
             localStorage.setItem('token', dataResponse.token)
 
             // Mostrar mensaje de éxito y redirigir al usuario a la página de inicio de sesión
-            setSuccessMessage('Registro exitoso. Redirigiendo a inicio de sesión...')
+            setSuccessMessage('Registro exitoso...')
             setTimeout(() => navigate('/login'), 3000)
         } catch (error) {
             // Manejo de errores
-            setError(error.message || 'Hubo un problema al registrarse')
+            setError('Hubo un problema al registrarse, verifica la información')
+            setTimeout(() => setError(''), 3000)
         } finally {
             // Finalizar el estado de carga
             setLoading(false)
@@ -70,7 +76,7 @@ function Signup() {
     // useEffect para redirigir al usuario si ya está autenticado
     useEffect(() => {
         if (localStorage.getItem('token')) {
-            navigate('/')
+            navigate('/start')
         }
     }, [navigate])
 
@@ -90,11 +96,14 @@ function Signup() {
                                 Registrarse
                             </h2>
 
+                            {/* Mostrar mensaje de error si existe */}
                             {error && (
                                 <div className="alert alert-danger text-red-600 text-lg font-medium leading-tight mb-4">
                                     {error}
                                 </div>
                             )}
+
+                            {/* Mostrar mensaje de éxito si existe */}
                             {successMessage && (
                                 <div className="alert alert-success text-green-600 text-lg font-medium leading-tight mb-4">
                                     {successMessage}
@@ -111,7 +120,7 @@ function Signup() {
                                         value={signup.name}
                                         onChange={onChangeData}
                                         className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        placeholder="full name"
+                                        placeholder="Nombre completo"
                                         required
                                     />
                                 </div>
@@ -144,13 +153,23 @@ function Signup() {
                                     />
                                 </div>
 
+                                {/* Mostrar spinner mientras se está cargando */}
                                 <button
                                     type="submit"
                                     className="w-full text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                     disabled={loading}
                                 >
-                                    {loading ? 'Registrando...' : 'Registrarse'}
+                                    {loading ? (
+                                        <div className="flex justify-center items-center">
+                                            <svg className="w-5 h-5 mr-2 text-white animate-spin" xmlns="http://www.w3.org/8000/svg" fill="none" viewBox="0 0 24 24">
+                                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                                            </svg>
+                                            Cargando...
+                                        </div>
+                                    ) : 'Registrarse'}
                                 </button>
+
                                 <p className="text-sm font-light text-gray-500 dark:text-gray-400 mt-2">
                                     ¿Ya tienes una cuenta? <Link to="/login" className="font-medium text-blue-500 hover:underline dark:text-blue-500">Iniciar Sesión</Link>
                                 </p>
