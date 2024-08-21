@@ -29,7 +29,7 @@ const MagicCard = ({ title, description, size }) => {
             <h3 className="text-xl font-bold text-center bg-gradient-to-tl from-slate-800 via-violet-600 to-zinc-400 bg-clip-text text-transparent">
                 {title}
             </h3>
-            <p className="text-sm font-xs text-center mt-5 text-gray-600 dark:text-gray-300">{description}</p>
+            <p className="text-sm font-xs text-center mt-3 text-gray-600 dark:text-gray-300">{description}</p>
         </animated.div>
     );
 };

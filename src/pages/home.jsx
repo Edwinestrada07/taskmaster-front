@@ -19,19 +19,19 @@ const Home = () => {
             title: "Agrega nuevas tareas",
             description:
                 "Incluye detalles importantes como descripción, fecha de vencimiento, prioridad y estado. Organiza cada aspecto de tus tareas para asegurarte de que nada se te escape.",
-            size: 'small',
+            size: 'large',
         },
         {
             title: "Edita y actualiza",
             description:
                 "Modifica la información de tus tareas en cualquier momento para mantener todo al día. Actualiza detalles a medida que cambian las circunstancias.",
-            size: 'small',
+            size: 'large',
         },
         {
             title: "Marca como completadas",
             description:
                 "Da por finalizadas tus tareas y sigue avanzando en tus objetivos. Mantén un registro claro de lo que has logrado y lo que aún necesitas hacer.",
-            size: 'small',
+            size: 'large',
         },
         {
             title: "Elimina tareas innecesarias",
@@ -43,7 +43,7 @@ const Home = () => {
             title: "Disfruta de una interfaz intuitiva",
             description:
                 "Navega por nuestra plataforma con facilidad gracias a su diseño amigable y sencillo de usar. Encuentra lo que necesitas rápidamente y gestiona tus tareas.",
-            size: 'small',
+            size: 'large',
         },
     ];
 
@@ -51,7 +51,7 @@ const Home = () => {
         <section className="relative overflow-hidden py-10 px-1 md:px-8 bg-gradient-to-b from-[#d3c7eb] via-[#EDEAFB] to-[#e8f0f6] dark:bg-gradient-to-b dark:from-[#08090e] dark:via-[#08090e] dark:to-[#08090e] transition-colors duration-500 shadow-[0px_1px_5px_1px_rgba(165,_39,_255,_0.48)]">
             <div className="absolute inset-0 w-full h-full rounded-full bg-gradient-to-r from-[#7d96d1] to-[#914bb9] blur-2xl opacity-5"></div>
             <div className="relative flex flex-col md:flex-row max-w-6xl mx-auto items-center mb-5">
-                <div className="md:w-1/2 text-left">
+                <div className="md:w-1/2 ml-4">
                     <div className="py-4">
                         <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold bg-gradient-to-tl from-slate-800 via-violet-500 to-zinc-400 bg-clip-text text-transparent mr-5">
                             Bienvenido a TaskMaster
@@ -74,13 +74,13 @@ const Home = () => {
                             className="py-2.5 px-4 text-gray-700 font-semibold bg-white rounded-md duration-150 hover:bg-gray-100 dark:text-gray-700 dark:bg-gray-700 dark:hover:bg-gray-800"
                             onClick={() => navigate('/task')}
                         >
-                            Empezar con la prueba
+                            Empezar
                         </button>
                         <a
                             href="#learn-more"
                             className="py-2.5 text-decoration-none px-4 text-gray-300 bg-gray-700 rounded-md duration-150 hover:bg-gray-800 dark:text-gray-300 dark:bg-gray-800 dark:hover:bg-gray-700"
                         >
-                            Leer más <span aria-hidden="true">→</span>
+                            Leer más
                         </a>
                     </div>
                 </div>
@@ -105,7 +105,7 @@ const Home = () => {
                             </h2>
                         </div>
                         <div className="flex justify-center md:justify-end">
-                            <p className="text-xl font-xs mt-10 text-center md:text-right text-gray-600 dark:text-gray-300">
+                            <p className="text-xl font-xs mt-10 text-center md:text-right text-gray-600 dark:text-gray-400">
                                 Alcanza tus metas con TaskMaster.
                             </p>
                         </div>
@@ -120,21 +120,21 @@ const Home = () => {
                             className="w-full h-64 scale-125 object-cover"
                         />
                         <div className="p-4">
-                            <p className="text-xl font-semibold text-center text-gray-600 dark:text-gray-300">
+                            <p className="text-xl font-semibold text-center text-gray-700 dark:text-gray-200">
                                 Prioriza lo más importante.
                             </p>
                         </div>
                     </div>
 
                     <div className="relative overflow-hidden bg-gradient-to-b from-[#d3c7eb] via-[#EDEAFB] to-[#e8f0f6] dark:bg-gradient-to-b dark:from-[#1f2a44] dark:via-[#1f2a44] dark:to-[#1f2a44] rounded-3xl shadow-lg md:col-span-2">
-                        <div className="grid grid-cols-1 md:grid-cols-2 p-2">
+                        <div className="grid grid-cols-1 md:grid-cols-2 p-4">
                             <img
                                 src="./assets/imagen-9.png"
                                 alt="Imagen 2"
                                 className="w-full h-full scale-150 object-cover"
                             />
-                            <div className="mt-5">
-                                <p className="text-xl font-semibold mt-5 text-center text-gray-600 dark:text-gray-300">
+                            <div className="mt-1">
+                                <p className="text-xl font-semibold mt-5 text-center text-gray-700 dark:text-gray-200">
                                     Filtra por estados{" "}
                                     <span className="bg-gradient-to-tl from-slate-800 via-violet-500 to-zinc-400 bg-clip-text text-transparent">
                                         y ten a la mano todas tus tareas.
@@ -153,7 +153,7 @@ const Home = () => {
                             className="w-full h-auto scale-125 "
                         />
                         <div>
-                            <p className="text-xl font-semibold text-center mt-5 text-gray-600 dark:text-gray-300">
+                            <p className="text-xl font-semibold text-center mt-5 text-gray-700 dark:text-gray-200">
                                 Logra más en menos tiempo.
                             </p>
                         </div>
@@ -181,7 +181,7 @@ const Home = () => {
 
                 <div className="border-t-4 border-gray-900 dark:border-gray-500 rounded-3xl shadow-lg mb-4"></div>
 
-                <div className="relative overflow-hidden bg-gradient-to-b from-[#d3c7eb] via-[#EDEAFB] to-[#e8f0f6] dark:bg-gradient-to-b dark:from-[#1f2a44] dark:via-[#1f2a44] dark:to-[#1f2a44] rounded-3xl ml-10 mr-10 mt-24 shadow-lg">
+                <div className="relative overflow-hidden bg-gradient-to-b from-[#d3c7eb] via-[#EDEAFB] to-[#e8f0f6] dark:bg-gradient-to-b dark:from-[#1f2a44] dark:via-[#1f2a44] dark:to-[#1f2a44] rounded-3xl mt-16 shadow-lg">
                     <div className="absolute inset-0 pointer-events-none">
                         {/* Destellos en forma de brillos */}
                         <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-white opacity-20 rounded-full filter blur-xl animate-pulse"></div>
@@ -189,7 +189,7 @@ const Home = () => {
                         <div className="absolute bottom-1/4 right-1/4 w-32 h-32 bg-pink-300 opacity-20 rounded-full filter blur-xl animate-pulse"></div>
                         <div className="absolute bottom-3/4 right-3/4 w-40 h-40 bg-blue-300 opacity-25 rounded-full filter blur-xl animate-pulse"></div>
                     </div>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 m-5">
+                    <div className="grid grid-cols-2 sm:grid-cols-6 gap-4 m-4">
                         {cardsData.map((card, index) => (
                             <MagicCard
                                 key={index}
@@ -201,11 +201,11 @@ const Home = () => {
                     </div>
                 </div>
 
-                <div className="relative overflow-hidden bg-gradient-to-b from-[#d3c7eb] via-[#EDEAFB] to-[#e8f0f6] dark:bg-gradient-to-b dark:from-[#1f2a44] dark:via-[#1f2a44] dark:to-[#1f2a44] rounded-3xl mr-10 ml-10 mt-10 shadow-lg">
+                <div className="relative overflow-hidden bg-gradient-to-b from-[#d3c7eb] via-[#EDEAFB] to-[#e8f0f6] dark:bg-gradient-to-b dark:from-[#1f2a44] dark:via-[#1f2a44] dark:to-[#1f2a44] rounded-3xl mt-24 shadow-lg">
                     <h2 className="text-xl md:text-2xl lg:text-3xl font-extrabold text-center py-8 px-4 bg-gray-900 dark:bg-gray-800 text-gray-100 dark:text-gray-200">
                         ¡Únete a la comunidad TaskMaster!
                     </h2>
-                    <p className="text-lg text-center text-gray-700 dark:text-gray-300 px-4 py-6">
+                    <p className="font-semibold text-center text-gray-700 dark:text-gray-200 px-4 py-6">
                         Empieza a organizar tu vida y ver los resultados en poco
                         tiempo. Aprovecha nuestra plataforma para mantener todo
                         bajo control.
