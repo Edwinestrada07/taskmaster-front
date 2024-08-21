@@ -1,27 +1,23 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
+import { supabase } from '../services/supabaseClient'
 
 function Login() {
-    // Estado para almacenar los datos del formulario de inicio de sesión
     const [login, setLogin] = useState({
         email: '',
         password: ''
     })
+    const [error, setError] = useState('')
+    const [loading, setLoading] = useState(false)
+    const [successMessage, setSuccessMessage] = useState('')
+    const navigate = useNavigate()
 
-    const [error, setError] = useState('') // Estado para manejar mensajes de error
-    const [loading, setLoading] = useState(false) // Estado para manejar el estado de carga
-    const [successMessage, setSuccessMessage] = useState('') // Estado para manejar mensajes de éxito
-
-    const navigate = useNavigate() // Hook para la navegación programática
-
-    // useEffect para redirigir al usuario si ya está autenticado
     useEffect(() => {
         if (localStorage.getItem('token')) {
             navigate('/')
         }
     }, [navigate])
 
-    // Función para manejar los cambios en los campos del formulario
     const onChangeData = (event) => {
         setLogin({
             ...login,
@@ -29,61 +25,63 @@ function Login() {
         })
     }
 
-    // Función para manejar el envío del formulario
     const submit = async (event) => {
         event.preventDefault()
 
         try {
             setLoading(true)
-            setError('') // Limpiar mensaje de error
-            setSuccessMessage('') // Limpiar mensaje de éxito
+            setError('')
+            setSuccessMessage('')
 
-            // Validación de campos obligatorios
             if (!login.email || !login.password) {
                 setError('Por favor, complete todos los campos.')
                 setLoading(false)
                 return
             }
 
-            // Simulación de retraso para mostrar el spinner durante unos segundos
-            await new Promise((resolve) => setTimeout(resolve, 3000))
-
-            // Petición al backend para iniciar sesión
-            const response = await fetch('http://localhost:5000/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(login)
+            const { data, error } = await supabase.auth.signInWithPassword({
+                email: login.email,
+                password: login.password
             })
 
-            const dataResponse = await response.json()
-
-            // Guardar datos en localStorage
-            localStorage.setItem('user', JSON.stringify(dataResponse.user))
-            localStorage.setItem('token', dataResponse.token)
-
-            if (dataResponse.user && dataResponse.user.userId) {
-                localStorage.setItem('userId', dataResponse.user.userId)
+            if (error) {
+                throw error
             }
 
-            // Mostrar mensaje de éxito si la respuesta es positiva
-            if (dataResponse.token) {
-                setSuccessMessage('Inicio de sesión exitoso...')
-                setTimeout(() => navigate('/start'), 3000) // Redirigir después de 3 segundos
-            } else {
-                throw new Error('Hubo un problema al iniciar sesión')
-            }
+            // Guardar el token en localStorage
+            localStorage.setItem('token', data.session.access_token)
+            localStorage.setItem('user', JSON.stringify(data.user))
+
+            setSuccessMessage('Inicio de sesión exitoso...')
+            setTimeout(() => navigate('/start'), 3000)
         } catch (error) {
-            // Manejo de errores
             setError('Hubo un problema al iniciar sesión, correo o contraseña incorrectas')
             setTimeout(() => setError(''), 3000)
         } finally {
-            // Finalizar el estado de carga
             setLoading(false)
         }
     }
 
+    const handleGoogleSignIn = async () => {
+        try {
+            setLoading(true)
+            const { error } = await supabase.auth.signInWithOAuth({
+                provider: 'google'
+            })
+    
+            if (error) {
+                throw error
+            }
+    
+            // Supabase maneja la redirección después de un inicio de sesión exitoso con OAuth
+        } catch (error) {
+            setError('Hubo un problema al iniciar sesión con Google')
+            setTimeout(() => setError(''), 3000)
+        } finally {
+            setLoading(false)
+        }
+    }
+    
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#d3c7eb] via-[#EDEAFB] to-[#e8f0f6] dark:bg-gradient-to-b dark:from-[#08090e] dark:via-[#08090e] dark:to-[#08090e]">
             <div className="container mx-auto px-4 py-2">
@@ -161,6 +159,23 @@ function Login() {
                                             Cargando...
                                         </div>
                                     ) : 'Iniciar Sesión'}
+                                </button>
+
+                                <button
+                                    type="button"
+                                    onClick={handleGoogleSignIn}
+                                    className="w-full mt-2 text-white bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                                    disabled={loading}
+                                >
+                                    {loading ? (
+                                        <div className="flex justify-center items-center">
+                                            <svg className="w-5 h-5 mr-2 text-white animate-spin" xmlns="http://www.w3.org/8000/svg" fill="none" viewBox="0 0 24 24">
+                                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                                            </svg>
+                                            Cargando...
+                                        </div>
+                                    ) : 'Iniciar Sesión con Google'}
                                 </button>
 
                                 <p className="text-sm font-light text-white dark:text-gray-400">
