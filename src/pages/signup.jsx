@@ -35,7 +35,7 @@ function Signup() {
 
             await new Promise(resolve => setTimeout(resolve, 3000))
 
-            const response = await fetch('http://localhost:5000/signup', {
+            const response = await fetch('https://taskmaster-back.onrender.com/signup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

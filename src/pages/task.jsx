@@ -19,7 +19,7 @@ const TaskListPage = () => {
     // Función para obtener las tareas con filtros según el modo de vista
     const getTasks = useCallback(async () => {
         try {
-            const baseUrl = 'http://localhost:5000/task';
+            const baseUrl = 'https://taskmaster-back.onrender.com/task';
             const endpoints = {
                 registered: '',
                 byFavorites: '/favorites',
@@ -55,7 +55,7 @@ const TaskListPage = () => {
             // Asignar el userId a la tarea
             task.userId = userId
             
-            const response = await fetch('http://localhost:5000/task', {
+            const response = await fetch('https://taskmaster-back.onrender.com/task', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -81,7 +81,7 @@ const TaskListPage = () => {
 
     const updateTask = async (id, task) => {
         try {
-            const response = await fetch(`http://localhost:5000/task/${id}`, {
+            const response = await fetch(`https://taskmaster-back.onrender.com/task/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -107,7 +107,7 @@ const TaskListPage = () => {
 
     const deleteTask = async (id) => {
         try {
-            const response = await fetch(`http://localhost:5000/task/${id}`, {
+            const response = await fetch(`https://taskmaster-back.onrender.com/task/${id}`, {
                 method: 'DELETE',
                 headers: {
                     authorization: localStorage.getItem('token'),
@@ -127,7 +127,7 @@ const TaskListPage = () => {
 
     const handleDeleteAll = async (taskId) => {
         try {
-            const response = await fetch(`http://localhost:5000/task/${taskId}/history`, {
+            const response = await fetch(`https://taskmaster-back.onrender.com/task/${taskId}/history`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -176,7 +176,7 @@ const TaskListPage = () => {
     //Función para controlar tareas favoritas
     const handleFavoriteTask = async (id, isFavorite) => {
         try {
-            const response = await fetch(`http://localhost:5000/task/${id}/favorite`, {
+            const response = await fetch(`https://taskmaster-back.onrender.com/task/${id}/favorite`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -204,7 +204,7 @@ const TaskListPage = () => {
                 throw new Error('Solo se pueden mover tareas completadas al historial.');
             }
     
-            const response = await fetch(`http://localhost:5000/task/${taskId}/move`, {
+            const response = await fetch(`https://taskmaster-back.onrender.com/task/${taskId}/move`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -256,7 +256,7 @@ const TaskListPage = () => {
     //Funcion para actualizar el estado de la tarea en la base de datos
     const updateTaskStatus = async (taskId, newStatus) => {
         try {
-            const response = await fetch(`http://localhost:5000/task/${taskId}/status`, {
+            const response = await fetch(`https://taskmaster-back.onrender.com/task/${taskId}/status`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
