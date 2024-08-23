@@ -1,92 +1,67 @@
-import { useEffect, useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
-import { supabase } from '../services/supabaseClient'
+import { useState, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 
 function Login() {
-    const [login, setLogin] = useState({
-        email: '',
-        password: ''
-    })
-    const [error, setError] = useState('')
-    const [loading, setLoading] = useState(false)
-    const [successMessage, setSuccessMessage] = useState('')
-    const navigate = useNavigate()
+    const [login, setLogin] = useState({ email: '', password: '' });
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [successMessage, setSuccessMessage] = useState('');
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (localStorage.getItem('token')) {
-            navigate('/')
+            navigate('/');
         }
-    }, [navigate])
+    }, [navigate]);
 
     const onChangeData = (event) => {
-        setLogin({
-            ...login,
-            [event.target.id]: event.target.value
-        })
-    }
+        setLogin({ ...login, [event.target.id]: event.target.value });
+    };
 
     const submit = async (event) => {
-        event.preventDefault()
-
+        event.preventDefault();
         try {
-            setLoading(true)
-            setError('')
-            setSuccessMessage('')
-
+            setLoading(true);
+            setError('');
+            setSuccessMessage('');
+    
             if (!login.email || !login.password) {
-                setError('Por favor, complete todos los campos.')
-                setLoading(false)
-                return
-            }
-
-            const { data, error } = await supabase.auth.signInWithPassword({
-                email: login.email,
-                password: login.password
-            })
-
-            if (error) {
-                throw error
-            }
-
-            // Guardar el token en localStorage
-            localStorage.setItem('token', data.session.access_token)
-            localStorage.setItem('user', JSON.stringify(data.user))
-
-            setSuccessMessage('Inicio de sesión exitoso...')
-            setTimeout(() => navigate('/start'), 3000)
-        } catch (error) {
-            setError('Hubo un problema al iniciar sesión, correo o contraseña incorrectas')
-            setTimeout(() => setError(''), 3000)
-        } finally {
-            setLoading(false)
-        }
-    }
-
-    const handleGoogleSignIn = async () => {
-        try {
-            setLoading(true)
-            const { error } = await supabase.auth.signInWithOAuth({
-                provider: 'google'
-            })
-    
-            if (error) {
-                throw error
+                setError('Por favor, complete todos los campos.');
+                setLoading(false);
+                return;
             }
     
-            // Supabase maneja la redirección después de un inicio de sesión exitoso con OAuth
+            const response = await fetch('https://taskmaster-back.onrender.com/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: login.email,
+                    password: login.password
+                }),
+            });
+    
+            if (response.ok) {
+                await response.json(); // No almacenes el resultado si no lo necesitas
+                // Manejar el token y los datos del usuario
+            } else {
+                const errorData = await response.text();
+                setError(`Error de autenticación: ${errorData}`);
+            }
         } catch (error) {
-            setError('Hubo un problema al iniciar sesión con Google')
-            setTimeout(() => setError(''), 3000)
+            console.error('Error al iniciar sesión', error);
+            setError('Error al iniciar sesión.');
         } finally {
-            setLoading(false)
+            setLoading(false);
         }
-    }
+    };
+    
     
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#d3c7eb] via-[#EDEAFB] to-[#e8f0f6] dark:bg-gradient-to-b dark:from-[#08090e] dark:via-[#08090e] dark:to-[#08090e]">
             <div className="container mx-auto px-4 py-2">
                 <div className="flex flex-col items-center">
-
                     <h1 className="flex items-center mb-6 text-4xl font-semibold text-gray-900 dark:text-white">
                         <img className="w-12 h-12 mr-3 rounded-full" src="./assets/logo.jpg" alt="logo" />
                         TaskMaster
@@ -98,7 +73,7 @@ function Login() {
                                 Iniciar Sesión
                             </h2>
 
-                            {error && ( 
+                            {error && (
                                 <div className="alert alert-danger text-red-600 text-lg font-medium leading-tight mb-4">
                                     {error}
                                 </div>
@@ -152,7 +127,7 @@ function Login() {
                                 >
                                     {loading ? (
                                         <div className="flex justify-center items-center">
-                                            <svg className="w-5 h-5 mr-2 text-white animate-spin" xmlns="http://www.w3.org/8000/svg" fill="none" viewBox="0 0 24 24">
+                                            <svg className="w-5 h-5 mr-2 text-white animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                                                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
                                             </svg>
@@ -161,33 +136,16 @@ function Login() {
                                     ) : 'Iniciar Sesión'}
                                 </button>
 
-                                <button
-                                    type="button"
-                                    onClick={handleGoogleSignIn}
-                                    className="w-full mt-2 text-white bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
-                                    disabled={loading}
-                                >
-                                    {loading ? (
-                                        <div className="flex justify-center items-center">
-                                            <svg className="w-5 h-5 mr-2 text-white animate-spin" xmlns="http://www.w3.org/8000/svg" fill="none" viewBox="0 0 24 24">
-                                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
-                                            </svg>
-                                            Cargando...
-                                        </div>
-                                    ) : 'Iniciar Sesión con Google'}
-                                </button>
-
-                                <p className="text-sm font-light text-white dark:text-gray-400">
-                                    ¿No tienes una cuenta? <Link to="/signup" className="font-medium text-blue-500 hover:underline dark:text-blue-500">Regístrate aquí</Link>
+                                <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+                                    ¿No tienes una cuenta? <Link to="/signup" className="font-medium text-blue-600 hover:underline dark:text-blue-500">Regístrate</Link>
                                 </p>
                             </form>
                         </div>
                     </div>
                 </div>
-            </div>            
+            </div>
         </div>
-    )
+    );
 }
 
-export default Login
+export default Login;

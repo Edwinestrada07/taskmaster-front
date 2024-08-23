@@ -33,7 +33,7 @@ function Signup() {
                 return
             }
 
-            await new Promise(resolve => setTimeout(resolve, 3000))
+            await new Promise(resolve => setTimeout(resolve, 1000))
 
             const response = await fetch('https://taskmaster-back.onrender.com/signup', {
                 method: 'POST',
@@ -55,10 +55,10 @@ function Signup() {
             localStorage.setItem('token', dataResponse.token)
 
             setSuccessMessage('Registro exitoso...')
-            setTimeout(() => navigate('/login'), 3000)
+            setTimeout(() => navigate('/login'), 1000)
         } catch (error) {
             setError('Hubo un problema al registrarse, verifica la información')
-            setTimeout(() => setError(''), 3000)
+            setTimeout(() => setError(''), 1000)
         } finally {
             setLoading(false)
         }
