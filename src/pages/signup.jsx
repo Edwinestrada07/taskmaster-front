@@ -23,46 +23,48 @@ function Signup() {
     }
 
     const handleSubmit = async (event) => {
-        event.preventDefault()
-
+        event.preventDefault();
+    
         try {
-            setLoading(true)
+            setLoading(true);
             if (!signup.name || !signup.email || !signup.password) {
-                setError('Por favor, complete todos los campos.')
-                setLoading(false)
-                return
+                setError('Por favor, complete todos los campos.');
+                setLoading(false);
+                return;
             }
-
-            await new Promise(resolve => setTimeout(resolve, 1000))
-
+    
             const response = await fetch('https://taskmaster-back.onrender.com/signup', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(signup)
-            })
-
-            const dataResponse = await response.json()
-
-            if (dataResponse.error) {
-                setError(dataResponse.error)
-                setLoading(false)
-                return
+                body: JSON.stringify(signup),
+            });
+    
+            if (!response.ok) {
+                throw new Error('Respuesta no válida del servidor');
             }
-
-            localStorage.setItem('user', JSON.stringify(dataResponse.user))
-            localStorage.setItem('token', dataResponse.token)
-
-            setSuccessMessage('Registro exitoso...')
-            setTimeout(() => navigate('/login'), 1000)
+    
+            const dataResponse = await response.json();
+    
+            if (dataResponse.error) {
+                setError(dataResponse.error);
+                setLoading(false);
+                return;
+            }
+    
+            localStorage.setItem('user', JSON.stringify(dataResponse.user));
+            localStorage.setItem('token', dataResponse.token);
+    
+            setSuccessMessage('Registro exitoso...');
+            setTimeout(() => navigate('/login'), 1000);
         } catch (error) {
-            setError('Hubo un problema al registrarse, verifica la información')
-            setTimeout(() => setError(''), 1000)
+            setError('Hubo un problema al registrarse, verifica la información');
         } finally {
-            setLoading(false)
+            setLoading(false);
         }
-    }
+    };
+    
 
     const handleGoogleSignUp = async () => {
         try {

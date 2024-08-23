@@ -10,7 +10,7 @@ function Login() {
 
     useEffect(() => {
         if (localStorage.getItem('token')) {
-            navigate('/');
+            navigate('/start');
         }
     }, [navigate]);
 
@@ -24,30 +24,30 @@ function Login() {
             setLoading(true);
             setError('');
             setSuccessMessage('');
-    
+
             if (!login.email || !login.password) {
                 setError('Por favor, complete todos los campos.');
                 setLoading(false);
                 return;
             }
-    
+
             const response = await fetch('https://taskmaster-back.onrender.com/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    email: login.email,
-                    password: login.password
-                }),
+                body: JSON.stringify(login),
             });
-    
+
+            const data = await response.json();
+
             if (response.ok) {
-                await response.json(); // No almacenes el resultado si no lo necesitas
-                // Manejar el token y los datos del usuario
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('user', JSON.stringify(data.user));
+                setSuccessMessage('Inicio de sesión exitoso...');
+                setTimeout(() => navigate('/start'), 1000);
             } else {
-                const errorData = await response.text();
-                setError(`Error de autenticación: ${errorData}`);
+                setError(`Error de autenticación: ${data}`);
             }
         } catch (error) {
             console.error('Error al iniciar sesión', error);
@@ -56,8 +56,7 @@ function Login() {
             setLoading(false);
         }
     };
-    
-    
+
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#d3c7eb] via-[#EDEAFB] to-[#e8f0f6] dark:bg-gradient-to-b dark:from-[#08090e] dark:via-[#08090e] dark:to-[#08090e]">
             <div className="container mx-auto px-4 py-2">
