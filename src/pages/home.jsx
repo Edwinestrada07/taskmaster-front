@@ -71,14 +71,14 @@ const Home = () => {
                     </div>
                     <div className="mt-2 flex gap-3">
                         <button
-                            className="py-2.5 px-4 text-gray-700 font-semibold bg-white rounded-md duration-150 hover:bg-gray-100 dark:text-gray-700 dark:bg-gray-700 dark:hover:bg-gray-800"
+                            className="transition-background inline-flex h-12 items-center justify-center rounded-md border border-gray-800 bg-gradient-to-r from-gray-100 via-[#c7d2fe] to-[#8678f9] bg-[length:200%_200%] bg-[0%_0%] px-6 font-medium text-gray-950 duration-500 hover:bg-[100%_200%] focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-gray-50"
                             onClick={() => navigate('/task')}
                         >
                             Empezar
                         </button>
                         <a
                             href="#learn-more"
-                            className="py-2.5 text-decoration-none px-4 text-gray-300 bg-gray-700 rounded-md duration-150 hover:bg-gray-800 dark:text-gray-300 dark:bg-gray-800 dark:hover:bg-gray-700"
+                            className="inline-flex h-12 animate-background-shine items-center justify-center rounded-md border border-gray-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-6 font-medium text-gray-400 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-gray-50 text-decoration-none"
                         >
                             Leer más
                         </a>
