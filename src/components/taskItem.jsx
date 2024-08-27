@@ -101,21 +101,21 @@ const TaskItem = ({ task, index, onUpdateTask, onDeleteTask, onFavoriteTask, onM
                                 <div className="flex flex-col sm:flex-row gap-2 mt-2">
                                     {/* Botón para actualizar la tarea */}
                                     <button
-                                        className="px-3 py-1.5 text-sm text-indigo-600 duration-150 bg-indigo-50 rounded-lg hover:bg-indigo-100 active:bg-indigo-200"
+                                        className="px-2 py-1.5 text-sm text-indigo-600 duration-150 bg-indigo-50 rounded-lg hover:bg-indigo-100 active:bg-indigo-200"
                                         onClick={() => onUpdateTask(id, task)}
                                     >
                                         Actualizar
                                     </button>
                                     {/* Botón para eliminar la tarea */}
                                     <button
-                                        className="px-3 py-1.5 text-sm text-red-600 duration-150 bg-red-50 rounded-lg hover:bg-red-100 active:bg-red-200"
+                                        className="px-2 py-1.5 text-sm text-red-600 duration-150 bg-red-50 rounded-lg hover:bg-red-100 active:bg-red-200"
                                         onClick={() => onDeleteTask(id)}
                                     >
                                         Eliminar
                                     </button>
                                     {/* Botón para mover la tarea al historial */}
                                     <button
-                                        className="px-3 py-1.5 text-sm text-green-600 duration-150 bg-green-50 rounded-lg hover:bg-green-100 active:bg-green-200"
+                                        className="px-2 py-1 text-sm text-green-600 duration-150 bg-green-50 rounded-lg hover:bg-green-100 active:bg-green-200"
                                         onClick={handleMoveToHistory}
                                     >
                                         Mover al Historial

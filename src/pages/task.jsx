@@ -284,7 +284,7 @@ const TaskListPage = () => {
         <div className="p-1 flex bg-gradient-to-b from-[#d3c7eb] via-[#EDEAFB] to-[#e8f0f6] dark:bg-gradient-to-b dark:from-[#08090e] dark:via-[#08090e] dark:to-[#08090e]">
 
             {/*Barra lateral, con todos sus botones*/}      
-            <aside className={`relative inset-y-0 h-screem bg-gray-800 ${isAsideVisible ? 'w-64' : 'w-16'} sm:flex flex-col items-center rounded-lg shadow-[0px_1px_15px_1px_rgba(165,_39,_255,_0.48)] transition-all duration-300`}>
+            <aside className={`relative inset-y-0 h-screen bg-gray-800 ${isAsideVisible ? 'w-64' : 'w-16'} sm:flex flex-col items-center rounded-lg shadow-lg transition-all duration-300`}>
                 <div className="p-3 w-full flex justify-between items-center">
                     {isAsideVisible && (
                         <a href="/start" className="text-white text-xl font-extrabold">
@@ -315,11 +315,12 @@ const TaskListPage = () => {
                             <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75 z-50">
                                 <div className="bg-gray-800 text-white p-6 rounded-lg w-full max-w-md relative">
                                     <button 
-                                        className="p-2 text-white font-bold hover:text-gray-900"
+                                        className="absolute top-2 right-2 p-2 text-gray-300 hover:text-gray-600"
                                         onClick={toggleFormVisibility}
                                     >
-                                        Cerrar
+                                        <i className="fas fa-times"></i>
                                     </button>
+                                    <h2 className="text-xl font-semibold mb-4">Crear Tarea</h2>
                                     {error && <p className="text-red-500 mb-4 font-bold">{error}</p>}
                                     <TaskForm 
                                         onSubmit={(taskData) => {

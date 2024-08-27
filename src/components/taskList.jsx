@@ -3,6 +3,7 @@ import TaskItem from '../components/taskItem';
 import { Droppable, DragDropContext } from '@hello-pangea/dnd';
 
 const TaskList = ({ tasks, onUpdateTask, onDeleteTask, onFavoriteTask, onHistoryTask, onMoveToHistory, onUpdateTaskStatus }) => {
+    //const readyToStartTasks = tasks.filter(task => task.status === '');
     const pendingTasks = tasks.filter(task => task.status === 'PENDING');
     const inProgressTasks = tasks.filter(task => task.status === 'IN_PROGRESS');
     const completedTasks = tasks.filter(task => task.status === 'COMPLETED');
@@ -30,82 +31,121 @@ const TaskList = ({ tasks, onUpdateTask, onDeleteTask, onFavoriteTask, onHistory
     return (
         <DragDropContext onDragEnd={handleDragEnd}>
             <div className="flex flex-col md:flex-row gap-4">
+                {/* Nueva columna: Listos para Iniciar */}
+                {/*<Droppable droppableId="READY_TO_START">
+                    {(provided, snapshot) => (
+                        <div
+                            ref={provided.innerRef}
+                            {...provided.droppableProps}
+                            className={`flex-1 ${snapshot.isDraggingOver ? 'bg-gray-200' : 'bg-[#f1f0f7] dark:bg-[#e5e3f1]'} p-3 rounded-xl ml-2 shadow-md h-[calc(100vh-4rem)] overflow-y-auto`}
+                        >
+                            <h4 className="text-center font-bold text-[#10172A] mb-2">Listos para Iniciar</h4>
+                            <div className="space-y-2">
+                                {readyToStartTasks.map((task, index) => (
+                                    <TaskItem
+                                        key={task.id}
+                                        task={task}
+                                        index={index}
+                                        onUpdateTask={onUpdateTask}
+                                        onDeleteTask={onDeleteTask}
+                                        onFavoriteTask={onFavoriteTask}
+                                        onHistoryTask={onHistoryTask}
+                                        onMoveToHistory={onMoveToHistory}
+                                    />
+                                ))}
+                                {provided.placeholder}
+                            </div>
+                        </div>
+                    )}
+                </Droppable>*/}
+
+                {/* Columna Pendiente */}
                 <Droppable droppableId="PENDING">
                     {(provided, snapshot) => (
                         <div
                             ref={provided.innerRef}
                             {...provided.droppableProps}
-                            className={`flex-1 ${snapshot.isDraggingOver ? 'bg-gray-200' : 'bg-[#f1f0f7] dark:bg-[#e5e3f1]'} p-3 rounded-xl ml-2 shadow-[0px_1px_15px_1px_rgba(94,_40,_90,_0.17)]`}
-
+                            className={`flex-1 ${snapshot.isDraggingOver ? 'bg-gray-200' : 'bg-[#f1f0f7] dark:bg-[#e5e3f1]'} p-3 rounded-xl ml-2 shadow-md h-[calc(100vh-4rem)] overflow-y-auto`} // Ajusta la altura y el scroll
                         >
                             <h4 className="text-center font-bold text-[#10172A] mb-2">Pendiente</h4>
-                            {pendingTasks.map((task, index) => (
-                                <TaskItem
-                                    key={task.id}
-                                    task={task}
-                                    index={index}
-                                    onUpdateTask={onUpdateTask}
-                                    onDeleteTask={onDeleteTask}
-                                    onFavoriteTask={onFavoriteTask}
-                                    onHistoryTask={onHistoryTask}
-                                    onMoveToHistory={onMoveToHistory}
-                                />
-                            ))}
-                            {provided.placeholder}
+                            <div className="space-y-2"> {/* Espaciado entre las tareas */}
+                                {pendingTasks.map((task, index) => (
+                                    <TaskItem
+                                        key={task.id}
+                                        task={task}
+                                        index={index}
+                                        onUpdateTask={onUpdateTask}
+                                        onDeleteTask={onDeleteTask}
+                                        onFavoriteTask={onFavoriteTask}
+                                        onHistoryTask={onHistoryTask}
+                                        onMoveToHistory={onMoveToHistory}
+                                    />
+                                ))}
+                                {provided.placeholder}
+                            </div>
                         </div>
                     )}
                 </Droppable>
+    
+                {/* Columna En Progreso */}
                 <Droppable droppableId="IN_PROGRESS">
                     {(provided, snapshot) => (
                         <div
                             ref={provided.innerRef}
                             {...provided.droppableProps}
-                            className={`flex-1 ${snapshot.isDraggingOver ? 'bg-gray-200' : 'bg-[#f1f0f7] dark:bg-[#e5e3f1]'} p-3 rounded-xl ml-2 shadow-[0px_1px_15px_1px_rgba(94,_40,_90,_0.17)]`}
+                            className={`flex-1 ${snapshot.isDraggingOver ? 'bg-gray-200' : 'bg-[#f1f0f7] dark:bg-[#e5e3f1]'} p-3 rounded-xl ml-2 shadow-md h-[calc(100vh-4rem)] overflow-y-auto`}
                         >
                             <h4 className="text-center font-bold text-[#10172A] mb-2">En Progreso</h4>
-                            {inProgressTasks.map((task, index) => (
-                                <TaskItem
-                                    key={task.id}
-                                    task={task}
-                                    index={index}
-                                    onUpdateTask={onUpdateTask}
-                                    onDeleteTask={onDeleteTask}
-                                    onFavoriteTask={onFavoriteTask}
-                                    onHistoryTask={onHistoryTask}
-                                    onMoveToHistory={onMoveToHistory}
-                                />
-                            ))}
-                            {provided.placeholder}
+                            <div className="space-y-2">
+                                {inProgressTasks.map((task, index) => (
+                                    <TaskItem
+                                        key={task.id}
+                                        task={task}
+                                        index={index}
+                                        onUpdateTask={onUpdateTask}
+                                        onDeleteTask={onDeleteTask}
+                                        onFavoriteTask={onFavoriteTask}
+                                        onHistoryTask={onHistoryTask}
+                                        onMoveToHistory={onMoveToHistory}
+                                    />
+                                ))}
+                                {provided.placeholder}
+                            </div>
                         </div>
                     )}
                 </Droppable>
+    
+                {/* Columna Completada */}
                 <Droppable droppableId="COMPLETED">
                     {(provided, snapshot) => (
                         <div
                             ref={provided.innerRef}
                             {...provided.droppableProps}
-                            className={`flex-1 ${snapshot.isDraggingOver ? 'bg-gray-200' : 'bg-[#f1f0f7] dark:bg-[#e5e3f1]'} p-3 rounded-xl ml-2 shadow-[0px_1px_15px_1px_rgba(94,_40,_90,_0.17)]`}
+                            className={`flex-1 ${snapshot.isDraggingOver ? 'bg-gray-200' : 'bg-[#f1f0f7] dark:bg-[#e5e3f1]'} p-3 rounded-xl ml-2 shadow-md h-[calc(100vh-4rem)] overflow-y-auto`}
                         >
                             <h4 className="text-center font-bold text-[#10172A] mb-2">Completada</h4>
-                            {completedTasks.map((task, index) => (
-                                <TaskItem
-                                    key={task.id}
-                                    task={task}
-                                    index={index}
-                                    onUpdateTask={onUpdateTask}
-                                    onDeleteTask={onDeleteTask}
-                                    onFavoriteTask={onFavoriteTask}
-                                    onHistoryTask={onHistoryTask}
-                                    onMoveToHistory={onMoveToHistory} // Agregado para mover al historial
-                                />
-                            ))}
-                            {provided.placeholder}
+                            <div className="space-y-2">
+                                {completedTasks.map((task, index) => (
+                                    <TaskItem
+                                        key={task.id}
+                                        task={task}
+                                        index={index}
+                                        onUpdateTask={onUpdateTask}
+                                        onDeleteTask={onDeleteTask}
+                                        onFavoriteTask={onFavoriteTask}
+                                        onHistoryTask={onHistoryTask}
+                                        onMoveToHistory={onMoveToHistory}
+                                    />
+                                ))}
+                                {provided.placeholder}
+                            </div>
                         </div>
                     )}
                 </Droppable>
-            </div>        
+            </div>
         </DragDropContext>
     );
+       
 };
 
 export default TaskList;
