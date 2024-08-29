@@ -48,11 +48,13 @@ function Start() {
                         <div className="absolute bottom-1/4 right-1/4 w-24 h-24 bg-pink-300 opacity-20 rounded-full filter blur-xl animate-pulse"></div>
                         <div className="absolute bottom-3/4 right-3/4 w-32 h-32 bg-blue-300 opacity-25 rounded-full filter blur-xl animate-pulse"></div>
                     </div>
-                    <img
-                        src="./assets/imagen-8.png"
-                        alt="Imagen Grande"
-                        className="w-full h-auto object-cover transition-transform duration-500 transform hover:scale-105"
-                    />
+                    <div className='flex-1 text-center mt-7 lg:mt-0 lg:ml-3'>
+                        <img
+                            src="./assets/imagen-8.png"
+                            alt="Imagen Grande"
+                            className="w-full h-auto object-cover transition-transform duration-500 transform hover:scale-105"
+                        />
+                    </div>
                     <div className="p-8">
                         <h3 className="text-xl font-bold text-center text-gray-900 dark:text-gray-200 md:text-2xl">
                             Organiza tus tareas de manera efectiva.

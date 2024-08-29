@@ -182,6 +182,9 @@ const Home = () => {
                 <div className="border-t-4 border-gray-900 dark:border-gray-500 rounded-3xl shadow-lg mb-4"></div>
 
                 <div className="relative overflow-hidden bg-gradient-to-b from-[#d3c7eb] via-[#EDEAFB] to-[#e8f0f6] dark:bg-gradient-to-b dark:from-[#1f2a44] dark:via-[#1f2a44] dark:to-[#1f2a44] rounded-3xl mt-16 shadow-lg">
+                    <div className='absolute top-0 flex w-full justify-center'>
+                        <div className='left-0 h-[1px] animate-border-width rounded-full bg-gradient-to-r from-[rgba(17,17,17,0)] via-white to-[rgba(17,17,17,0)] transition-all duration-1000' />
+                    </div>
                     <div className="absolute inset-0 pointer-events-none">
                         {/* Destellos en forma de brillos */}
                         <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-white opacity-20 rounded-full filter blur-xl animate-pulse"></div>
@@ -190,6 +193,7 @@ const Home = () => {
                         <div className="absolute bottom-3/4 right-3/4 w-40 h-40 bg-blue-300 opacity-25 rounded-full filter blur-xl animate-pulse"></div>
                     </div>
                     <div className="grid grid-cols-2 sm:grid-cols-6 gap-4 m-4">
+                    <div className='transition-all duration-1000' />
                         {cardsData.map((card, index) => (
                             <MagicCard
                                 key={index}
