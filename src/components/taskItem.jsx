@@ -48,17 +48,10 @@ const TaskItem = ({ task, index, onUpdateTask, onDeleteTask, onFavoriteTask, onM
     };
 
     // Función para asignar clases CSS según el estado de la tarea
-    const getStatusClass = () => {
-        switch (status) {
-            case 'PENDING':
-                return 'bg-red-200';
-            case 'IN_PROGRESS':
-                return 'bg-yellow-200';
-            case 'COMPLETED':
-                return 'bg-green-200';
-            default:
-                return '';
-        }
+    const statusColors = {
+        'PENDING': 'bg-red-500',
+        'IN_PROGRESS': 'bg-yellow-500',
+        'COMPLETED': 'bg-green-500'
     };
 
     return (
@@ -68,22 +61,24 @@ const TaskItem = ({ task, index, onUpdateTask, onDeleteTask, onFavoriteTask, onM
                     ref={provided.innerRef}
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
-                    className={`w-full mb-2 ${getStatusClass()} p-2 rounded-lg ${snapshot.isDragging ? 'border-2 border-blue-500' : ''}`}
+                    className={`w-full p-1 ${snapshot.isDragging ? '' : ''}`}
                 >
-                    <div className="card bg-gray-900 rounded-xl shadow-md">
-                        <div className="card-header flex flex-col sm:flex-row justify-between items-start sm:items-center">
-                            <h3 className="text-lg font-semibold text-gray-700">{description}</h3>
+                    <div className="bg-white rounded-md shadow-md">
+                        {/* Línea horizontal que indica el estado */}
+                        <div className={`h-1 w-full ${statusColors[status] || ''} rounded-t-md`} />
+                        
+                        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-2">
+                            {/* Nombre de la tarea */}
+                            <h3 className="text-lg font-semibold text-gray-900 ml-3">{description}</h3>
                             <div className="flex mt-2 sm:mt-0">
-                                {/* Botón para marcar como favorito */}
                                 <button
-                                    className={`mr-2 ${isFavorite ? 'text-yellow-600' : 'text-gray-600'} hover:text-yellow-500 text-2xl`}
+                                    className={`mr-1 mb-2 ${isFavorite ? 'text-yellow-600' : 'text-gray-600'} hover:text-yellow-500 text-2xl`}
                                     onClick={() => onFavoriteTask(id)}
                                 >
-                                    {isFavorite ? '★' : '☆'} {/* Estrella para favorito */}
+                                    {isFavorite ? '★' : '☆'}
                                 </button>
-                                {/* Botón para mostrar u ocultar detalles de la tarea */}
                                 <button
-                                    className="text-blue-700 hover:text-blue-800"
+                                    className="text-blue-500 hover:text-blue-800 mb-2"
                                     onClick={() => setIsOpen(!isOpen)}
                                 >
                                     {isOpen ? 'Ocultar' : 'Mostrar'}
@@ -91,45 +86,39 @@ const TaskItem = ({ task, index, onUpdateTask, onDeleteTask, onFavoriteTask, onM
                             </div>
                         </div>
 
-                        {/* Detalles de la tarea que se muestran al expandir */}
                         {isOpen && (
                             <div className="card-body">
-                                <p className="text-sm text-gray-600">Fecha: {formatDate(dueDate)}</p>
-                                <p className="text-sm text-gray-600">Prioridad: {translate(priority)}</p>
-                                <p className="text-sm text-gray-600">Estado: {translate(status)}</p>
+                                <p className="text-sm text-gray-400"><strong>Fecha:</strong> {formatDate(dueDate)}</p>
+                                <p className="text-sm text-gray-400"><strong>Prioridad:</strong> {translate(priority)}</p>
+                                <p className="text-sm text-gray-400"><strong>Estado:</strong> {translate(status)}</p>
 
                                 <div className="flex flex-col sm:flex-row gap-2 mt-2">
-                                    {/* Botón para actualizar la tarea */}
                                     <button
-                                        className="px-2 py-1.5 text-sm text-indigo-600 duration-150 bg-indigo-50 rounded-lg hover:bg-indigo-100 active:bg-indigo-200"
+                                        className="px-2 py-1.5 text-sm text-indigo-600 duration-150 bg-indigo-50 rounded-lg hover:bg-indigo-100"
                                         onClick={() => onUpdateTask(id, task)}
                                     >
                                         Actualizar
                                     </button>
-                                    {/* Botón para eliminar la tarea */}
                                     <button
-                                        className="px-2 py-1.5 text-sm text-red-600 duration-150 bg-red-50 rounded-lg hover:bg-red-100 active:bg-red-200"
+                                        className="px-2 py-1.5 text-sm text-red-600 duration-150 bg-red-50 rounded-lg hover:bg-red-100"
                                         onClick={() => onDeleteTask(id)}
                                     >
                                         Eliminar
                                     </button>
-                                    {/* Botón para mover la tarea al historial */}
                                     <button
-                                        className="px-2 py-1 text-sm text-green-600 duration-150 bg-green-50 rounded-lg hover:bg-green-100 active:bg-green-200"
+                                        className="px-2 py-1.5 text-sm text-green-600 duration-150 bg-green-50 rounded-lg hover:bg-green-100"
                                         onClick={handleMoveToHistory}
                                     >
                                         Mover al Historial
                                     </button>
                                 </div>
 
-                                {/* Mostrar el mensaje de éxito si se ha movido la tarea con éxito */}
                                 {successMessage && (
                                     <div className="text-green-500 mt-2">
                                         {successMessage}
                                     </div>
                                 )}
 
-                                {/* Mostrar el mensaje de advertencia si hay un error */}
                                 {errorMessage && (
                                     <div className="text-red-500 mt-2">
                                         {errorMessage}

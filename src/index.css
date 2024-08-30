@@ -8,12 +8,6 @@ body {
   color: #10172a;
 }
 
-.card {
-  background-color: #ffffff;
-  color: #10172a;
-  border: 1px solid #e2e8f0;
-}
-
 /* Dark Mode Styles */
 body.dark {
   background-color: #1a202c;
