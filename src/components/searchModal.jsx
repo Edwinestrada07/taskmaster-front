@@ -9,7 +9,6 @@ const SearchModal = ({ isOpen, onRequestClose, tasks }) => {
 
     const handleSearch = () => {
         const results = tasks.filter(task =>
-            task.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
             task.description.toLowerCase().includes(searchQuery.toLowerCase())
         );
         setSearchResults(results);

@@ -57,7 +57,7 @@ function TaskForm(props) {
     };
 
     return (
-        <form className="frame-task" onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
             {/* Mostrar mensaje de error si existe */}
             {error && <p style={{ color: 'red' }} className='mb-4'>{error}</p>}
 

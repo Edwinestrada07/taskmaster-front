@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Draggable } from '@hello-pangea/dnd';
+import { FaStar, FaRegStar, FaEdit, FaTrash, FaHistory, FaEye, FaEyeSlash } from 'react-icons/fa';
 
 // Diccionario de traducciones para estados y prioridades de las tareas
 const translations = {
@@ -71,54 +72,62 @@ const TaskItem = ({ task, index, onUpdateTask, onDeleteTask, onFavoriteTask, onM
                             {/* Nombre de la tarea */}
                             <h3 className="text-lg font-semibold text-gray-900 ml-3">{description}</h3>
                             <div className="flex mt-2 sm:mt-0">
+                                {/* Botón para marcar como favorito */}
                                 <button
                                     className={`mr-1 mb-2 ${isFavorite ? 'text-yellow-600' : 'text-gray-600'} hover:text-yellow-500 text-2xl`}
                                     onClick={() => onFavoriteTask(id)}
                                 >
-                                    {isFavorite ? '★' : '☆'}
+                                    {isFavorite ? <FaStar /> : <FaRegStar />}
                                 </button>
+                                {/* Botón para mostrar/ocultar detalles */}
                                 <button
                                     className="text-blue-500 hover:text-blue-800 mb-2"
                                     onClick={() => setIsOpen(!isOpen)}
                                 >
-                                    {isOpen ? 'Ocultar' : 'Mostrar'}
+                                    {isOpen ? <FaEyeSlash /> : <FaEye />}
                                 </button>
                             </div>
                         </div>
 
+                        {/* Sección de detalles de la tarea, solo visible cuando isOpen es true */}
                         {isOpen && (
                             <div className="card-body">
-                                <p className="text-sm text-gray-400"><strong>Fecha:</strong> {formatDate(dueDate)}</p>
-                                <p className="text-sm text-gray-400"><strong>Prioridad:</strong> {translate(priority)}</p>
-                                <p className="text-sm text-gray-400"><strong>Estado:</strong> {translate(status)}</p>
+                                <p className="text-sm text-gray-500"><strong>Fecha:</strong> {formatDate(dueDate)}</p>
+                                <p className="text-sm text-gray-500"><strong>Prioridad:</strong> {translate(priority)}</p>
+                                <p className="text-sm text-gray-500"><strong>Estado:</strong> {translate(status)}</p>
 
-                                <div className="flex flex-col sm:flex-row gap-2 mt-2">
+                                <div className="flex flex-col sm:flex-row gap-1 mt-2">
+                                    {/* Botón para actualizar la tarea */}
                                     <button
-                                        className="px-2 py-1.5 text-sm text-indigo-600 duration-150 bg-indigo-50 rounded-lg hover:bg-indigo-100"
+                                        className="px-2 py-1.5 text-sm text-indigo-600 duration-150 bg-indigo-100 rounded-lg hover:bg-indigo-100 flex items-center"
                                         onClick={() => onUpdateTask(id, task)}
                                     >
-                                        Actualizar
+                                        <FaEdit className="" /> Actualizar
                                     </button>
+                                    {/* Botón para eliminar la tarea */}
                                     <button
-                                        className="px-2 py-1.5 text-sm text-red-600 duration-150 bg-red-50 rounded-lg hover:bg-red-100"
+                                        className="px-2 py-1.5 text-sm text-red-600 duration-150 bg-red-100 rounded-lg hover:bg-red-100 flex items-center"
                                         onClick={() => onDeleteTask(id)}
                                     >
-                                        Eliminar
+                                        <FaTrash className="mr-1" /> Eliminar
                                     </button>
+                                    {/* Botón para mover la tarea al historial */}
                                     <button
-                                        className="px-2 py-1.5 text-sm text-green-600 duration-150 bg-green-50 rounded-lg hover:bg-green-100"
+                                        className="px-2 py-1.5 text-sm text-green-600 duration-150 bg-green-100 rounded-lg hover:bg-green-100 flex items-center"
                                         onClick={handleMoveToHistory}
                                     >
-                                        Mover al Historial
+                                        <FaHistory className="" /> Mover al Historial
                                     </button>
                                 </div>
 
+                                {/* Mensaje de éxito */}
                                 {successMessage && (
                                     <div className="text-green-500 mt-2">
                                         {successMessage}
                                     </div>
                                 )}
 
+                                {/* Mensaje de error */}
                                 {errorMessage && (
                                     <div className="text-red-500 mt-2">
                                         {errorMessage}

@@ -9,16 +9,19 @@ function Login() {
     const [successMessage, setSuccessMessage] = useState('');
     const navigate = useNavigate();
 
+    // Redirige al usuario si ya está autenticado
     useEffect(() => {
         if (localStorage.getItem('token')) {
             navigate('/start');
         }
     }, [navigate]);
 
+    // Maneja cambios en los campos de entrada
     const onChangeData = (event) => {
         setLogin({ ...login, [event.target.id]: event.target.value });
     };
 
+    // Envía los datos de inicio de sesión al servidor
     const submit = async (event) => {
         event.preventDefault();
         try {
@@ -26,6 +29,7 @@ function Login() {
             setError('');
             setSuccessMessage('');
 
+            // Validación simple de campos
             if (!login.email || !login.password) {
                 setError('Por favor, complete todos los campos.');
                 setLoading(false);
@@ -58,6 +62,7 @@ function Login() {
         }
     };
 
+    // Maneja el inicio de sesión con Google
     const signInWithGoogle = async () => {
         try {
             await supabase.auth.signInWithOAuth({ provider: 'google' });
@@ -65,13 +70,12 @@ function Login() {
             setError('Error al iniciar sesión con Google.');
             console.error('Error al iniciar sesión con Google:', error);
         }
-    }
+    };
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#d3c7eb] via-[#EDEAFB] to-[#e8f0f6] dark:bg-gradient-to-b dark:from-[#08090e] dark:via-[#08090e] dark:to-[#08090e]">
             <div className="container mx-auto px-4 py-2">
                 <div className="flex flex-col items-center">
-
                     <h1 className="flex items-center mb-2 text-4xl font-semibold text-gray-900 dark:text-white">
                         <img className="w-12 h-12 mr-3 rounded-full" src="./assets/logo.jpg" alt="logo" />
                         TaskMaster
@@ -82,19 +86,22 @@ function Login() {
                             <h2 className="text-2xl font-bold leading-tight tracking-tight text-white dark:text-white mb-4">
                                 Iniciar Sesión
                             </h2>
-                            
+
+                            {/* Muestra el mensaje de error si existe */}
                             {error && (
                                 <div className="alert alert-danger text-red-600 text-lg font-medium leading-tight mb-4">
                                     {error}
                                 </div>
                             )}
 
+                            {/* Muestra el mensaje de éxito si existe */}
                             {successMessage && (
                                 <div className="alert alert-success text-green-600 text-lg font-medium leading-tight mb-4">
                                     {successMessage}
                                 </div>
                             )}
 
+                            {/* Formulario de inicio de sesión */}
                             <form className="space-y-4" onSubmit={submit} id='form-login'>
                                 <div>
                                     <label htmlFor="email" className="block text-lg font-medium text-white dark:text-white">Correo</label>
@@ -123,7 +130,7 @@ function Login() {
                                         required
                                     />
                                 </div>
-                                
+
                                 <div className="flex items-center justify-between">
                                     <Link to="/forgot-password" className="text-sm font-medium text-blue-500 hover:underline dark:text-blue-500">
                                         ¿Olvidaste tu contraseña?
@@ -158,7 +165,7 @@ function Login() {
                                     Iniciar Sesión con Google
                                 </button>
 
-                                <p className="text-sm font-light text-gray-500 dark:text-gray-400 mt-2">
+                                <p className="mt-1 text-sm font-light text-gray-500 dark:text-gray-400">
                                     ¿No tienes una cuenta? <Link to="/signup" className="font-medium text-blue-600 hover:underline dark:text-blue-500">Regístrate</Link>
                                 </p>
                             </form>

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react'
 import TaskList from '../components/taskList'
 import TaskForm from '../components/taskForm'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBookmark, faStickyNote } from '@fortawesome/free-regular-svg-icons'
+import { faStar, faStickyNote } from '@fortawesome/free-regular-svg-icons'
 import { faAlignLeft, faRotateRight } from '@fortawesome/free-solid-svg-icons'
 
 const TaskListPage = () => {
@@ -226,33 +226,6 @@ const TaskListPage = () => {
         }
     };    
         
-    //Función para controlar el historial de tareas
-    /*const handleHistoryTask = async () => {
-        try {
-            const response = await fetch('http://localhost:5000/task/history', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    authorization: localStorage.getItem('token')
-                }
-            });
-    
-            if (!response.ok) {
-                throw new Error('No se pudo obtener el historial de tareas.');
-            }
-            
-            // Parsear la respuesta como JSON
-            const historyData = await response.json();
-
-            // Actualizar el estado 'tasks' con las tareas obtenidas
-            setTasks(historyData); // Cargar las tareas del historial
-    
-        } catch (error) {
-            console.error('Error al obtener el historial de tareas:', error);
-            setError("Error al obtener el historial de tareas. Por favor, inténtalo de nuevo más tarde.");
-        }
-    }*/
-
     //Funcion para actualizar el estado de la tarea en la base de datos
     const updateTaskStatus = async (taskId, newStatus) => {
         try {
@@ -356,7 +329,7 @@ const TaskListPage = () => {
                         className="flex items-center text-white opacity-75 py-3 w-full justify-center hover:bg-gray-600"
                         onClick={() => handleViewMode('byFavorites')}
                     >
-                        <FontAwesomeIcon icon={faBookmark} className='justify-center'/>
+                        <FontAwesomeIcon icon={faStar} className='justify-center'/>
                         {isAsideVisible && <span className='ml-3'>Favoritos</span>}
                     </button>
 
@@ -381,14 +354,6 @@ const TaskListPage = () => {
                 {/*Formulario para filtrar por estados*/}
                 {viewMode === 'byStatus' && (
                     <nav className="bg-gray-800 dark:bg-gray-700 p-3 rounded-lg shadow-md flex flex-wrap justify-center items-center space-x-3 ml-2 mb-3">
-                        <input
-                            type="text"
-                            name="text"
-                            id="text"
-                            className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-25"
-                            placeholder="Buscar"
-                            required
-                        />
                         <button
                             className="bg-red-400 text-white px-3 py-1 text-bold rounded-lg transition-transform transform hover:scale-105 w-10 h-10 flex items-center justify-center sm:w-auto sm:h-auto sm:text-base"
                             onClick={() => setTaskStatus("PENDING")}
@@ -505,16 +470,6 @@ const TaskListPage = () => {
                 {viewMode === 'byFavorites' && (
                     <div className="p-3">
                         <h2 className="text-2xl font-bold mb-4 text-[#10172A] dark:text-[#e2e8f0]">Tareas Favoritas</h2>
-                        {tasks.some(task => task.isFavorite) ? (
-                            <TaskList 
-                                tasks={tasks.filter(task => task.isFavorite)} // Filtra para mostrar solo las tareas favoritas
-                                onDeleteTask={deleteTask} 
-                                onUpdateTask={handleUpdateMode} 
-                                onFavoriteTask={handleFavoriteTask}
-                            />
-                        ) : (
-                            <p className='text-[#10172A] dark:text-[#e2e8f0]'>No hay tareas marcadas como favoritas.</p>
-                        )}
                     </div>
                 )}
 

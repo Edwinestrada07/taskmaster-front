@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 
 function Profile() {
+    // Estados para manejar la información del usuario, cambios de contraseña, errores, y mensajes de éxito
     const [user, setUser] = useState({});
     const [password, setPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmNewPassword, setConfirmNewPassword] = useState('');
     const [error, setError] = useState(null);
     const [successMessage, setSuccessMessage] = useState('');
-    const [showModal, setShowModal] = useState(null); // Estado para controlar el tipo de modal (null, 'info', 'password')
+    const [showModal, setShowModal] = useState(null); // Controla el modal activo: 'info' para actualizar perfil, 'password' para cambiar contraseña
 
+    // Fetch del perfil del usuario al cargar el componente
     useEffect(() => {
         const token = localStorage.getItem('token');
 
@@ -32,30 +34,32 @@ function Profile() {
             .catch((error) => setError(error.message));
     }, []);
 
+    // Temporizador para ocultar mensajes de error y éxito después de 3 segundos
     useEffect(() => {
         if (error || successMessage) {
             const timer = setTimeout(() => {
                 setError(null);
                 setSuccessMessage('');
-            }, 3000); // Oculta el mensaje después de 3 segundos
+            }, 3000);
 
-            return () => clearTimeout(timer); // Limpia el temporizador cuando el componente se desmonta o cambia el mensaje
+            return () => clearTimeout(timer); // Limpieza del temporizador
         }
     }, [error, successMessage]);
 
+    // Manejo de cambio de contraseña
     const handlePasswordChange = () => {
         const token = localStorage.getItem('token');
-    
+
         if (!token) {
             setError('No se ha encontrado un token de autenticación');
             return;
         }
-    
+
         if (newPassword !== confirmNewPassword) {
             setError('Las contraseñas nuevas no coinciden');
             return;
         }
-    
+
         fetch('https://taskmaster-back.onrender.com/user/change-password', {
             method: 'PUT',
             headers: {
@@ -72,14 +76,16 @@ function Profile() {
             })
             .then(() => {
                 setSuccessMessage('Contraseña cambiada con éxito');
+                // Reseteo de campos y cierre del modal
                 setPassword('');
                 setNewPassword('');
                 setConfirmNewPassword('');
-                setShowModal(null); // Cerrar el modal después de cambiar la contraseña
+                setShowModal(null);
             })
             .catch((error) => setError(error.message));
-    };    
+    };
 
+    // Manejo de actualización de información del perfil
     const handleFormSubmit = (e) => {
         e.preventDefault();
         const token = localStorage.getItem('token');
@@ -105,11 +111,12 @@ function Profile() {
             })
             .then(() => {
                 setSuccessMessage('Información actualizada con éxito');
-                setShowModal(null); // Cerrar el modal después de actualizar la información
+                setShowModal(null); // Cerrar el modal después de la actualización
             })
             .catch((error) => setError(error.message));
     };
 
+    // Manejo de cambios en los campos del perfil de usuario
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setUser((prevUser) => ({
@@ -120,7 +127,7 @@ function Profile() {
 
     return (
         <div className="flex items-center bg-gradient-to-b from-[#d3c7eb] via-[#EDEAFB] to-[#e8f0f6] dark:bg-gradient-to-b dark:from-[#08090e] dark:via-[#08090e] dark:to-[#08090e]">
-            <div className="container mx-auto px-4">
+            <div className="container">
                 <div className="relative overflow-hidden bg-gradient-to-b from-[#d3c7eb] via-[#EDEAFB] to-[#e8f0f6] dark:bg-gradient-to-b dark:from-[#1f2a44] dark:via-[#1f2a44] dark:to-[#1f2a44] rounded-3xl p-3 shadow-lg md:w-2/3 lg:w-1/2 mx-auto">
                     <h1 className="flex items-center mb-6 text-4xl font-semibold text-gray-900 dark:text-white">
                         <img className="w-12 h-12 mr-3 rounded-full" src="./assets/logo.jpg" alt="logo" />
@@ -128,7 +135,7 @@ function Profile() {
                     </h1>
 
                     <div className="absolute inset-0 pointer-events-none">
-                        {/* Destellos en forma de brillos */}
+                        {/* Efecto visual de destellos en el fondo */}
                         <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-white opacity-20 rounded-full filter blur-xl animate-pulse"></div>
                         <div className="absolute top-3/4 left-3/4 w-40 h-40 bg-purple-300 opacity-30 rounded-full filter blur-xl animate-pulse"></div>
                         <div className="absolute bottom-1/4 right-1/4 w-32 h-32 bg-pink-300 opacity-20 rounded-full filter blur-xl animate-pulse"></div>
@@ -191,7 +198,7 @@ function Profile() {
                                     </div>
                                 )}
                                 <form onSubmit={handleFormSubmit}>
-                                    <label className="block text-lg font-medium text-gray-900 dark:text-gray-300 mb-2">
+                                    <label className="block text-lg font-medium text-gray-300 dark:text-gray-300 mb-2">
                                         Nombre de usuario:
                                         <input
                                             className="form-styling-inf"
@@ -201,7 +208,7 @@ function Profile() {
                                             onChange={handleInputChange}
                                         />
                                     </label>
-                                    <label className="block text-lg font-medium text-gray-900 dark:text-gray-300 mb-2">
+                                    <label className="block text-lg font-medium text-gray-300 dark:text-gray-300 mb-2">
                                         Correo electrónico:
                                         <input
                                             className="form-styling-inf"
@@ -211,20 +218,16 @@ function Profile() {
                                             onChange={handleInputChange}
                                         />
                                     </label>
-
-                                    <div className="flex justify-end mt-8">
+                                    <div className="flex justify-end mt-4">
+                                        <button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg mr-2">
+                                            Guardar
+                                        </button>
                                         <button
                                             type="button"
-                                            className="py-2.5 px-8 text-gray-700 font-semibold bg-white rounded-md duration-150 hover:bg-gray-100 dark:text-gray-700 dark:bg-gray-700 dark:hover:bg-gray-800"
+                                            className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg"
                                             onClick={() => setShowModal(null)}
                                         >
                                             Cancelar
-                                        </button>
-                                        <button
-                                            type="submit"
-                                            className="py-2.5 px-8 ml-4 bg-gray-900 text-white font-semibold rounded-md duration-150 hover:bg-gray-600 dark:bg-blue-500 dark:hover:bg-blue-600 dark:text-white"
-                                        >
-                                            Guardar Cambios
                                         </button>
                                     </div>
                                 </form>
@@ -245,8 +248,8 @@ function Profile() {
                                     </div>
                                 )}
                                 <form onSubmit={(e) => { e.preventDefault(); handlePasswordChange(); }}>
-                                    <label className="block text-lg font-medium text-gray-900 dark:text-gray-300 mb-2">
-                                        Contraseña Actual:
+                                    <label className="block text-lg font-medium text-gray-300 dark:text-gray-300 mb-2">
+                                        Contraseña actual:
                                         <input
                                             className="form-styling-inf"
                                             type="password"
@@ -254,8 +257,8 @@ function Profile() {
                                             onChange={(e) => setPassword(e.target.value)}
                                         />
                                     </label>
-                                    <label className="block text-lg font-medium text-gray-900 dark:text-gray-300 mb-2">
-                                        Nueva Contraseña:
+                                    <label className="block text-lg font-medium text-gray-300 dark:text-gray-300 mb-2">
+                                        Nueva contraseña:
                                         <input
                                             className="form-styling-inf"
                                             type="password"
@@ -263,8 +266,8 @@ function Profile() {
                                             onChange={(e) => setNewPassword(e.target.value)}
                                         />
                                     </label>
-                                    <label className="block text-lg font-medium text-gray-900 dark:text-gray-300 mb-2">
-                                        Confirmar Nueva Contraseña:
+                                    <label className="block text-lg font-medium text-gray-300 dark:text-gray-300 mb-2">
+                                        Confirmar nueva contraseña:
                                         <input
                                             className="form-styling-inf"
                                             type="password"
@@ -272,20 +275,16 @@ function Profile() {
                                             onChange={(e) => setConfirmNewPassword(e.target.value)}
                                         />
                                     </label>
-
-                                    <div className="flex justify-end mt-8">
+                                    <div className="flex justify-end mt-4">
+                                        <button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg mr-2">
+                                            Cambiar Contraseña
+                                        </button>
                                         <button
                                             type="button"
-                                            className="py-2.5 px-8 text-gray-700 font-semibold bg-white rounded-md duration-150 hover:bg-gray-100 dark:text-gray-700 dark:bg-gray-700 dark:hover:bg-gray-800"
+                                            className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg"
                                             onClick={() => setShowModal(null)}
                                         >
                                             Cancelar
-                                        </button>
-                                        <button
-                                            type="submit"
-                                            className="py-2.5 px-8 ml-4 bg-gray-900 text-white font-semibold rounded-md duration-150 hover:bg-gray-600 dark:bg-blue-500 dark:hover:bg-blue-600 dark:text-white"
-                                        >
-                                            Cambiar Contraseña
                                         </button>
                                     </div>
                                 </form>
@@ -299,4 +298,3 @@ function Profile() {
 }
 
 export default Profile;
-

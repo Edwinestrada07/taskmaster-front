@@ -52,12 +52,12 @@ const PomodoroModal = ({ isOpen, onRequestClose, tasks }) => {
             <select
                 value={selectedTaskId}
                 onChange={(e) => setSelectedTaskId(e.target.value)}
-                className="w-full p-2 border border-gray-300 rounded-md mb-4"
+                className="w-full p-2 border border-gray-900 rounded-md mb-4"
             >
                 <option value="">Seleccione una tarea</option>
                 {tasks.map(task => (
                     <option key={task.id} value={task.id}>
-                        {task.title}
+                        {task.description}
                     </option>
                 ))}
             </select>
