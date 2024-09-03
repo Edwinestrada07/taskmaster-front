@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import TaskList from '../components/taskList'
-import TaskForm from '../components/taskForm'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar, faStickyNote } from '@fortawesome/free-regular-svg-icons'
-import { faAlignLeft, faRotateRight } from '@fortawesome/free-solid-svg-icons'
+import TaskModal from '../components/taskModal'
+import Sidebar from '../components/sidebar'
+import TaskFilter from '../components/taskFilter'
 
 const TaskListPage = () => {
     const [tasks, setTasks] = useState([])
@@ -255,134 +254,30 @@ const TaskListPage = () => {
     
     return (
         <div className="p-1 flex bg-gradient-to-b from-[#d3c7eb] via-[#EDEAFB] to-[#e8f0f6] dark:bg-gradient-to-b dark:from-[#08090e] dark:via-[#08090e] dark:to-[#08090e]">
-
-            {/*Barra lateral, con todos sus botones*/}      
-            <aside className={`relative inset-y-0 h-screen bg-gray-800 ${isAsideVisible ? 'w-64' : 'w-16'} sm:flex flex-col items-center rounded-lg shadow-lg transition-all duration-300`}>
-                <div className="p-3 w-full flex justify-between items-center">
-                    {isAsideVisible && (
-                        <a href="/start" className="text-white text-xl font-extrabold">
-                            TaskMaster
-                        </a>
-                    )}
-
-                    <button 
-                        className="bg-white text-gray-800 rounded-full ml-2 p-1 focus:outline-none" 
-                        onClick={toggleAsideVisibility}
-                    >
-                        <i className={`fas ${isAsideVisible ? 'fa-chevron-left' : 'fa-chevron-right'}`}></i>
-                    </button>
-                </div>
-
-                <div className="w-3/4 flex flex-col justify-center mt-4 mr-3">
-                    <>
-                        <button 
-                            className={`bg-white text-gray-900 font-semibold py-2 rounded-lg flex items-center justify-center ml-3 ${isAsideVisible ? 'w-full' : 'w-10'}`} 
-                            onClick={toggleFormVisibility}
-                        >
-                            <i className="fas fa-plus"></i>
-                            {isAsideVisible && 'Crear Tarea'}
-                        </button>
-
-                        {/*Formulario para la creación de tareas (Llamado de TaskForm)*/}
-                        {isFormVisible && (
-                            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75 z-50">
-                                <div className="bg-gray-800 text-white p-6 rounded-lg w-full max-w-md relative">
-                                    <button 
-                                        className="absolute top-2 right-2 p-2 text-gray-300 hover:text-gray-600"
-                                        onClick={toggleFormVisibility}
-                                    >
-                                        <i className="fas fa-times"></i>
-                                    </button>
-                                    <h2 className="text-xl font-semibold mb-4">Crear Tarea</h2>
-                                    {error && <p className="text-red-500 mb-4 font-bold">{error}</p>}
-                                    <TaskForm 
-                                        onSubmit={(taskData) => {
-                                            createTask(taskData);
-                                            toggleFormVisibility();
-                                            handleViewMode('registered');
-                                        }} 
-                                    />
-                                </div>
-                            </div>
-                        )}
-                    </>
-                </div>
-
-                <div className="flex flex-col items-center w-full mt-6">
-                    <button 
-                        className="flex items-center text-white opacity-75 py-3 cursor-pointer hover:bg-gray-600 w-full justify-center"
-                        onClick={() => handleViewMode('registered')}
-                    >
-                        <FontAwesomeIcon icon={faStickyNote} className='justify-center'/>
-                        {isAsideVisible && <span className='ml-3'>Registros</span>}
-                    </button>
-                    
-                    <button 
-                        className="flex items-center text-white opacity-75 py-3 cursor-pointer hover:bg-gray-600 w-full justify-center"
-                        onClick={() => handleViewMode('byStatus')}
-                    >   
-                        <FontAwesomeIcon icon={faAlignLeft} className='justify-center'/>
-                        {isAsideVisible && <span className='ml-3'>Estados</span>}
-                    </button>
-
-                    <button 
-                        className="flex items-center text-white opacity-75 py-3 w-full justify-center hover:bg-gray-600"
-                        onClick={() => handleViewMode('byFavorites')}
-                    >
-                        <FontAwesomeIcon icon={faStar} className='justify-center'/>
-                        {isAsideVisible && <span className='ml-3'>Favoritos</span>}
-                    </button>
-
-                    <button 
-                        className="flex items-center text-white opacity-75 py-3 w-full justify-center hover:bg-gray-600"
-                        onClick={() => handleViewMode('history')}
-                    >
-                        <FontAwesomeIcon icon={faRotateRight} className='justify-center'/>
-                        {isAsideVisible && <span className='ml-3'>Historial</span>}
-                    </button>
-
-                    <a href="calendar.html" className="flex items-center text-white opacity-75 py-3 w-full justify-center hover:bg-gray-600">
-                        <i className="fas fa-calendar justify-center"></i>
-                        {isAsideVisible && <span className='ml-3'>Calendario</span>}
-                    </a>      
-                </div>
-            </aside>
-
+            <Sidebar 
+                isAsideVisible={isAsideVisible} 
+                toggleAsideVisibility={toggleAsideVisibility}
+                handleViewMode={handleViewMode}
+                toggleFormVisibility={toggleFormVisibility}
+                isFormVisible={isFormVisible}
+                setTaskStatus={setTaskStatus}
+            />
+           
+            <TaskModal
+                isFormVisible={isFormVisible}
+                toggleFormVisibility={toggleFormVisibility}
+                createTask={createTask}
+                updateTask={updateTask}
+                updateMode={updateMode}
+                taskToUpdate={taskToUpdate}
+                error={error}
+            />
+        
             <div className="flex-1">
                 <h5 className="text-2xl font-extrabold text-[#10172A] dark:text-[#e2e8f0] m-3 text-center">Tareas</h5>
 
-                {/*Formulario para filtrar por estados*/}
                 {viewMode === 'byStatus' && (
-                    <nav className="bg-gray-800 dark:bg-gray-700 p-3 rounded-lg shadow-md flex flex-wrap justify-center items-center space-x-3 ml-2 mb-3">
-                        <button
-                            className="bg-red-400 text-white px-3 py-1 text-bold rounded-lg transition-transform transform hover:scale-105 w-10 h-10 flex items-center justify-center sm:w-auto sm:h-auto sm:text-base"
-                            onClick={() => setTaskStatus("PENDING")}
-                        >
-                            <span className="hidden sm:inline">Pendiente</span>
-                            <i className="fas fa-check-circle sm:hidden"></i> {/* Icono representativo */}
-                        </button>
-                        <button
-                            className="bg-yellow-400 text-white px-3 py-1 text-bold rounded-lg transition-transform transform hover:scale-105 w-10 h-10 flex items-center justify-center sm:w-auto sm:h-auto sm:text-base"
-                            onClick={() => setTaskStatus("IN_PROGRESS")}
-                        >
-                            <span className="hidden sm:inline">En progreso</span>
-                            <i className="fas fa-spinner sm:hidden"></i> {/* Icono representativo */}
-                        </button>
-                        <button
-                            className="bg-green-500 text-white px-3 py-1 text-bold rounded-lg transition-transform transform hover:scale-105 w-10 h-10 flex items-center justify-center sm:w-auto sm:h-auto sm:text-base"
-                            onClick={() => setTaskStatus("COMPLETED")}
-                        >
-                            <span className="hidden sm:inline">Completada</span>
-                            <i className="fas fa-check sm:hidden"></i> {/* Icono representativo */}
-                        </button>
-                        <button
-                            className="bg-blue-400 text-white px-3 py-1 text-bold rounded-lg transition-transform transform hover:scale-105 w-10 h-10 flex items-center justify-center sm:w-auto sm:h-auto sm:text-base"
-                            onClick={() => setTaskStatus(null)}
-                        >
-                            <span className="hidden sm:inline">Borrar Filtros</span>
-                            <i className="fas fa-times sm:hidden"></i> {/* Icono representativo */}
-                        </button>
-                    </nav>
+                    <TaskFilter setTaskStatus={setTaskStatus} />
                 )}
 
                 {/*Formulario para actualizar tareas*/}
