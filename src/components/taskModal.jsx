@@ -12,8 +12,11 @@ const TaskModal = ({ isFormVisible, toggleFormVisibility, createTask, updateTask
                     >
                         <i className="fas fa-times"></i>
                     </button>
+
                     <h2 className="text-xl font-semibold mb-4">Crear Tarea</h2>
+
                     {error && <p className="text-red-500 mb-4 font-bold">{error}</p>}
+                    
                     <TaskForm 
                         onSubmit={(taskData) => {
                             if (updateMode && taskToUpdate) {

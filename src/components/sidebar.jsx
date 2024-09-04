@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBookmark, faStickyNote } from '@fortawesome/free-regular-svg-icons';
+import { faStar, faStickyNote } from '@fortawesome/free-regular-svg-icons';
 import { faAlignLeft, faRotateRight } from '@fortawesome/free-solid-svg-icons';
 
 const Sidebar = ({ 
@@ -54,7 +54,7 @@ const Sidebar = ({
                     className="flex items-center text-white opacity-75 py-3 w-full justify-center hover:bg-gray-600"
                     onClick={() => handleViewMode('byFavorites')}
                 >
-                    <FontAwesomeIcon icon={faBookmark} />
+                    <FontAwesomeIcon icon={faStar} />
                     {isAsideVisible && <span className='ml-3'>Favoritos</span>}
                 </button>
                 <button 

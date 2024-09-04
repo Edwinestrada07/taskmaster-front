@@ -16,7 +16,7 @@ const TaskColumn = ({ droppableId, tasks, onUpdateTask, onDeleteTask, onFavorite
                     <div
                         ref={provided.innerRef}
                         {...provided.droppableProps}
-                        className={`bg-white rounded-md shadow-sm p-4 flex-1 overflow-y-auto ${
+                        className={`bg-gray-100 rounded-3xl shadow-2xl p-4 flex-1 overflow-y-auto ${
                             snapshot.isDraggingOver ? 'bg-blue-100' : ''
                         }`}
                     >
