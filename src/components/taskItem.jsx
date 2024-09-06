@@ -30,8 +30,19 @@ const TaskItem = ({ task, index, onUpdateTask, onDeleteTask, onFavoriteTask, onM
 
     const handleMoveToHistory = async () => {
         try {
-            await onMoveToHistory(id, true, status);
+            const response = await fetch(`/task/${id}/move`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    authorization: localStorage.getItem('token')
+                }
+            });
+
+            if (!response.ok) throw new Error('Error al mover la tarea al historial.');
+
+            await onMoveToHistory(id);
             setMessage({ type: 'success', text: 'Tarea movida al historial con éxito.' });
+            
         } catch (error) {
             setMessage({ type: 'error', text: error.message });
         } finally {
