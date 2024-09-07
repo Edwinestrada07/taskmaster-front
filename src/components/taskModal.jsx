@@ -1,7 +1,7 @@
 import React from 'react';
 import TaskForm from './taskForm';
 
-const TaskModal = ({ isFormVisible, toggleFormVisibility, createTask, updateTask, updateMode, taskToUpdate, error }) => {
+const TaskModal = ({ isFormVisible, toggleFormVisibility, createTask, updateTask, updateMode, taskToUpdate, error, success }) => {
     return (
         isFormVisible && (
             <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75 z-50">
@@ -15,7 +15,17 @@ const TaskModal = ({ isFormVisible, toggleFormVisibility, createTask, updateTask
 
                     <h2 className="text-xl font-semibold mb-4">Crear Tarea</h2>
 
-                    {error && <p className="text-red-500 mb-4 font-bold">{error}</p>}
+                    {error && 
+                        <p className="text-red-500 mb-4 font-bold">
+                            {error}
+                        </p>
+                    }
+                    
+                    {success && (
+                        <p className="mb-4 font-bold text-green-500">
+                            {success}
+                        </p>
+                    )}
                     
                     <TaskForm 
                         onSubmit={(taskData) => {

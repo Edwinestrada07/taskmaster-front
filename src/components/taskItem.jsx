@@ -30,7 +30,7 @@ const TaskItem = ({ task, index, onUpdateTask, onDeleteTask, onFavoriteTask, onM
 
     const handleMoveToHistory = async () => {
         try {
-            const response = await fetch(`/task/${id}/move`, {
+            const response = await fetch(`https://taskmaster-back.onrender.com/task/${id}/move`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

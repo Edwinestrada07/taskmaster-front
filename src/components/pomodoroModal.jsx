@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { FaTimes } from 'react-icons/fa';
 import Modal from 'react-modal';
 
 Modal.setAppElement('#root');
@@ -43,32 +44,38 @@ const PomodoroModal = ({ isOpen, onRequestClose, tasks }) => {
     return (
         <Modal
             isOpen={isOpen}
-            onRequestClose={onRequestClose}
             contentLabel="Activar Pomodoro"
-            className="bg-white p-6 rounded-md max-w-md mx-auto mt-20 shadow-lg outline-none"
+            className="bg-gray-800 text-white p-6 rounded-3xl w-full max-w-md relative"
             overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
-        >
-            <h2 className="text-2xl font-semibold mb-4">Activar Pomodoro</h2>
+        >   
+            <button
+                className="absolute top-2 right-2 p-2 text-gray-300 hover:text-gray-600"
+                onClick={onRequestClose}
+            >
+                <FaTimes size={20} />
+            </button>
+
+            <h2 className="text-xl font-semibold mb-4">Activar Pomodoro</h2>
             <select
                 value={selectedTaskId}
                 onChange={(e) => setSelectedTaskId(e.target.value)}
-                className="w-full p-2 border border-gray-900 rounded-md mb-4"
+                className="border-1 block h-12 w-full rounded-md border border-double border-slate-800 border-transparent bg-[linear-gradient(#000,#000),linear-gradient(to_right,#334454,#334454)]	bg-origin-border px-3 py-2 text-slate-200 transition-all duration-500 [background-clip:padding-box,_border-box] placeholder:text-slate-500 focus:bg-[linear-gradient(#000,#000),linear-gradient(to_right,#c7d2fe,#8678f9)] focus:outline-none"
             >
-                <option value="">Seleccione una tarea</option>
+                <option value="" className="bg-gray-800 text-white-50">Seleccione una tarea</option>
                 {tasks.map(task => (
-                    <option key={task.id} value={task.id}>
+                    <option key={task.id} value={task.id} className="bg-gray-800 text-white-50">
                         {task.description}
                     </option>
                 ))}
             </select>
-            <div className="text-center mb-4">
-                <span className="text-6xl font-bold">{formatTime(timeLeft)}</span>
+            <div className="text-center m-4">
+                <span className="text-5xl font-semibold">{formatTime(timeLeft)}</span>
             </div>
-            <div className="flex justify-between">
+            <div className="flex justify-center mx-auto">
                 <button
                     onClick={handleStart}
                     disabled={isRunning}
-                    className={`px-4 py-2 rounded-md ${isRunning ? 'bg-gray-400' : 'bg-green-500 hover:bg-green-600'} text-white`}
+                    className={`px-4 py-2 mr-2 rounded-md ${isRunning ? 'bg-gray-400' : 'bg-green-500 hover:bg-green-600'} text-white`}
                 >
                     Iniciar
                 </button>
@@ -81,7 +88,7 @@ const PomodoroModal = ({ isOpen, onRequestClose, tasks }) => {
                 </button>
                 <button
                     onClick={handleReset}
-                    className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-md"
+                    className="px-4 ml-2 py-2 bg-red-500 hover:bg-red-600 text-white rounded-md"
                 >
                     Reiniciar
                 </button>

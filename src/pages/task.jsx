@@ -15,6 +15,7 @@ const TaskListPage = () => {
     const [isFormVisible, setFormVisible] = useState(false)
     const [viewMode, setViewMode] = useState('') // Estado para controlar qué vista mostrar en la parte derecha
     const [isAsideVisible, setIsAsideVisible] = useState(true)
+    const [success, setSuccess] = useState('');
 
     // Función para obtener las tareas con filtros según el modo de vista
     const getTasks = useCallback(async () => {
@@ -38,6 +39,11 @@ const TaskListPage = () => {
             const tasksData = await response.json();
             setTasks(tasksData);
             setError(null);
+
+            if (tasksData.length === 0) {
+                setError(`No hay tareas en ${viewMode === 'byFavorites' ? 'favoritas' : 'el historial'}.`);
+            }
+
         } catch (error) {
             console.error('Error al obtener las tareas:', error);
             setError('Error al obtener las tareas. Por favor, inténtalo de nuevo más tarde.');
@@ -48,65 +54,69 @@ const TaskListPage = () => {
         getTasks() // Obtiene todas las tareas, incluidas las favoritas
     }, [getTasks])
 
+    // Función para crear una nueva tarea
     const createTask = async (task) => {
         try {
-            // Obtener el userId del almacenamiento local
-            const userId = JSON.parse(localStorage.getItem('user')).id
-            // Asignar el userId a la tarea
-            task.userId = userId
-            
+            const userId = JSON.parse(localStorage.getItem('user')).id;
+            task.userId = userId;
+
             const response = await fetch('https://taskmaster-back.onrender.com/task', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    authorization: localStorage.getItem('token')
+                    authorization: localStorage.getItem('token'),
                 },
-                body: JSON.stringify(task)
-            })
-            
-            if (!response.ok) {
-                throw new Error('No se pudo crear la tarea.')
-            }
+                body: JSON.stringify(task),
+            });
 
-            const responseData = await response.json()
-            console.log('Tarea creada:', responseData)
-    
-            getTasks()
-          
+            if (!response.ok) throw new Error('No se pudo crear la tarea.');
+
+            setSuccess('Tarea creada exitosamente.');
+            setTimeout(() => setSuccess(''), 3000);
+
+            getTasks();
         } catch (error) {
-            console.error('Error al crear la tarea:', error)
-            setError("Error al crear la tarea. Por favor, inténtalo de nuevo más tarde.")
+            console.error('Error al crear la tarea:', error);
+            setError('Error al crear la tarea. Por favor, inténtalo de nuevo más tarde.');
+            setTimeout(() => setError(''), 3000);
         }
-    }
+    };
 
+    // Función para actualizar una tarea existente
     const updateTask = async (id, task) => {
         try {
             const response = await fetch(`https://taskmaster-back.onrender.com/task/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
-                    authorization: localStorage.getItem('token')
+                    authorization: localStorage.getItem('token'),
                 },
-                body: JSON.stringify({ ...task })
-            })
+                body: JSON.stringify(task),
+            });
 
-            if (!response.ok) throw new Error('No se pudo actualizar la tarea.')
-        
-            const responseData = await response.json()
-            console.log('Tarea actualizada:', responseData)
-    
-            getTasks()
-            setUpdateMode(false) // Desactivar el modo de actualización
-            setTaskToUpdate(null) // Limpiar la tarea a actualizar
-            
+            if (!response.ok) throw new Error('No se pudo actualizar la tarea.');
+
+            setSuccess('Tarea actualizada exitosamente.');
+            setTimeout(() => setSuccess(''), 3000);
+
+            getTasks();
+            setUpdateMode(false);
+            setTaskToUpdate(null);
         } catch (error) {
-            console.error('Error al actualizar la tarea:', error)
-            setError("Error al actualizar la tarea. Por favor, inténtalo de nuevo más tarde.")
+            console.error('Error al actualizar la tarea:', error);
+            setError('Error al actualizar la tarea. Por favor, inténtalo de nuevo más tarde.');
+            setTimeout(() => setError(''), 3000);
         }
-    }
+    };
 
-    const deleteTask = async (id) => {
+    // Función para eliminar una tarea, incluyendo las que tienen detalles asociados
+    const deleteTask = async (id, hasDetails) => {
         try {
+            if (hasDetails) {
+                const confirmDelete = window.confirm('La tarea tiene detalles asociados. ¿Deseas eliminarlos también?');
+                if (!confirmDelete) return;
+            }
+
             const response = await fetch(`https://taskmaster-back.onrender.com/task/${id}`, {
                 method: 'DELETE',
                 headers: {
@@ -114,17 +124,20 @@ const TaskListPage = () => {
                 },
             });
 
-            if (!response.ok) {
-                throw new Error('No se pudo eliminar la tarea.');
-            }
+            if (!response.ok) throw new Error('No se pudo eliminar la tarea.');
 
-            getTasks(); // Actualiza la lista de tareas
+            setSuccess('Tarea eliminada exitosamente.');
+            setTimeout(() => setSuccess(''), 3000);
+
+            getTasks();
         } catch (error) {
             console.error('Error al eliminar la tarea:', error);
             setError('Error al eliminar la tarea. Por favor, inténtalo de nuevo más tarde.');
+            setTimeout(() => setError(''), 3000);
         }
     };
 
+    // Función para eliminar todas las tareas del historial
     const handleDeleteAll = async (taskId) => {
         try {
             const response = await fetch(`https://taskmaster-back.onrender.com/task/${taskId}/history`, {
@@ -134,16 +147,95 @@ const TaskListPage = () => {
                     authorization: localStorage.getItem('token')
                 }
             });
-            if (!response.ok) {
-                throw new Error('No se pudo eliminar las tareas del historial.');
-            }
-            const result = await response.json();
-            console.log(result.message);
-            // Recargar tareas después de la eliminación
+            if (!response.ok) throw new Error('No se pudo eliminar las tareas del historial.');
+
+            setSuccess('Todas las tareas del historial han sido eliminadas.');
+            setTimeout(() => setSuccess(''), 3000);
+
             setTasks([]);
         } catch (error) {
             console.error('Error al eliminar las tareas del historial:', error);
             setError('Error al eliminar las tareas del historial. Por favor, inténtalo de nuevo más tarde.');
+            setTimeout(() => setError(''), 3000);
+        }
+    };
+
+    // Función para controlar tareas favoritas
+    const handleFavoriteTask = async (id, isFavorite) => {
+        try {
+            const response = await fetch(`https://taskmaster-back.onrender.com/task/${id}/favorite`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    authorization: localStorage.getItem('token'),
+                },
+                body: JSON.stringify({ isFavorite }),
+            });
+
+            if (!response.ok) throw new Error('No se pudo actualizar el estado de favorita.');
+
+            setSuccess('Estado de la tarea actualizado.');
+            setTimeout(() => setSuccess(''), 3000);
+
+            getTasks();
+        } catch (error) {
+            console.error('Error al actualizar el estado de favorita:', error);
+            setError('Error al actualizar el estado de favorita. Por favor, inténtalo de nuevo más tarde.');
+            setTimeout(() => setError(''), 3000);
+        }
+    };
+
+    //Función para mover las tareas al historial
+    const moveToHistory = async (taskId, isHistory, taskStatus) => {
+        try {
+            if (taskStatus !== 'COMPLETED') throw new Error('Solo se pueden mover tareas completadas al historial.');
+    
+            const response = await fetch(`https://taskmaster-back.onrender.com/task/${taskId}/move`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    authorization: localStorage.getItem('token'),
+                },
+                body: JSON.stringify({ isHistory }),
+            });
+    
+            if (!response.ok) throw new Error('No se pudo mover la tarea al historial.');
+            
+            setSuccess('Tarea movida al historial exitosamente.');
+            setTimeout(() => setSuccess(''), 3000);
+
+            getTasks();
+    
+        } catch (error) {
+            console.error('Error al mover la tarea al historial:', error);
+            setError('Error al mover la tarea al historial. Por favor, inténtalo de nuevo más tarde.');
+            setTimeout(() => setError(''), 3000);
+        }
+    };    
+        
+    //Funcion para actualizar el estado de la tarea en la base de datos
+    const updateTaskStatus = async (taskId, newStatus) => {
+        try {
+            const response = await fetch(`https://taskmaster-back.onrender.com/task/${taskId}/status`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    authorization: localStorage.getItem('token'),
+                },
+                body: JSON.stringify({ status: newStatus }),
+            });
+    
+            if (!response.ok) throw new Error('No se pudo actualizar el estado de la tarea.');
+
+            setSuccess('Estado de la tarea actualizado.');
+            setTimeout(() => setSuccess(''), 3000);
+
+            // Actualizar la lista de tareas después de la actualización
+            getTasks();
+        } catch (error) {
+            console.error('Error al actualizar el estado de la tarea:', error);
+            setError('Error al actualizar el estado de la tarea. Por favor, inténtalo de nuevo más tarde.');
+            setTimeout(() => setError(''), 3000);
         }
     };
 
@@ -172,86 +264,6 @@ const TaskListPage = () => {
     const toggleAsideVisibility = () => {
         setIsAsideVisible(prevState => !prevState);
     }
-
-    //Función para controlar tareas favoritas
-    const handleFavoriteTask = async (id, isFavorite) => {
-        try {
-            const response = await fetch(`https://taskmaster-back.onrender.com/task/${id}/favorite`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    authorization: localStorage.getItem('token')
-                },
-                body: JSON.stringify({ isFavorite }) // Enviar el estado deseado de favorita
-            });
-    
-            if (!response.ok) {
-                throw new Error('No se pudo actualizar el estado de favorita.');
-            }
-    
-            // Actualiza la lista de tareas favoritas en el frontend
-            getTasks(); // Llama a getTasks para actualizar la lista de tareas
-        } catch (error) {
-            console.error('Error al actualizar el estado de favorita:', error);
-            setError("Error al actualizar el estado de favorita. Por favor, inténtalo de nuevo más tarde.");
-        }
-    };
-
-    //Función para mover las tareas al historial
-    const moveToHistory = async (taskId, isHistory, taskStatus) => {
-        try {
-            if (taskStatus !== 'COMPLETED') {
-                throw new Error('Solo se pueden mover tareas completadas al historial.');
-            }
-    
-            const response = await fetch(`https://taskmaster-back.onrender.com/task/${taskId}/move`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    authorization: localStorage.getItem('token'),
-                },
-                body: JSON.stringify({ isHistory }),
-            });
-    
-            if (!response.ok) {
-                throw new Error('No se pudo mover la tarea al historial.');
-            }
-            
-            const responseData = await response.json();
-            console.log('Tarea movida al historial con éxito:', responseData);
-    
-        } catch (error) {
-            console.error('Error al mover la tarea al historial:', error);
-            throw error; // Lanza el error para que pueda ser capturado en otro lugar
-        }
-    };    
-        
-    //Funcion para actualizar el estado de la tarea en la base de datos
-    const updateTaskStatus = async (taskId, newStatus) => {
-        try {
-            const response = await fetch(`https://taskmaster-back.onrender.com/task/${taskId}/status`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    authorization: localStorage.getItem('token'),
-                },
-                body: JSON.stringify({ status: newStatus }),
-            });
-    
-            if (!response.ok) {
-                throw new Error('No se pudo actualizar el estado de la tarea.');
-            }
-    
-            const responseData = await response.json();
-            console.log('Estado de la tarea actualizado:', responseData);
-    
-            // Actualizar la lista de tareas después de la actualización
-            getTasks();
-        } catch (error) {
-            console.error('Error al actualizar el estado de la tarea:', error);
-            setError('Error al actualizar el estado de la tarea. Por favor, inténtalo de nuevo más tarde.');
-        }
-    };
     
     return (
         <div className="p-1 flex bg-gradient-to-b from-[#d3c7eb] via-[#EDEAFB] to-[#e8f0f6] dark:bg-gradient-to-b dark:from-[#08090e] dark:via-[#08090e] dark:to-[#08090e]">
@@ -273,6 +285,7 @@ const TaskListPage = () => {
                 updateMode={updateMode}
                 taskToUpdate={taskToUpdate}
                 error={error}
+                success={success}
             />
         
             <div className="flex-1">
@@ -330,20 +343,7 @@ const TaskListPage = () => {
                             </div>
                         )}
 
-                        {error && <p className="text-red-500 mb-4 font-bold">{error}</p>}
-
-                        {tasks.some(task => task.isHistory) ? (
-                            <TaskList
-                                tasks={tasks.filter(task => task.isHistory)} 
-                                onDeleteTask={deleteTask} // Cambia la función a `moveToHistory`
-                                onUpdateTask={handleUpdateMode} 
-                                onFavoriteTask={handleFavoriteTask}
-                                onMoveToHistory={moveToHistory}
-                                onUpdateStatus={updateTaskStatus}
-                            />
-                        ) : (
-                            <p className='text-[#10172A] dark:text-[#e2e8f0]'></p>
-                        )}
+                        {error && <p className="text-red-500 mb-4 font-bold">{error}</p>}  
                     </div>
                 )}
 
@@ -357,6 +357,11 @@ const TaskListPage = () => {
                         onUpdateTaskStatus={updateTaskStatus}
                     />
                 }
+                {success && (
+                    <div className="fixed bottom-0 left-0 right-0 p-2 sm:p-4 font-semibold text-sm sm:text-lg text-green-500 bg-green-200 dark:bg-green-600 dark:text-green-300">
+                        {success}
+                    </div>
+                )}
             </div>
         </div>
     )
