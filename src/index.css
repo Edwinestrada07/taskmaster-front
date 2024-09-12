@@ -56,21 +56,6 @@ body {
   transition: all .5s ease
 }
 
-.form-styling-inf {
-  width: 100%;
-  height: 35px;
-  padding-top: 5PX;
-  text-align: center;
-  border: none;
-  border-radius: 20px;
-  margin-bottom: 20px;
-  background: rgba(221, 221, 221, 0.2);
-  color: rgba(221, 221, 221, 0.6);
-}
-
-
-
-
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
@@ -83,7 +68,6 @@ code {
   }
   
 }
-
 
 /* Añade esto a tu archivo de estilos globales o CSS module */
 

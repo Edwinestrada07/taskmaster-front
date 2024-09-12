@@ -5,7 +5,7 @@ const TaskModal = ({ isFormVisible, toggleFormVisibility, createTask, updateTask
     return (
         isFormVisible && (
             <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75 z-50">
-                <div className="bg-gray-800 text-white p-6 rounded-lg w-full max-w-md relative">
+                <div className="bg-gray-800 text-white p-6 rounded-3xl w-full max-w-md relative">
                     <button 
                         className="absolute top-2 right-2 p-2 text-gray-300 hover:text-gray-600"
                         onClick={toggleFormVisibility}

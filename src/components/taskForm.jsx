@@ -65,7 +65,7 @@ function TaskForm(props) {
             {successMessage && <p style={{ color: 'green' }} className='mb-4'>{successMessage}</p>}
             
             <input
-                className="form-styling-inf"
+                className="border-1 mb-2 block h-12 w-full rounded-md border border-double border-slate-800 border-transparent bg-[linear-gradient(#000,#000),linear-gradient(to_right,#334454,#334454)]	bg-origin-border px-3 py-2 text-slate-200 transition-all duration-500 [background-clip:padding-box,_border-box] placeholder:text-slate-500 focus:bg-[linear-gradient(#000,#000),linear-gradient(to_right,#c7d2fe,#8678f9)] focus:outline-none"
                 type="text"
                 name="description"
                 placeholder="Descripción"
@@ -74,7 +74,7 @@ function TaskForm(props) {
             />
 
             <input
-                className="form-styling-inf"
+                className="border-1 mb-2 block h-12 w-full rounded-md border border-double border-slate-800 border-transparent bg-[linear-gradient(#000,#000),linear-gradient(to_right,#334454,#334454)]	bg-origin-border px-3 py-2 text-slate-200 transition-all duration-500 [background-clip:padding-box,_border-box] placeholder:text-slate-500 focus:bg-[linear-gradient(#000,#000),linear-gradient(to_right,#c7d2fe,#8678f9)] focus:outline-none"
                 type="date"
                 name="dueDate"
                 placeholder="Fecha de vencimiento"
@@ -82,36 +82,36 @@ function TaskForm(props) {
                 onChange={handleChange}
             />
 
-            <select className="form-styling-inf" 
+            <select className="border-1 mb-2 block h-12 w-full rounded-md border border-double border-slate-800 border-transparent bg-[linear-gradient(#000,#000),linear-gradient(to_right,#334454,#334454)]	bg-origin-border px-3 py-2 text-slate-200 transition-all duration-500 [background-clip:padding-box,_border-box] placeholder:text-slate-500 focus:bg-[linear-gradient(#000,#000),linear-gradient(to_right,#c7d2fe,#8678f9)] focus:outline-none" 
                 name="priority" 
                 value={formData.priority} 
                 onChange={handleChange}
             >
-                <option className='text-dark' value="">Selecciona una prioridad</option>
-                <option className='text-dark' value="LOW">Baja</option>
-                <option className='text-dark' value="MEDIUM">Media</option>
-                <option className='text-dark' value="HIGH">Alta</option>
+                <option className='bg-gray-800 text-white-50' value="">Selecciona una prioridad</option>
+                <option className='bg-gray-800 text-white-50' value="LOW">Baja</option>
+                <option className='bg-gray-800 text-white-50' value="MEDIUM">Media</option>
+                <option className='bg-gray-800 text-white-50' value="HIGH">Alta</option>
             </select>
 
-            <select className="form-styling-inf" 
+            <select className="border-1 block h-12 w-full rounded-md border border-double border-slate-800 border-transparent bg-[linear-gradient(#000,#000),linear-gradient(to_right,#334454,#334454)]	bg-origin-border px-3 py-2 text-slate-200 transition-all duration-500 [background-clip:padding-box,_border-box] placeholder:text-slate-500 focus:bg-[linear-gradient(#000,#000),linear-gradient(to_right,#c7d2fe,#8678f9)] focus:outline-none" 
                 name="status" 
                 value={formData.status} 
                 onChange={handleChange}
             >
-                <option className='text-dark' value="">Selecciona un estado</option>
-                <option className='text-dark' value="PENDING">Pendiente</option>
-                <option className='text-dark' value="IN_PROGRESS">En progreso</option>
-                <option className='text-dark' value="COMPLETED">Completada</option>
+                <option className='bg-gray-800 text-white-50' value="">Selecciona un estado</option>
+                <option className='bg-gray-800 text-white-50' value="PENDING">Pendiente</option>
+                <option className='bg-gray-800 text-white-50' value="IN_PROGRESS">En progreso</option>
+                <option className='bg-gray-800 text-white-50' value="COMPLETED">Completada</option>
             </select>
 
             <button
                 type="submit"
-                className="w-full text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                className="transition-background mt-3 inline-flex h-12 items-center justify-center rounded-md border border-gray-800 bg-gradient-to-r from-gray-100 via-[#c7d2fe] to-[#8678f9] bg-[length:200%_200%] bg-[0%_0%] px-6 font-medium text-gray-950 duration-500 hover:bg-[100%_200%] focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-gray-50"
                 disabled={loading}
             >
                 {loading ? (
                 <div className="flex justify-center items-center">
-                    <svg className="w-5 h-5 mr-2 text-white animate-spin" xmlns="http://www.w3.org/8000/svg" fill="none" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 mr-2 text-white animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
                     </svg>

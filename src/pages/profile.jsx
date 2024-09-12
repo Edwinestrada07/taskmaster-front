@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { FaTimes } from 'react-icons/fa';
 
 function Profile() {
     // Estados para manejar la información del usuario, cambios de contraseña, errores, y mensajes de éxito
@@ -188,8 +189,16 @@ function Profile() {
                     {/* Modal para cambiar información de usuario */}
                     {showModal === 'info' && (
                         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-85 z-50">
-                            <div className="bg-gray-800 text-white p-10 rounded-3xl w-full max-w-md relative">
-                                <h3 className="text-2xl font-bold mb-4 dark:text-[#e2e8f0]">Cambiar Información</h3>
+                            <div className="bg-gray-800 text-white p-6 rounded-3xl w-full max-w-md relative">
+
+                                <button
+                                    className="absolute top-2 right-2 p-2 text-gray-300 hover:text-gray-600"
+                                    onClick={() => setShowModal(null)}
+                                >
+                                    <FaTimes size={20} />
+                                </button>
+
+                                <h3 className="text-xl font-semibold mb-4">Cambiar Información</h3>
 
                                 {/* Mostrar mensaje de error o éxito */}
                                 {error && (
@@ -201,7 +210,7 @@ function Profile() {
                                     <label className="block text-lg font-medium text-gray-300 dark:text-gray-300 mb-2">
                                         Nombre de usuario:
                                         <input
-                                            className="form-styling-inf"
+                                            className="border-1 m-2 block h-12 w-full rounded-md border border-double border-slate-800 border-transparent bg-[linear-gradient(#000,#000),linear-gradient(to_right,#334454,#334454)]	bg-origin-border px-3 py-2 text-slate-200 transition-all duration-500 [background-clip:padding-box,_border-box] placeholder:text-slate-500 focus:bg-[linear-gradient(#000,#000),linear-gradient(to_right,#c7d2fe,#8678f9)] focus:outline-none"
                                             type="text"
                                             name="name"
                                             value={user.name || ''}
@@ -211,7 +220,7 @@ function Profile() {
                                     <label className="block text-lg font-medium text-gray-300 dark:text-gray-300 mb-2">
                                         Correo electrónico:
                                         <input
-                                            className="form-styling-inf"
+                                            className="border-1 m-2 block h-12 w-full rounded-md border border-double border-slate-800 border-transparent bg-[linear-gradient(#000,#000),linear-gradient(to_right,#334454,#334454)]	bg-origin-border px-3 py-2 text-slate-200 transition-all duration-500 [background-clip:padding-box,_border-box] placeholder:text-slate-500 focus:bg-[linear-gradient(#000,#000),linear-gradient(to_right,#c7d2fe,#8678f9)] focus:outline-none"
                                             type="email"
                                             name="email"
                                             value={user.email || ''}
@@ -219,15 +228,8 @@ function Profile() {
                                         />
                                     </label>
                                     <div className="flex justify-end mt-4">
-                                        <button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg mr-2">
+                                        <button type="submit" className="transition-background mt-3 inline-flex h-12 items-center justify-center rounded-md border border-gray-800 bg-gradient-to-r from-gray-100 via-[#c7d2fe] to-[#8678f9] bg-[length:200%_200%] bg-[0%_0%] px-6 font-medium text-gray-950 duration-500 hover:bg-[100%_200%] focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-gray-50">
                                             Guardar
-                                        </button>
-                                        <button
-                                            type="button"
-                                            className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg"
-                                            onClick={() => setShowModal(null)}
-                                        >
-                                            Cancelar
                                         </button>
                                     </div>
                                 </form>
@@ -238,8 +240,16 @@ function Profile() {
                     {/* Modal para cambiar contraseña */}
                     {showModal === 'password' && (
                         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-85 z-50">
-                            <div className="bg-gray-800 text-white p-10 rounded-3xl w-full max-w-md relative">
-                                <h3 className="text-2xl font-bold mb-4 dark:text-[#e2e8f0]">Cambiar Contraseña</h3>
+                            <div className="bg-gray-800 text-white p-6 rounded-3xl w-full max-w-md relative">
+
+                                <button
+                                    className="absolute top-2 right-2 p-2 text-gray-300 hover:text-gray-600"
+                                    onClick={() => setShowModal(null)}
+                                >
+                                    <FaTimes size={20} />
+                                </button>
+
+                                <h3 className="text-xl font-semibold mb-4">Cambiar Contraseña</h3>
 
                                 {/* Mostrar mensaje de error */}
                                 {error && (
@@ -251,7 +261,7 @@ function Profile() {
                                     <label className="block text-lg font-medium text-gray-300 dark:text-gray-300 mb-2">
                                         Contraseña actual:
                                         <input
-                                            className="form-styling-inf"
+                                            className="border-1 m-2 block h-12 w-full rounded-md border border-double border-slate-800 border-transparent bg-[linear-gradient(#000,#000),linear-gradient(to_right,#334454,#334454)]	bg-origin-border px-3 py-2 text-slate-200 transition-all duration-500 [background-clip:padding-box,_border-box] placeholder:text-slate-500 focus:bg-[linear-gradient(#000,#000),linear-gradient(to_right,#c7d2fe,#8678f9)] focus:outline-none"
                                             type="password"
                                             value={password}
                                             onChange={(e) => setPassword(e.target.value)}
@@ -260,7 +270,7 @@ function Profile() {
                                     <label className="block text-lg font-medium text-gray-300 dark:text-gray-300 mb-2">
                                         Nueva contraseña:
                                         <input
-                                            className="form-styling-inf"
+                                            className="border-1 m-2 block h-12 w-full rounded-md border border-double border-slate-800 border-transparent bg-[linear-gradient(#000,#000),linear-gradient(to_right,#334454,#334454)]	bg-origin-border px-3 py-2 text-slate-200 transition-all duration-500 [background-clip:padding-box,_border-box] placeholder:text-slate-500 focus:bg-[linear-gradient(#000,#000),linear-gradient(to_right,#c7d2fe,#8678f9)] focus:outline-none"
                                             type="password"
                                             value={newPassword}
                                             onChange={(e) => setNewPassword(e.target.value)}
@@ -269,22 +279,15 @@ function Profile() {
                                     <label className="block text-lg font-medium text-gray-300 dark:text-gray-300 mb-2">
                                         Confirmar nueva contraseña:
                                         <input
-                                            className="form-styling-inf"
+                                            className="border-1 m-2 block h-12 w-full rounded-md border border-double border-slate-800 border-transparent bg-[linear-gradient(#000,#000),linear-gradient(to_right,#334454,#334454)]	bg-origin-border px-3 py-2 text-slate-200 transition-all duration-500 [background-clip:padding-box,_border-box] placeholder:text-slate-500 focus:bg-[linear-gradient(#000,#000),linear-gradient(to_right,#c7d2fe,#8678f9)] focus:outline-none"
                                             type="password"
                                             value={confirmNewPassword}
                                             onChange={(e) => setConfirmNewPassword(e.target.value)}
                                         />
                                     </label>
                                     <div className="flex justify-end mt-4">
-                                        <button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg mr-2">
+                                        <button type="submit" className="transition-background mt-3 inline-flex h-12 items-center justify-center rounded-md border border-gray-800 bg-gradient-to-r from-gray-100 via-[#c7d2fe] to-[#8678f9] bg-[length:200%_200%] bg-[0%_0%] px-6 font-medium text-gray-950 duration-500 hover:bg-[100%_200%] focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-gray-50">
                                             Cambiar Contraseña
-                                        </button>
-                                        <button
-                                            type="button"
-                                            className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg"
-                                            onClick={() => setShowModal(null)}
-                                        >
-                                            Cancelar
                                         </button>
                                     </div>
                                 </form>

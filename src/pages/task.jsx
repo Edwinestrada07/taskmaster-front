@@ -110,13 +110,28 @@ const TaskListPage = () => {
     };
 
     // Función para eliminar una tarea, incluyendo las que tienen detalles asociados
-    const deleteTask = async (id, hasDetails) => {
+    const deleteTask = async (id) => {
         try {
-            if (hasDetails) {
+            // Primero, hacer una petición para verificar si la tarea tiene detalles
+            const detailResponse = await fetch(`https://taskmaster-back.onrender.com/task/${id}/detail`, {
+                method: 'GET',
+                headers: {
+                    authorization: localStorage.getItem('token'),
+                },
+            });
+
+            if (!detailResponse.ok) throw new Error('Error al verificar los detalles de la tarea.');
+
+            const detailData = await detailResponse.json();
+            const hasDetail = detailData.details && detailData.detail.length > 0;
+
+            // Si la tarea tiene detalles, solicitar confirmación
+            if (hasDetail) {
                 const confirmDelete = window.confirm('La tarea tiene detalles asociados. ¿Deseas eliminarlos también?');
                 if (!confirmDelete) return;
             }
 
+            // Proceder con la eliminación de la tarea
             const response = await fetch(`https://taskmaster-back.onrender.com/task/${id}`, {
                 method: 'DELETE',
                 headers: {
@@ -126,9 +141,11 @@ const TaskListPage = () => {
 
             if (!response.ok) throw new Error('No se pudo eliminar la tarea.');
 
+            // Mostrar mensaje de éxito
             setSuccess('Tarea eliminada exitosamente.');
             setTimeout(() => setSuccess(''), 3000);
 
+            // Recargar la lista de tareas
             getTasks();
         } catch (error) {
             console.error('Error al eliminar la tarea:', error);
@@ -174,7 +191,7 @@ const TaskListPage = () => {
 
             if (!response.ok) throw new Error('No se pudo actualizar el estado de favorita.');
 
-            setSuccess('Estado de la tarea actualizado.');
+            setSuccess('Tarea marcada y/o desmarcada como favorita.');
             setTimeout(() => setSuccess(''), 3000);
 
             getTasks();
@@ -185,11 +202,11 @@ const TaskListPage = () => {
         }
     };
 
-    //Función para mover las tareas al historial
+    // Función para mover las tareas al historial
     const moveToHistory = async (taskId, isHistory, taskStatus) => {
         try {
-            if (taskStatus !== 'COMPLETED') throw new Error('Solo se pueden mover tareas completadas al historial.');
-    
+            if (taskStatus === 'COMPLETED') throw new Error('Solo se pueden mover tareas completadas al historial.');
+
             const response = await fetch(`https://taskmaster-back.onrender.com/task/${taskId}/move`, {
                 method: 'POST',
                 headers: {
@@ -198,20 +215,21 @@ const TaskListPage = () => {
                 },
                 body: JSON.stringify({ isHistory }),
             });
-    
+
             if (!response.ok) throw new Error('No se pudo mover la tarea al historial.');
-            
+
             setSuccess('Tarea movida al historial exitosamente.');
             setTimeout(() => setSuccess(''), 3000);
 
-            getTasks();
-    
+            // Eliminar la tarea de la columna de completadas
+            setTasks(prevTasks => prevTasks.filter(task => task.id !== taskId));
+
         } catch (error) {
             console.error('Error al mover la tarea al historial:', error);
             setError('Error al mover la tarea al historial. Por favor, inténtalo de nuevo más tarde.');
             setTimeout(() => setError(''), 3000);
         }
-    };    
+    };   
         
     //Funcion para actualizar el estado de la tarea en la base de datos
     const updateTaskStatus = async (taskId, newStatus) => {
