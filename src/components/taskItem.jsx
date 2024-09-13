@@ -22,12 +22,11 @@ const formatDate = (dateString) => {
 };
 
 // Componente TaskItem que representa cada tarea individual
-const TaskItem = ({ task, index, onUpdateTask, onDeleteTask, onFavoriteTask, onMoveToHistory, onSaveDetails }) => {
+const TaskItem = ({ task, index, onUpdateTask, onDeleteTask, onFavoriteTask, onMoveToHistory, onSaveDetails, setTasks }) => {
     const [isOpen, setIsOpen] = useState(false); // Controlar si los detalles de la tarea están visibles
     const [isModalOpen, setIsModalOpen] = useState(false); // Controlar la apertura del modal de detalles
     const [message, setMessage] = useState({ type: '', text: '' }); // Mensajes de éxito o error
-    const [tasks, setTasks] = useState([]);
-
+    
     if (!task) return null; // Verificar si existe la tarea antes de renderizar
 
     const { id, description, dueDate, priority, status, isFavorite } = task;

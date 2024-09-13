@@ -40,10 +40,6 @@ const TaskListPage = () => {
             setTasks(tasksData);
             setError(null);
 
-            if (tasksData.length === 0) {
-                setError(`No hay tareas en ${viewMode === 'byFavorites' ? 'favoritas' : 'el historial'}.`);
-            }
-
         } catch (error) {
             console.error('Error al obtener las tareas:', error);
             setError('Error al obtener las tareas. Por favor, inténtalo de nuevo más tarde.');
