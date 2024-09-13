@@ -6,7 +6,6 @@ import TaskFilter from '../components/taskFilter'
 import TaskUpdater from '../components/taskUpdater'
 
 const TaskListPage = () => {
-    const { authError } = useAuth();
     const [tasks, setTasks] = useState([])
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(false)
