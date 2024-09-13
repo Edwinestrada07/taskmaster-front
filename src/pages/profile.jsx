@@ -128,7 +128,7 @@ function Profile() {
 
     return (
         <div className="flex items-center bg-gradient-to-b from-[#d3c7eb] via-[#EDEAFB] to-[#e8f0f6] dark:bg-gradient-to-b dark:from-[#08090e] dark:via-[#08090e] dark:to-[#08090e]">
-            <div className="container">
+            <div className="container m-5">
                 <div className="relative overflow-hidden bg-gradient-to-b from-[#d3c7eb] via-[#EDEAFB] to-[#e8f0f6] dark:bg-gradient-to-b dark:from-[#1f2a44] dark:via-[#1f2a44] dark:to-[#1f2a44] rounded-3xl p-3 shadow-lg md:w-2/3 lg:w-1/2 mx-auto">
                     <h1 className="flex items-center mb-6 text-4xl font-semibold text-gray-900 dark:text-white">
                         <img className="w-12 h-12 mr-3 rounded-full" src="./assets/logo.jpg" alt="logo" />
@@ -157,16 +157,15 @@ function Profile() {
                             </div>
                         )}
 
-                        <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 mt-6 text-center">
+                        <p className="text-lg text-gray-700 dark:text-gray-300 mb-4 mt-4 text-center">
                             <strong>Puedes modificar la información del usuario aquí ↓</strong>
                         </p>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full md:w-2/3">
                             {/* Botón para abrir el modal de cambiar información */}
                             <div className="flex flex-col items-center">
-                                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 text-center">Cambiar Información</h3>
                                 <button
-                                    className="py-2.5 px-8 text-gray-700 font-semibold bg-white rounded-md duration-150 hover:bg-gray-500 dark:text-gray-700 dark:bg-gray-700 dark:hover:bg-gray-800"
+                                    className="transition-background py-8 inline-flex h-12 items-center justify-center rounded-md border border-gray-800 bg-gradient-to-r from-gray-100 via-[#c7d2fe] to-[#8678f9] bg-[length:200%_200%] bg-[0%_0%] px-6 font-medium text-gray-950 duration-500 hover:bg-[100%_200%] focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-gray-50"
                                     onClick={() => setShowModal('info')}
                                 >
                                     Cambiar Información
@@ -175,9 +174,8 @@ function Profile() {
 
                             {/* Botón para abrir el modal de cambiar contraseña */}
                             <div className="flex flex-col items-center">
-                                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 text-center">Cambiar Contraseña</h3>
                                 <button
-                                    className="py-2.5 px-8 text-gray-700 font-semibold bg-white rounded-md duration-150 hover:bg-gray-100 dark:text-gray-700 dark:bg-gray-700 dark:hover:bg-gray-800"
+                                    className="transition-background py-8 inline-flex h-12 items-center justify-center rounded-md border border-gray-800 bg-gradient-to-r from-gray-100 via-[#c7d2fe] to-[#8678f9] bg-[length:200%_200%] bg-[0%_0%] px-6 font-medium text-gray-950 duration-500 hover:bg-[100%_200%] focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-gray-50"
                                     onClick={() => setShowModal('password')}
                                 >
                                     Cambiar Contraseña

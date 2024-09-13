@@ -4,8 +4,10 @@ import TaskModal from '../components/taskModal'
 import Sidebar from '../components/sidebar'
 import TaskFilter from '../components/taskFilter'
 import TaskUpdater from '../components/taskUpdater'
+import useAuth from '../components/useAuth'
 
 const TaskListPage = () => {
+    const { authError } = useAuth();
     const [tasks, setTasks] = useState([])
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(false)
@@ -293,6 +295,12 @@ const TaskListPage = () => {
                 isFormVisible={isFormVisible}
                 setTaskStatus={setTaskStatus}
             />
+
+            {authError && (
+                <div className="bg-red-500 text-white p-4 text-center">
+                    {authError}
+                </div>
+            )}
 
             {/*Formulario para crear tareas tipo modal*/}
             <TaskModal
