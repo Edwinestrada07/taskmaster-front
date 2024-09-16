@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar, faStickyNote } from '@fortawesome/free-regular-svg-icons';
+import { faCalendar, faStar, faStickyNote } from '@fortawesome/free-regular-svg-icons';
 import { faAlignLeft, faRotateRight } from '@fortawesome/free-solid-svg-icons';
 
 const Sidebar = ({ 
@@ -64,10 +64,13 @@ const Sidebar = ({
                     <FontAwesomeIcon icon={faRotateRight} />
                     {isAsideVisible && <span className='ml-3'>Historial</span>}
                 </button>
-                <a href="calendar.html" className="flex items-center text-white opacity-75 py-3 w-full justify-center hover:bg-gray-600">
-                    <i className="fas fa-calendar"></i>
+                <button 
+                    className="flex items-center text-white opacity-75 py-3 w-full justify-center hover:bg-gray-600"
+                    onClick={() => handleViewMode('calendar')}
+                >
+                    <FontAwesomeIcon icon={faCalendar} />
                     {isAsideVisible && <span className='ml-3'>Calendario</span>}
-                </a>      
+                </button>      
             </div>
         </aside>
     );

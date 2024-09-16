@@ -4,6 +4,7 @@ import TaskModal from '../components/taskModal'
 import Sidebar from '../components/sidebar'
 import TaskFilter from '../components/taskFilter'
 import TaskUpdater from '../components/taskUpdater'
+import CalendarView from '../components/CalendarView'
 
 const TaskListPage = () => {
     const [tasks, setTasks] = useState([])
@@ -361,6 +362,14 @@ const TaskListPage = () => {
                     </div>
                 )}
 
+                {viewMode === 'calendar' && (
+                    <div className="flex-1 px-4">
+                        <CalendarView
+                            
+                        />
+                    </div>
+                )}    
+                
                 {!updateMode && 
                     <TaskList
                         tasks={tasks} 

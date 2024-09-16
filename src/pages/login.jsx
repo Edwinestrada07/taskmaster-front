@@ -65,13 +65,22 @@ function Login() {
     // Maneja el inicio de sesión con Google
     const signInWithGoogle = async () => {
         try {
-            await supabase.auth.signInWithOAuth({ provider: 'google' });
+            const { error } = await supabase.auth.signInWithOAuth({
+                provider: 'google',
+                options: {
+                    redirectTo: `${window.location.origin}/start` // URL de redirección
+                }
+            });
+    
+            if (error) {
+                throw error;
+            }
         } catch (error) {
             setError('Error al iniciar sesión con Google.');
             console.error('Error al iniciar sesión con Google:', error);
         }
     };
-
+    
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#d3c7eb] via-[#EDEAFB] to-[#e8f0f6] dark:bg-gradient-to-b dark:from-[#08090e] dark:via-[#08090e] dark:to-[#08090e]">
             <div className="container mx-auto px-4 py-2">
