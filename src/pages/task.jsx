@@ -4,7 +4,8 @@ import TaskModal from '../components/taskModal'
 import Sidebar from '../components/sidebar'
 import TaskFilter from '../components/taskFilter'
 import TaskUpdater from '../components/taskUpdater'
-import CalendarView from '../components/CalendarView'
+import Calendar from '../components/calendar'
+import { FaTrash } from 'react-icons/fa'
 
 const TaskListPage = () => {
     const [tasks, setTasks] = useState([])
@@ -302,39 +303,57 @@ const TaskListPage = () => {
                 error={error}
                 success={success}
             />
+
+            {/*Formulario para actualizar tareas*/}
+            {updateMode && taskToUpdate && (
+                <TaskUpdater 
+                    taskToUpdate={taskToUpdate} 
+                    updateTask={updateTask} 
+                    setTaskToUpdate={setTaskToUpdate} 
+                    setUpdateMode={setUpdateMode}
+                    loading={loading}
+                    error={error}
+                />
+            )}
         
             <div className="flex-1">
-                <h5 className="text-2xl font-extrabold text-[#10172A] dark:text-[#e2e8f0] m-3 text-center">Tareas</h5>
+                {/* Mostrar título según el modo de vista */}
+                {viewMode === 'registered' && (
+                    <h5 className="text-2xl font-bold text-[#10172A] dark:text-[#e2e8f0] m-3 text-center">
+                        Tareas Registradas
+                    </h5>
+                )}
+                {viewMode === 'byStatus' && (
+                    <h5 className="text-2xl font-bold text-[#10172A] dark:text-[#e2e8f0] m-3 text-center">
+                        Filtrar tareas por estados
+                    </h5>
+                )}
+                {viewMode === 'byFavorites' && (
+                    <h5 className="text-2xl font-bold text-[#10172A] dark:text-[#e2e8f0] m-3 text-center">
+                        Tareas Favoritas
+                    </h5>
+                )}
+                {viewMode === 'history' && (
+                    <h5 className="text-2xl font-bold text-[#10172A] dark:text-[#e2e8f0] m-3 text-center">
+                        Historial de Tareas
+                    </h5>
+                )}
+                {viewMode === 'calendar' && (
+                    <h5 className="text-2xl font-bold text-[#10172A] dark:text-[#e2e8f0] m-3 text-center">
+                        Calendario de Tareas
+                    </h5>
+                )}
 
-                {/*Formulario para filtrar tareas por estados*/}
+                {/*Filtrar tareas por estados*/}
                 {viewMode === 'byStatus' && (
                     <TaskFilter setTaskStatus={setTaskStatus} />
                 )}
 
-                {/*Formulario para actualizar tareas*/}
-                {updateMode && taskToUpdate && (
-                    <TaskUpdater 
-                        taskToUpdate={taskToUpdate} 
-                        updateTask={updateTask} 
-                        setTaskToUpdate={setTaskToUpdate} 
-                        setUpdateMode={setUpdateMode}
-                        loading={loading}
-                        error={error}
-                    />
-                )}
-
-                {viewMode === 'byFavorites' && (
-                    <div className="p-3">
-                        <h2 className="text-2xl font-bold mb-4 text-[#10172A] dark:text-[#e2e8f0]">Tareas Favoritas</h2>
-                    </div>
-                )}
-
+                {/*Sección historial tareas*/}
                 {viewMode === 'history' && (
                     <div className="p-3">
-                        <h2 className="text-2xl font-bold mb-4 text-[#10172A] dark:text-[#e2e8f0]">Historial de Tareas</h2>
-                        
                         <button
-                            className="px-4 py-2 bg-red-500 text-white rounded mb-4"
+                            className="px-4 py-2 font-semibold text-red-600 bg-red-100 rounded-lg hover:bg-red-200 flex items-center"
                             onClick={async () => {
                                 const confirmDelete = window.confirm('¿Estás seguro de que deseas eliminar todas las tareas del historial?');
                                 if (confirmDelete) {
@@ -346,9 +365,9 @@ const TaskListPage = () => {
                                 }
                             }}
                         >
-                            Eliminar Todas las Tareas del Historial
+                            <FaTrash className='mr-2' /> Eliminar Todas las Tareas del Historial
                         </button>
-
+                    
                         {loading && (
                             <div className="flex justify-center items-center mb-4">
                                 <svg className="w-6 h-6 mr-2 text-red-700 animate-spin" xmlns="http://www.w3.org/8000/svg" fill="none" viewBox="0 0 24 24">
@@ -362,15 +381,14 @@ const TaskListPage = () => {
                     </div>
                 )}
 
+                {/*Sección calendario*/}
                 {viewMode === 'calendar' && (
                     <div className="flex-1 px-4">
-                        <CalendarView
-                            
-                        />
+                        <Calendar />
                     </div>
                 )}    
                 
-                {!updateMode && 
+                {!updateMode && viewMode !== 'calendar' && (
                     <TaskList
                         tasks={tasks} 
                         onDeleteTask={deleteTask} 
@@ -379,7 +397,7 @@ const TaskListPage = () => {
                         onMoveToHistory={moveToHistory}
                         onUpdateTaskStatus={updateTaskStatus}
                     />
-                }
+                )}
                 {success && (
                     <div className="fixed bottom-0 left-0 right-0 p-2 sm:p-4 font-semibold text-sm sm:text-lg text-green-500 bg-green-200 dark:bg-green-600 dark:text-green-300">
                         {success}

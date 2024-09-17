@@ -8,9 +8,9 @@ const Sidebar = ({
     toggleAsideVisibility, 
     handleViewMode,
     toggleFormVisibility,
-    isFormVisible,
-    setTaskStatus
+    
 }) => {
+    
     return (
         <aside className={`relative inset-y-0 h-screen bg-gray-800 ${isAsideVisible ? 'w-64' : 'w-16'} sm:flex flex-col items-center rounded-lg shadow-lg transition-all duration-300`}>
             <div className="p-3 w-full flex justify-between items-center">
