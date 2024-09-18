@@ -31,11 +31,11 @@ const TaskDetailsModal = ({ isOpen, onClose, task, onSave }) => {
         }
     }, [task, isOpen]);
 
-    // Agregar un nuevo detalle
+    // Agregar un nuevo detalle con color
     const handleAddDetail = async () => {
         if (newDetail.trim() === '') {
             setError('El campo no puede estar vacío.');
-            setTimeout(() => setError(''), 2000);
+            setTimeout(() => setError(), 2000);
             return;
         }
 
@@ -47,7 +47,7 @@ const TaskDetailsModal = ({ isOpen, onClose, task, onSave }) => {
                     'Content-Type': 'application/json',
                     authorization: localStorage.getItem('token')
                 },
-                body: JSON.stringify({ detail: newDetail })
+                body: JSON.stringify({ detail: newDetail }) 
             });
 
             if (!response.ok) throw new Error('Error al agregar el detalle.');
@@ -56,7 +56,7 @@ const TaskDetailsModal = ({ isOpen, onClose, task, onSave }) => {
             setDetails([...details, newDetailData]);
             setNewDetail('');
             setSuccess('Detalle agregado exitosamente.');
-            setTimeout(() => setSuccess(''), 2000);
+            setTimeout(() => setSuccess(), 2000);
             setError('');
 
         } catch (error) {
@@ -67,7 +67,7 @@ const TaskDetailsModal = ({ isOpen, onClose, task, onSave }) => {
         }
     };
 
-    // Actualizar un detalle existente
+    // Actualizar un detalle existente con su color
     const handleUpdateDetail = async (id) => {
         try {
             const response = await fetch(`https://taskmaster-back.onrender.com/task/${task.id}/detail/${id}`, {
@@ -76,7 +76,7 @@ const TaskDetailsModal = ({ isOpen, onClose, task, onSave }) => {
                     'Content-Type': 'application/json',
                     authorization: localStorage.getItem('token')
                 },
-                body: JSON.stringify({ detail: editDetailText })
+                body: JSON.stringify({ detail: editDetailText }) 
             });
 
             if (!response.ok) throw new Error('Error al actualizar el detalle.');
@@ -86,7 +86,7 @@ const TaskDetailsModal = ({ isOpen, onClose, task, onSave }) => {
             setEditDetailId(null);
             setEditDetailText('');
             setSuccess('Detalle actualizado exitosamente.');
-            setTimeout(() => setSuccess(''), 2000);
+            setTimeout(() => setSuccess(), 2000);
             setError('');
 
         } catch (error) {
@@ -109,8 +109,8 @@ const TaskDetailsModal = ({ isOpen, onClose, task, onSave }) => {
 
             setDetails(details.filter(detail => detail.id !== id));
             setSuccess('Detalle eliminado exitosamente.');
-            setTimeout(() => setSuccess(''), 2000);
             setError('');
+            setTimeout(() => setSuccess(), 2000);
 
         } catch (error) {
             setError(error.message);
@@ -121,8 +121,8 @@ const TaskDetailsModal = ({ isOpen, onClose, task, onSave }) => {
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75 z-50">
-            <div className="bg-gray-800 text-white p-6 rounded-3xl w-full max-w-md h-5/6 md:h-auto overflow-y-auto relative">
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75 z-50 mt-0">
+            <div className="bg-gray-800 text-white p-8 rounded-2xl w-full max-w-md relative overflow-y-auto max-h-screen">
                 {/* Botón para cerrar el modal */}
                 <button
                     className="absolute top-2 right-2 p-2 text-gray-300 hover:text-gray-600"
@@ -134,41 +134,54 @@ const TaskDetailsModal = ({ isOpen, onClose, task, onSave }) => {
                 <h2 className="text-xl font-semibold mb-4">Detalles de la Tarea</h2>
 
                 {/* Mostrar mensajes de error y éxito */}
-                {error && <p className="mb-4 font-bold text-red-500">{error}</p>}
-                {success && <p className="mb-4 font-bold text-green-500">{success}</p>}
+                {error && (
+                    <p className="mb-4 font-bold text-red-500">
+                        {error}
+                    </p>
+                )}
+                {success && (
+                    <p className="mb-4 font-bold text-green-500">
+                        {success}
+                    </p>
+                )}
 
-                {/* Campo de entrada para agregar detalles */}
                 <div className="mb-4">
                     <input
                         type="text"
                         value={newDetail}
                         onChange={(e) => setNewDetail(e.target.value)}
                         placeholder="Agregar nuevo detalle"
-                        className="border-1 block h-12 w-full rounded-md border border-double border-slate-800 border-transparent bg-[linear-gradient(#000,#000),linear-gradient(to_right,#334454,#334454)]	bg-origin-border px-3 py-2 text-slate-200 transition-all duration-500 [background-clip:padding-box,_border-box] placeholder:text-slate-500 focus:bg-[linear-gradient(#000,#000),linear-gradient(to_right,#c7d2fe,#8678f9)] focus:outline-none"
+                        className="border-1 block h-12 w-full rounded-md border-slate-800 border-transparent bg-[linear-gradient(#000,#000),linear-gradient(to_right,#334454,#334454)]	bg-origin-border px-3 py-2 text-slate-200 transition-all duration-500 [background-clip:padding-box,_border-box] placeholder:text-slate-500 focus:bg-[linear-gradient(#000,#000),linear-gradient(to_right,#c7d2fe,#8678f9)] focus:outline-none mb-2"
                     />
                     <button
+                        type="submit"
                         className="transition-background mt-3 inline-flex h-12 items-center justify-center rounded-md border border-gray-800 bg-gradient-to-r from-gray-100 via-[#c7d2fe] to-[#8678f9] bg-[length:200%_200%] bg-[0%_0%] px-6 font-medium text-gray-950 duration-500 hover:bg-[100%_200%] focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-gray-50"
                         disabled={loading}
                         onClick={handleAddDetail}
                     >
-                        {loading ? 'Guardando...' : 'Guardar Detalle'}
+                        {loading ? 'Guardando...' : 'Guardar Detalles'}
                     </button>
                 </div>
 
                 {/* Lista de detalles */}
-                <ul className="space-y-2">
-                    {details.map(detail => (
-                        <li key={detail.id} className="flex justify-between items-center p-2 bg-gray-700 rounded-md">
+                <ul className="space-y-4">
+                    {details.map((detail) => (
+                        <li
+                            key={detail.id}
+                            className="flex justify-between items-center p-3 bg-gray-700 rounded-md"
+                        >
                             {editDetailId === detail.id ? (
                                 <>
+                                    {/* Campo de edición de detalle */}
                                     <input
                                         type="text"
                                         value={editDetailText}
                                         onChange={(e) => setEditDetailText(e.target.value)}
-                                        className="border-1 block h-12 w-full rounded-md border border-double border-slate-800 border-transparent bg-[linear-gradient(#000,#000),linear-gradient(to_right,#334454,#334454)]	bg-origin-border px-3 py-2 text-slate-200 transition-all duration-500 [background-clip:padding-box,_border-box] placeholder:text-slate-500 focus:bg-[linear-gradient(#000,#000),linear-gradient(to_right,#c7d2fe,#8678f9)] focus:outline-none"
+                                        className="border-1 block h-12 w-full rounded-md border-slate-800 border-transparent bg-[linear-gradient(#000,#000),linear-gradient(to_right,#334454,#334454)]	bg-origin-border px-3 py-2 text-slate-200 transition-all duration-500 [background-clip:padding-box,_border-box] placeholder:text-slate-500 focus:bg-[linear-gradient(#000,#000),linear-gradient(to_right,#c7d2fe,#8678f9)] focus:outline-none"
                                     />
+                                    {/* Botón de guardar */}
                                     <button
-                                        className="ml-2 px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
+                                        className="ml-2 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
                                         onClick={() => handleUpdateDetail(detail.id)}
                                     >
                                         <FaSave />
@@ -176,14 +189,20 @@ const TaskDetailsModal = ({ isOpen, onClose, task, onSave }) => {
                                 </>
                             ) : (
                                 <>
-                                    <span>{detail.detail}</span>
-                                    <div className="flex space-x-2">
+                                    {/* Detalle */}
+                                    <span className="flex-1">{detail.detail}</span>
+                                    <div className="flex items-center space-x-2">
+                                        {/* Botón de editar */}
                                         <button
                                             className="text-yellow-500 hover:text-yellow-600"
-                                            onClick={() => { setEditDetailId(detail.id); setEditDetailText(detail.detail); }}
+                                            onClick={() => {
+                                                setEditDetailId(detail.id);
+                                                setEditDetailText(detail.detail);
+                                            }}
                                         >
                                             Editar
                                         </button>
+                                        {/* Botón de eliminar */}
                                         <button
                                             className="text-red-500 hover:text-red-600"
                                             onClick={() => handleDeleteDetail(detail.id)}

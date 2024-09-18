@@ -66,28 +66,28 @@ const CalendarView = () => {
 
     return (
         <div className="flex justify-center items-center mb-3">
-            <div className="bg-gray-200 dark:bg-gray-800 rounded-3xl p-4 max-w-4xl w-full lg:w-3/4 md:w-full shadow-lg border-1 border-purple-500 animate-pulse-border">
+            <div className="rounded-3xl shadow-lg border-1 border-purple-500 animate-pulse-border">
                 <Calendar
                     onChange={handleDateChange}   // Cambia la fecha cuando se selecciona en el calendario
                     value={date}                  // Fecha actualmente seleccionada
-                    className="react-calendar rounded-3xl w-full"
+                    className="react-calendar rounded-3xl w-auto mx-1 mt-3"
                     tileContent={highlightTasksOnCalendar} // Resalta los días con tareas
-                    tileClassName="text-lg"       // Para que los números del calendario sean más grandes
+                    tileClassName="text-sm"       // Para que los números del calendario sean más grandes
                 />
                 <div className="mt-6">
-                    <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-4">
+                    <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-4 mx-3">
                         Tareas creadas el {date.toDateString()}:
                     </h3>
                     {error && (
                         <p className="text-red-500">{error}</p>
                     )}
                     {!error && tasksForSelectedDate.length === 0 && (
-                        <p className="text-red-600 dark:text-red-400 font-bold">
+                        <p className="text-red-600 dark:text-red-400 font-bold mx-3">
                             No hay tareas creadas en esta fecha.
                         </p>
                     )}
                     {tasksForSelectedDate.length > 0 && (
-                        <ul className="space-y-2 max-h-64 overflow-auto sm:max-h-40">
+                        <ul className="space-y-2 max-h-64 overflow-auto sm:max-h-40 mx-3 mb-3">
                             {tasksForSelectedDate.map(task => (
                                 <li key={task.id} className="bg-gray-100 dark:bg-gray-700 p-3 rounded-lg shadow text-gray-800 dark:text-gray-200">
                                     <p className="font-semibold">{task.title}</p>
