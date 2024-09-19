@@ -25,7 +25,7 @@ Este es el repositorio del frontend para la aplicación **TaskMaster**, una herr
 
 1. Clona este repositorio:
    ```bash
-   git clone https://github.com/tuusuario/taskmaster-frontend.git
+   git clone https://github.com/Edwinestrada07/taskmaster-front.git
    
 2. Navega al directorio del proyecto:
    
