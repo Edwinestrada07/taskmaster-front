@@ -1,70 +1,73 @@
-# Getting Started with Create React App
+# TaskMaster - Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este es el repositorio del frontend para la aplicación **TaskMaster**, una herramienta de gestión de tareas que permite crear, editar, eliminar y mover tareas entre diferentes estados. Además, permite almacenar tareas en el historial, gestionar detalles y visualizarlas en un calendario.
 
-## Available Scripts
+## Características
 
-In the project directory, you can run:
+- Autenticación de usuarios.
+- Gestión de tareas con diferentes estados (pendiente, en progreso, completada).
+- Funcionalidad de drag-and-drop para cambiar el estado de las tareas.
+- Historial de tareas completadas y eliminadas.
+- Modal para ver y gestionar los detalles de las tareas.
+- Visualización de tareas en un calendario según la fecha de creación.
+- Soporte para modo claro y oscuro.
 
-### `npm start`
+## Tecnologías utilizadas
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **React**: Biblioteca para la creación de interfaces de usuario.
+- **Tailwind CSS**: Framework CSS para el diseño responsivo y personalización de estilos.
+- **React Calendar**: Librería para mostrar tareas en un calendario.
+- **Hello Pangea DnD**: Librería para implementar drag-and-drop.
+- **Supabase**: Autenticación con OAuth para iniciar sesión con Google.
+- **Fetch API**: Para las llamadas al backend.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Instalación
 
-### `npm test`
+1. Clona este repositorio:
+   ```bash
+   git clone https://github.com/tuusuario/taskmaster-frontend.git
+   
+2. Navega al directorio del proyecto:
+   
+   **cd taskmaster-frontend**
+   
+3. Instala las dependencias:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+   **npm install**
 
-### `npm run build`
+4. Crea un archivo .env en la raíz del proyecto y añade la URL de tu backend:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+   **REACT_APP_BACKEND_URL=https://taskmaster-back.onrender.com**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+5. Ejecuta el servidor de desarrollo:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+   **npm start**
 
-### `npm run eject`
+6. Abre la aplicación en tu navegador en http://localhost:3000.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Scripts Disponibles
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- npm start: Ejecuta la aplicación en modo de desarrollo.
+- npm run build: Compila la aplicación para producción.
+  
+## Funcionalidades en Desarrollo
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- Integración de notificaciones push.
+- Optimización del rendimiento en dispositivos móviles.
+- Funcionalidades avanzadas de búsqueda y filtrado de tareas.
+  
+## Estructura del Proyecto
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- src/components/: Componentes reutilizables como TaskList, TaskItem, y el modal de detalles de tareas.
+- src/pages/: Vistas principales como Login, Register, Task.
+- src/services/: Servicios para interactuar con el backend.
 
-## Learn More
+## Contribuciones
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Las contribuciones son bienvenidas. Si deseas colaborar, por favor, abre un issue o crea un pull request con tus mejoras.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Licencia
 
-### Code Splitting
+Este proyecto está bajo la Licencia MIT.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
