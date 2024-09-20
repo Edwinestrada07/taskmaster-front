@@ -7,6 +7,7 @@ import { ThemeDarkMode, toggleTheme } from '../themeDarkMode/themeDark'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMoon, faSun } from '@fortawesome/free-regular-svg-icons'
 import { faRightToBracket, faUserPlus } from '@fortawesome/free-solid-svg-icons'
+import OpenHelpModal from '../components/openHelpModal'
 
 // Estilo del modal
 const customStyles = {
@@ -36,6 +37,7 @@ function Navbar() {
     const [showOptions, setShowOptions] = useState(false)
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const [modalIsOpen, setModalIsOpen] = useState(false)
+    const [isHelpModalOpen, setIsHelpModalOpen] = useState(false)
     const [darkMode, setDarkMode] = useState(
         localStorage.getItem('theme') === 'dark' ||
             window.matchMedia('(prefers-color-scheme: dark)').matches
@@ -70,6 +72,9 @@ function Navbar() {
         setDarkMode(!darkMode)
     }
 
+    const openHelpModal = () => setIsHelpModalOpen(true);
+    const closeHelpModal = () => setIsHelpModalOpen(false);
+
     return (
         <Disclosure
             as="nav"
@@ -82,7 +87,7 @@ function Navbar() {
                             className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
                             onClick={toggleOptions}
                         >
-                            <span className="sr-only">Open main menu</span>
+                            <span className="sr-only">Navbar modo escritorio</span>
                             {showOptions ? (
                                 <XMarkIcon aria-hidden="true" className="block h-6 w-6" />
                             ) : (
@@ -143,6 +148,20 @@ function Navbar() {
                                         >
                                             Perfil
                                         </NavLink>
+                                        <NavLink
+                                            to="#"
+                                            onClick={openHelpModal} // Abre el modal al hacer clic
+                                            className={({ isActive }) =>
+                                                classNames(
+                                                    isActive
+                                                        ? 'text-white'
+                                                        : 'text-gray-300 hover:text-white',
+                                                    'rounded-md px-3 py-2'
+                                                )
+                                            }
+                                        >
+                                            Ayuda
+                                        </NavLink>
                                         <button
                                             onClick={handleLogout}
                                             className="flex items-center text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2"
@@ -185,6 +204,7 @@ function Navbar() {
                             </div>
                         </div>
                     </div>
+
                     <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                         <button onClick={toggleDarkMode} className="mr-4">
                             {darkMode ? (
@@ -197,7 +217,7 @@ function Navbar() {
                             <Menu as="div" className="relative ml-3">
                                 <div>
                                     <MenuButton className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white">
-                                        <span className="sr-only">Open user menu</span>
+                                        <span className="sr-only">Modal perfil circle</span>
                                         <UserCircleIcon
                                             aria-hidden="true"
                                             className="h-8 w-8"
@@ -240,6 +260,7 @@ function Navbar() {
             </div>
 
             <DisclosurePanel className="sm:hidden">
+                <span className="sr-only">Navbar modo móvile</span>
                 <div className="space-y-1 px-2 pb-3 pt-2">
                     {isLoggedIn ? (
                         <>  
@@ -284,6 +305,20 @@ function Navbar() {
                                 }
                             >
                                 Perfil
+                            </DisclosureButton>
+                            <DisclosureButton
+                                as={NavLink}
+                                onClick={openHelpModal}
+                                className={({ isActive }) =>
+                                    classNames(
+                                        isActive
+                                            ? 'bg-gray-900 text-white'
+                                            : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                                        'block rounded-md px-3 py-2 text-base font-medium'
+                                    )
+                                }
+                            >
+                                Ayuda
                             </DisclosureButton>
                             <DisclosureButton
                                 className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
@@ -350,6 +385,11 @@ function Navbar() {
                     No
                 </button>
             </Modal>
+
+            <OpenHelpModal
+                isOpen={isHelpModalOpen}
+                onRequestClose={closeHelpModal}
+            />
         </Disclosure>
     )
 }
