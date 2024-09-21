@@ -125,7 +125,7 @@ const TaskDetailsModal = ({ isOpen, onClose, task, onSave }) => {
             <div className="bg-gray-800 text-white p-8 rounded-2xl w-full max-w-md relative overflow-y-auto max-h-screen">
                 {/* Botón para cerrar el modal */}
                 <button
-                    className="absolute top-2 right-2 p-2 text-gray-300 hover:text-gray-600"
+                    className="absolute top-7 right-5 p-2 text-gray-300 hover:text-gray-600"
                     onClick={onClose}
                 >
                     <FaTimes size={20} />
