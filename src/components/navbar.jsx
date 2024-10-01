@@ -6,7 +6,7 @@ import Modal from 'react-modal'
 import { ThemeDarkMode, toggleTheme } from '../themeDarkMode/themeDark'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMoon, faSun } from '@fortawesome/free-regular-svg-icons'
-import { faRightToBracket, faUserPlus } from '@fortawesome/free-solid-svg-icons'
+import { faUserPlus } from '@fortawesome/free-solid-svg-icons'
 import OpenHelpModal from '../components/openHelpModal'
 
 // Estilo del modal
@@ -78,9 +78,9 @@ function Navbar() {
     return (
         <Disclosure
             as="nav"
-            className="bg-gray-800 dark:bg-gray-700 text-white dark:text-gray-100 rounded-xl mx-2 mt-2 md:mx-0 md:mt-0 md:relative md:bg-transparent"
+            className="bg-gray-800 dark:bg-gray-800 text-white dark:text-gray-100 md:bg-transparent"
         >
-            <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+            <div className="ml-3">
                 <div className="relative flex h-16 items-center justify-between">
                     <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                         <DisclosureButton
@@ -162,13 +162,6 @@ function Navbar() {
                                         >
                                             Ayuda
                                         </NavLink>
-                                        <button
-                                            onClick={handleLogout}
-                                            className="flex items-center text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2"
-                                        >
-                                            Cerrar Sesión
-                                            <FontAwesomeIcon icon={faRightToBracket} className='ml-2'/>
-                                        </button>
                                     </>
                                 ) : (
                                     <>
@@ -319,13 +312,6 @@ function Navbar() {
                                 }
                             >
                                 Ayuda
-                            </DisclosureButton>
-                            <DisclosureButton
-                                className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-                                onClick={handleLogout}
-                            >
-                                <FontAwesomeIcon icon={faRightToBracket} className='mr-2'/>
-                                Cerrar Sesión
                             </DisclosureButton>
                         </>
                     ) : (
