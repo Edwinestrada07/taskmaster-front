@@ -317,33 +317,6 @@ const TaskListPage = () => {
             )}
         
             <div className="flex-1">
-                {/* Mostrar título según el modo de vista */}
-                {viewMode === 'registered' && (
-                    <h5 className="text-2xl font-bold text-[#10172A] dark:text-[#e2e8f0] m-3 text-center">
-                        Tareas Registradas
-                    </h5>
-                )}
-                {viewMode === 'byStatus' && (
-                    <h5 className="text-2xl font-bold text-[#10172A] dark:text-[#e2e8f0] m-3 text-center">
-                        Filtrar tareas por estados
-                    </h5>
-                )}
-                {viewMode === 'byFavorites' && (
-                    <h5 className="text-2xl font-bold text-[#10172A] dark:text-[#e2e8f0] m-3 text-center">
-                        Tareas Favoritas
-                    </h5>
-                )}
-                {viewMode === 'history' && (
-                    <h5 className="text-2xl font-bold text-[#10172A] dark:text-[#e2e8f0] m-3 text-center">
-                        Historial de Tareas
-                    </h5>
-                )}
-                {viewMode === 'calendar' && (
-                    <h5 className="text-2xl font-bold text-[#10172A] dark:text-[#e2e8f0] m-3 text-center">
-                        Calendario de Tareas
-                    </h5>
-                )}
-
                 {/*Filtrar tareas por estados*/}
                 {viewMode === 'byStatus' && (
                     <TaskFilter setTaskStatus={setTaskStatus} />
@@ -351,21 +324,21 @@ const TaskListPage = () => {
 
                 {/*Sección historial tareas*/}
                 {viewMode === 'history' && (
-                    <div className="p-3">
+                    <div className="p-2">
                         <button
-                            className="px-4 py-2 font-semibold text-red-600 bg-red-100 rounded-lg hover:bg-red-200 flex items-center"
+                            className="ml-5 px-4 py-2 font-semibold text-red-600 bg-red-100 rounded-lg hover:bg-red-200 flex items-center"
                             onClick={async () => {
                                 const confirmDelete = window.confirm('¿Estás seguro de que deseas eliminar todas las tareas del historial?');
                                 if (confirmDelete) {
                                     setLoading(true); // Iniciar el spinner
                                     setTimeout(async () => {
-                                        await handleDeleteAll(); // Llamar la función de eliminación
+                                        await handleDeleteAll(); // Llamar la función de eliminación 
                                         setLoading(false); // Detener el spinner
                                     }, 3000); // Esperar 3 segundos antes de ejecutar la eliminación
                                 }
                             }}
                         >
-                            <FaTrash className='mr-2' /> Eliminar Todas las Tareas del Historial
+                            <FaTrash className='mr-2 h-5 w-5' /> Eliminar Todas las Tareas del Historial
                         </button>
                     
                         {loading && (

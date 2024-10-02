@@ -10,13 +10,13 @@ const TaskColumn = ({ droppableId, tasks, onUpdateTask, onDeleteTask, onFavorite
     const [isPomodoroModalOpen, setIsPomodoroModalOpen] = useState(false);
 
     return (
-        <div className="flex flex-col w-full md:w-1/3 p-1">
+        <div className="flex flex-col w-full md:w-1/3 p-2">
             <Droppable droppableId={droppableId}>
                 {(provided, snapshot) => (
                     <div
                         ref={provided.innerRef}
                         {...provided.droppableProps}
-                        className={`bg-gray-100 rounded-3xl shadow-2xl p-4 flex-1 overflow-y-auto ${
+                        className={`bg-gray-100 rounded-3xl shadow-2xl p-4 ${
                             snapshot.isDraggingOver ? 'bg-blue-100' : ''
                         }`}
                     >

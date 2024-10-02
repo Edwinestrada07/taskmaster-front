@@ -207,13 +207,13 @@ function Navbar() {
                             )}
                         </button>
                         {isLoggedIn && (
-                            <Menu as="div" className="relative ml-3">
+                            <Menu as="div" className="relative ">
                                 <div>
-                                    <MenuButton className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white">
+                                    <MenuButton className="relative mr-2 flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white">
                                         <span className="sr-only">Modal perfil circle</span>
                                         <UserCircleIcon
                                             aria-hidden="true"
-                                            className="h-8 w-8"
+                                            className="h-8 w-8 mr-2"
                                         />
                                     </MenuButton>
                                 </div>

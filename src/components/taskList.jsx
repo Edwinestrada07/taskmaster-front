@@ -38,7 +38,7 @@ const TaskList = ({
 
     return (
         <DragDropContext onDragEnd={handleDragEnd}>
-            <div className="flex flex-col md:flex-row rounded-xl ml-2 shadow-md h-[calc(100vh-4rem)] overflow-y-auto">
+            <div className="flex flex-col md:flex-row h-[calc(94vh-2rem)] overflow-y-auto">
                 <TaskColumn
                     droppableId="PENDING"
                     tasks={pendingTasks}

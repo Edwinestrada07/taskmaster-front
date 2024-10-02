@@ -1,17 +1,37 @@
+import { useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar, faStar, faStickyNote } from '@fortawesome/free-regular-svg-icons';
 import { faAlignLeft, faRotateRight, faChevronLeft, faChevronRight, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 const Sidebar = ({ isAsideVisible, toggleAsideVisibility, handleViewMode, toggleFormVisibility }) => {
+    const asideRef = useRef(null);
+
+    // Detectar clics fuera del sidebar
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (asideRef.current && !asideRef.current.contains(event.target)) {
+                if (isAsideVisible) {
+                    toggleAsideVisibility();
+                }
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [isAsideVisible, toggleAsideVisibility]);
+
     return (
         <>
             <aside
-                className={`fixed inset-y-0 bg-gray-800 text-white shadow-lg transition-transform duration-300 ease-in-out ${
+                ref={asideRef}  // Usar el ref en el sidebar
+                className={`fixed inset-y-1 bg-gray-800 text-white shadow-lg transition-transform duration-300 ease-in-out ${
                     isAsideVisible ? 'translate-x-0 w-40' : '-translate-x-full w-40'
                 }`}
             >
                 <div className="flex justify-between items-center p-2 mt-5 border-b border-gray-400">
-                    <h1 className="text-xl font-bold tracking-wide hidden sm:block">TaskMaster</h1>
+                    <h1 className="text-lg font-bold tracking-wide hidden sm:block">TaskMaster</h1>
                     <button
                         className="bg-white text-gray-800 rounded-full p-1.5 focus:outline-none"
                         onClick={toggleAsideVisibility}
@@ -19,7 +39,7 @@ const Sidebar = ({ isAsideVisible, toggleAsideVisibility, handleViewMode, toggle
                         <FontAwesomeIcon icon={isAsideVisible ? faChevronLeft : faChevronRight}  />
                     </button>
                 </div>
-                <div className="mt-16 space-y-4">
+                <div className="mt-16 space-y-2">
                     <button
                         className={`bg-white text-gray-900 font-semibold py-2 ml-3 rounded-lg flex items-center justify-center ${
                             isAsideVisible ? 'w-32' : 'w-10'
@@ -70,7 +90,7 @@ const Sidebar = ({ isAsideVisible, toggleAsideVisibility, handleViewMode, toggle
             {/* Botón para mostrar el sidebar cuando está oculto */}
             {!isAsideVisible && (
                 <button
-                    className="fixed top-18 left-2 bg-white text-gray-800 rounded-full p-1.5 z-50 focus:outline-none"
+                    className="fixed top-20 left-3 bg-white text-gray-800 rounded-full p-1.5 z-50 focus:outline-none transition-transform hover:scale-105"
                     onClick={toggleAsideVisibility}
                 >
                     <FontAwesomeIcon icon={faChevronRight}/>

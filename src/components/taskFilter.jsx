@@ -1,37 +1,59 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const TaskFilter = ({ setTaskStatus }) => {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
     return (
-        <nav className="bg-gray-800 dark:bg-gray-700 p-3 rounded-lg shadow-md flex flex-wrap justify-center items-center space-x-3 ml-2 mb-3">
-            <button
-                className="bg-red-400 text-white px-3 py-1 text-bold rounded-lg transition-transform transform hover:scale-105 w-10 h-10 flex items-center justify-center sm:w-auto sm:h-auto sm:text-base"
-                onClick={() => setTaskStatus("PENDING")}
+        <div className="p-2">
+            {/* Botón hamburguesa visible en móviles */}
+            <div className="sm:hidden flex justify-end mb-2">
+                <button
+                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                    className="text-gray-800 bg-gray-100 p-2 rounded-md shadow-md transition-transform hover:scale-105"
+                >
+                    <i className="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+
+            {/* Menú de filtros, colapsable en móviles */}
+            <nav
+                className={`grid grid-cols-2 sm:grid-cols-4 gap-2.5 justify-center items-center ${
+                    isMenuOpen ? 'block' : 'hidden'
+                } sm:flex sm:flex-row sm:space-x-2`}
             >
-                <span className="hidden sm:inline">Pendiente</span>
-                <i className="fas fa-check-circle sm:hidden"></i>
-            </button>
-            <button
-                className="bg-yellow-400 text-white px-3 py-1 text-bold rounded-lg transition-transform transform hover:scale-105 w-10 h-10 flex items-center justify-center sm:w-auto sm:h-auto sm:text-base"
-                onClick={() => setTaskStatus("IN_PROGRESS")}
-            >
-                <span className="hidden sm:inline">En progreso</span>
-                <i className="fas fa-spinner sm:hidden"></i>
-            </button>
-            <button
-                className="bg-green-500 text-white px-3 py-1 text-bold rounded-lg transition-transform transform hover:scale-105 w-10 h-10 flex items-center justify-center sm:w-auto sm:h-auto sm:text-base"
-                onClick={() => setTaskStatus("COMPLETED")}
-            >
-                <span className="hidden sm:inline">Completada</span>
-                <i className="fas fa-check sm:hidden"></i>
-            </button>
-            <button
-                className="bg-blue-400 text-white px-3 py-1 text-bold rounded-lg transition-transform transform hover:scale-105 w-10 h-10 flex items-center justify-center sm:w-auto sm:h-auto sm:text-base"
-                onClick={() => setTaskStatus(null)}
-            >
-                <span className="hidden sm:inline">Borrar Filtros</span>
-                <i className="fas fa-times sm:hidden"></i>
-            </button>
-        </nav>
+                <button
+                    className="bg-red-500 text-white px-4 py-2 rounded-md shadow-md transition-transform hover:scale-105 w-full sm:w-auto"
+                    onClick={() => setTaskStatus("PENDING")}
+                >
+                    <span className="hidden sm:inline">Pendiente</span>
+                    <i className="fas fa-check-circle sm:hidden"></i>
+                </button>
+
+                <button
+                    className="bg-yellow-500 text-white px-4 py-2 rounded-md shadow-md transition-transform hover:scale-105 w-full sm:w-auto"
+                    onClick={() => setTaskStatus("IN_PROGRESS")}
+                >
+                    <span className="hidden sm:inline">En progreso</span>
+                    <i className="fas fa-spinner sm:hidden"></i>
+                </button>
+
+                <button
+                    className="bg-green-500 text-white px-4 py-2 rounded-md shadow-md transition-transform hover:scale-105 w-full sm:w-auto"
+                    onClick={() => setTaskStatus("COMPLETED")}
+                >
+                    <span className="hidden sm:inline">Completada</span>
+                    <i className="fas fa-check sm:hidden"></i>
+                </button>
+
+                <button
+                    className="bg-blue-500 text-white px-4 py-2 rounded-md shadow-md transition-transform hover:scale-105 w-full sm:w-auto"
+                    onClick={() => setTaskStatus(null)}
+                >
+                    <span className="hidden sm:inline">Borrar Filtros</span>
+                    <i className="fas fa-times sm:hidden"></i>
+                </button>
+            </nav>
+        </div>
     );
 };
 

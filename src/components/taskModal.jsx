@@ -2,6 +2,7 @@ import React from 'react';
 import TaskForm from './taskForm';
 
 const TaskModal = ({ isFormVisible, toggleFormVisibility, createTask, updateTask, updateMode, taskToUpdate, error, success }) => {
+    /*Formulario para crear tareas*/
     return (
         isFormVisible && (
             <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75 z-50">
