@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { FaTimes } from 'react-icons/fa'
 
 function TaskForm(props) {
     const [formData, setFormData] = useState({
@@ -25,7 +26,7 @@ function TaskForm(props) {
 
         // Validar que todos los campos estén llenos
         if (!formData.description || !formData.dueDate || !formData.priority || !formData.status) {
-            setError('Por favor, complete todos los campos.')
+            setError('Complete todos los campos.')
             return
         }
 
@@ -58,11 +59,26 @@ function TaskForm(props) {
 
     return (
         <form onSubmit={handleSubmit}>
-            {/* Mostrar mensaje de error si existe */}
-            {error && <p style={{ color: 'red' }} className='mb-4'>{error}</p>}
+            {successMessage && (
+                <div className="fixed top-4 right-4 bg-green-500 text-white p-4 rounded-lg shadow-md transition-opacity">
+                    {successMessage}
+                    <button
+                        onClick={() => setSuccessMessage('')}
+                        className="ml-4 text-lg text-white"
+                    >
+                        <FaTimes />
+                    </button>
+                </div>
+            )}
 
-            {/* Mostrar mensaje de éxito si la tarea se creó correctamente */}
-            {successMessage && <p style={{ color: 'green' }} className='mb-4'>{successMessage}</p>}
+            {error && (
+                <div className="fixed top-4 right-4 bg-red-500 text-white p-4 rounded-lg shadow-md transition-opacity">
+                    {error}
+                    <button onClick={() => setError(null)} className="ml-4 text-lg text-white">
+                        <FaTimes />
+                    </button>
+                </div>
+            )}
             
             <input
                 className="border-1 mb-2 block h-12 w-full rounded-md border-slate-800 border-transparent bg-[linear-gradient(#000,#000),linear-gradient(to_right,#334454,#334454)]	bg-origin-border px-3 py-2 text-slate-200 transition-all duration-500 [background-clip:padding-box,_border-box] placeholder:text-slate-500 focus:bg-[linear-gradient(#000,#000),linear-gradient(to_right,#c7d2fe,#8678f9)] focus:outline-none"

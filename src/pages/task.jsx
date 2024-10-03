@@ -5,11 +5,12 @@ import Sidebar from '../components/sidebar'
 import TaskFilter from '../components/taskFilter'
 import TaskUpdater from '../components/taskUpdater'
 import Calendar from '../components/calendar'
-import { FaTrash } from 'react-icons/fa'
+import { FaTimes, FaTrash } from 'react-icons/fa'
 
 const TaskListPage = () => {
     const [tasks, setTasks] = useState([])
     const [error, setError] = useState(null)
+    const [successMessage, setSuccessMessage] = useState('')
     const [loading, setLoading] = useState(false)
     const [taskStatus, setTaskStatus] = useState(null)
     const [taskToUpdate, setTaskToUpdate] = useState(null) // Estado para almacenar la tarea a actualizar
@@ -17,7 +18,6 @@ const TaskListPage = () => {
     const [isFormVisible, setFormVisible] = useState(false)
     const [viewMode, setViewMode] = useState('') // Estado para controlar qué vista mostrar en la parte derecha
     const [isAsideVisible, setIsAsideVisible] = useState(true)
-    const [success, setSuccess] = useState('');
 
     // Función para obtener las tareas con filtros según el modo de vista
     const getTasks = useCallback(async () => {
@@ -69,8 +69,8 @@ const TaskListPage = () => {
 
             if (!response.ok) throw new Error('No se pudo crear la tarea.');
 
-            setSuccess('Tarea creada exitosamente.');
-            setTimeout(() => setSuccess(''), 3000);
+            setSuccessMessage('Tarea creada exitosamente.');
+            setTimeout(() => setSuccessMessage(''), 3000);
 
             getTasks();
         } catch (error) {
@@ -94,8 +94,8 @@ const TaskListPage = () => {
 
             if (!response.ok) throw new Error('No se pudo actualizar la tarea.');
 
-            setSuccess('Tarea actualizada exitosamente.');
-            setTimeout(() => setSuccess(''), 3000);
+            setSuccessMessage('Tarea actualizada exitosamente.');
+            setTimeout(() => setSuccessMessage(''), 3000);
 
             getTasks();
             setUpdateMode(false);
@@ -140,8 +140,8 @@ const TaskListPage = () => {
             if (!response.ok) throw new Error('No se pudo eliminar la tarea.');
 
             // Mostrar mensaje de éxito
-            setSuccess('Tarea eliminada exitosamente.');
-            setTimeout(() => setSuccess(''), 3000);
+            setSuccessMessage('Tarea eliminada exitosamente.');
+            setTimeout(() => setSuccessMessage(''), 3000);
 
             // Recargar la lista de tareas
             getTasks();
@@ -164,8 +164,8 @@ const TaskListPage = () => {
             });
             if (!response.ok) throw new Error('No se pudo eliminar las tareas del historial.');
 
-            setSuccess('Todas las tareas del historial han sido eliminadas.');
-            setTimeout(() => setSuccess(''), 3000);
+            setSuccessMessage('Todas las tareas del historial han sido eliminadas.');
+            setTimeout(() => setSuccessMessage(''), 3000);
 
             setTasks([]);
         } catch (error) {
@@ -189,8 +189,8 @@ const TaskListPage = () => {
 
             if (!response.ok) throw new Error('No se pudo actualizar el estado de favorita.');
 
-            setSuccess('Tarea marcada y/o desmarcada como favorita.');
-            setTimeout(() => setSuccess(''), 3000);
+            setSuccessMessage('Tarea marcada y/o desmarcada como favorita.');
+            setTimeout(() => setSuccessMessage(''), 3000);
 
             getTasks();
         } catch (error) {
@@ -216,8 +216,8 @@ const TaskListPage = () => {
 
             if (!response.ok) throw new Error('No se pudo mover la tarea al historial.');
 
-            setSuccess('Tarea movida al historial exitosamente.');
-            setTimeout(() => setSuccess(''), 3000);
+            setSuccessMessage('Tarea movida al historial exitosamente.');
+            setTimeout(() => setSuccessMessage(''), 3000);
 
             // Eliminar la tarea de la columna de completadas
             setTasks(prevTasks => prevTasks.filter(task => task.id !== taskId));
@@ -243,8 +243,8 @@ const TaskListPage = () => {
     
             if (!response.ok) throw new Error('No se pudo actualizar el estado de la tarea.');
 
-            setSuccess('Estado de la tarea actualizado.');
-            setTimeout(() => setSuccess(''), 3000);
+            setSuccessMessage('Estado de la tarea actualizado.');
+            setTimeout(() => setSuccessMessage(''), 3000);
 
             // Actualizar la lista de tareas después de la actualización
             getTasks();
@@ -301,7 +301,7 @@ const TaskListPage = () => {
                 updateMode={updateMode}
                 taskToUpdate={taskToUpdate}
                 error={error}
-                success={success}
+                successMessage={successMessage}
             />
 
             {/*Formulario para actualizar tareas*/}
@@ -371,11 +371,26 @@ const TaskListPage = () => {
                         onUpdateTaskStatus={updateTaskStatus}
                     />
                 )}
-                {success && (
-                    <div className="fixed bottom-0 left-0 right-0 p-2 sm:p-4 font-semibold text-sm sm:text-lg text-green-500 bg-green-200 dark:bg-green-600 dark:text-green-300">
-                        {success}
-                    </div>
-                )}
+                {successMessage && (
+                        <div className="fixed top-4 right-4 bg-green-500 text-white p-4 rounded-lg shadow-md transition-opacity">
+                            {successMessage}
+                            <button
+                                onClick={() => setSuccessMessage('')}
+                                className="ml-4 text-lg text-white"
+                            >
+                                <FaTimes />
+                            </button>
+                        </div>
+                    )}
+
+                    {error && (
+                        <div className="fixed top-4 right-4 bg-red-500 text-white p-4 rounded-lg shadow-md transition-opacity">
+                            {error}
+                            <button onClick={() => setError(null)} className="ml-4 text-lg text-white">
+                                <FaTimes />
+                            </button>
+                        </div>
+                    )}
             </div>
         </div>
     )

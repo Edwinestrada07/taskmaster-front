@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { supabase } from '../services/supabaseClient';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { FaEye, FaEyeSlash, FaTimes } from 'react-icons/fa';
 
 function Login() {
     const [login, setLogin] = useState({ email: '', password: '' });
@@ -98,17 +98,24 @@ function Login() {
                                 Iniciar Sesión
                             </h2>
 
-                            {/* Muestra el mensaje de error si existe */}
-                            {error && (
-                                <div className="alert alert-danger text-red-600 text-lg font-medium leading-tight mb-4">
-                                    {error}
+                            {successMessage && (
+                                <div className="fixed top-4 right-4 bg-green-500 text-white p-4 rounded-lg shadow-md transition-opacity">
+                                    {successMessage}
+                                    <button
+                                        onClick={() => setSuccessMessage('')}
+                                        className="ml-4 text-lg text-white"
+                                    >
+                                        <FaTimes />
+                                    </button>
                                 </div>
                             )}
 
-                            {/* Muestra el mensaje de éxito si existe */}
-                            {successMessage && (
-                                <div className="alert alert-success text-green-600 text-lg font-medium leading-tight mb-4">
-                                    {successMessage}
+                            {error && (
+                                <div className="fixed top-4 right-4 bg-red-500 text-white p-4 rounded-lg shadow-md transition-opacity">
+                                    {error}
+                                    <button onClick={() => setError(null)} className="ml-4 text-lg text-white">
+                                        <FaTimes />
+                                    </button>
                                 </div>
                             )}
 

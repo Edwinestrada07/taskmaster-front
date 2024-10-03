@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { supabase } from '../services/supabaseClient';
+import { FaTimes } from 'react-icons/fa';
 
 function Signup() {
     // Estado para gestionar los datos del formulario, errores, mensajes de éxito y estado de carga
@@ -114,15 +115,24 @@ function Signup() {
                                 Registrarse
                             </h2>
 
-                            {/* Mensajes de error y éxito */}
-                            {error && (
-                                <div className="alert alert-danger text-red-600 text-lg font-medium leading-tight mb-4">
-                                    {error}
+                            {successMessage && (
+                                <div className="fixed top-4 right-4 bg-green-500 text-white p-4 rounded-lg shadow-md transition-opacity">
+                                    {successMessage}
+                                    <button
+                                        onClick={() => setSuccessMessage('')}
+                                        className="ml-4 text-lg text-white"
+                                    >
+                                        <FaTimes />
+                                    </button>
                                 </div>
                             )}
-                            {successMessage && (
-                                <div className="alert alert-success text-green-600 text-lg font-medium leading-tight mb-4">
-                                    {successMessage}
+
+                            {error && (
+                                <div className="fixed top-4 right-4 bg-red-500 text-white p-4 rounded-lg shadow-md transition-opacity">
+                                    {error}
+                                    <button onClick={() => setError(null)} className="ml-4 text-lg text-white">
+                                        <FaTimes />
+                                    </button>
                                 </div>
                             )}
 

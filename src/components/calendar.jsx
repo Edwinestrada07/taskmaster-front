@@ -64,14 +64,14 @@ const CalendarView = () => {
     };
 
     return (
-        <div className="flex flex-col sm:flex-row justify-center items-start sm:items-center mb-6 p-4 space-x-4">
+        <div className="flex flex-col sm:flex-row justify-center items-start sm:items-center mb-24 p-4 space-x-4">
             <div className="rounded-xl shadow-lg border-2 dark:border-gray-700 p-4 w-full sm:w-auto sm:max-w-lg bg-white dark:bg-gray-800">
                 <Calendar
                     onChange={handleDateChange}
                     value={date}
                     className="rounded-2xl w-full mx-auto"
                     tileContent={showTaskDays ? highlightTasksOnCalendar : null}
-                    tileClassName="text-sm"
+                    tileClassName="text-XL"
                 />
                 <button
                     onClick={handleShowTaskDays}
@@ -81,22 +81,25 @@ const CalendarView = () => {
                 </button>
             </div>
 
-            <div className="w-full sm:w-1/2">
-                <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-4">
+            <div className="w-64 sm:w-1/2">
+                <h3 className="text-xl text-center font-semibold text-gray-800 dark:text-gray-200 m-4">
                     Tareas creadas el {date.toDateString()}:
                 </h3>
+
                 {error && <p className="text-red-500 dark:text-red-400">{error}</p>}
+
                 {!error && tasksForSelectedDate.length === 0 && (
-                    <p className="text-red-600 dark:text-red-400 font-bold">
+                    <p className="text-center text-red-600 dark:text-red-400 font-bold">
                         No hay tareas creadas en esta fecha.
                     </p>
                 )}
+                
                 {tasksForSelectedDate.length > 0 && (
                     <ul className="space-y-2 max-h-64 overflow-auto sm:max-h-40">
                         {tasksForSelectedDate.map(task => (
                             <li
                                 key={task.id}
-                                className="bg-gray-100 dark:bg-gray-700 p-3 rounded-lg shadow-md text-gray-800 dark:text-gray-200"
+                                className="bg-gray-300 dark:bg-gray-700 p-3 rounded-lg shadow-md text-gray-800 dark:text-gray-200"
                             >
                                 <p className="font-semibold">{task.title}</p>
                                 <p className="text-sm">{task.description}</p>

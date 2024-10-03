@@ -7,7 +7,7 @@ const TaskDetailsModal = ({ isOpen, onClose, task, onSave }) => {
     const [editDetailId, setEditDetailId] = useState(null);
     const [editDetailText, setEditDetailText] = useState('');
     const [error, setError] = useState('');
-    const [success, setSuccess] = useState('');
+    const [successMessage, setSuccessMessage] = useState('')
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -55,13 +55,13 @@ const TaskDetailsModal = ({ isOpen, onClose, task, onSave }) => {
             const newDetailData = await response.json();
             setDetails([...details, newDetailData]);
             setNewDetail('');
-            setSuccess('Detalle agregado exitosamente.');
-            setTimeout(() => setSuccess(), 2000);
+            setSuccessMessage('Detalle agregado exitosamente.');
+            setTimeout(() => setSuccessMessage(), 2000);
             setError('');
 
         } catch (error) {
             setError(error.message);
-            setSuccess('');
+            setSuccessMessage('');
         } finally {
             setLoading(false);
         }
@@ -85,13 +85,13 @@ const TaskDetailsModal = ({ isOpen, onClose, task, onSave }) => {
             setDetails(details.map(detail => detail.id === id ? updatedDetail : detail));
             setEditDetailId(null);
             setEditDetailText('');
-            setSuccess('Detalle actualizado exitosamente.');
-            setTimeout(() => setSuccess(), 2000);
+            setSuccessMessage('Detalle actualizado exitosamente.');
+            setTimeout(() => setSuccessMessage(), 2000);
             setError('');
 
         } catch (error) {
             setError(error.message);
-            setSuccess('');
+            setSuccessMessage('');
         }
     };
 
@@ -108,13 +108,13 @@ const TaskDetailsModal = ({ isOpen, onClose, task, onSave }) => {
             if (!response.ok) throw new Error('Error al eliminar el detalle.');
 
             setDetails(details.filter(detail => detail.id !== id));
-            setSuccess('Detalle eliminado exitosamente.');
+            setSuccessMessage('Detalle eliminado exitosamente.');
             setError('');
-            setTimeout(() => setSuccess(), 2000);
+            setTimeout(() => setSuccessMessage(), 2000);
 
         } catch (error) {
             setError(error.message);
-            setSuccess('');
+            setSuccessMessage('');
         }
     };
 
@@ -133,16 +133,25 @@ const TaskDetailsModal = ({ isOpen, onClose, task, onSave }) => {
 
                 <h2 className="text-xl font-semibold mb-4">Detalles de la Tarea</h2>
 
-                {/* Mostrar mensajes de error y éxito */}
-                {error && (
-                    <p className="mb-4 font-bold text-red-500">
-                        {error}
-                    </p>
+                {successMessage && (
+                    <div className="fixed top-4 right-4 bg-green-500 text-white p-4 rounded-lg shadow-md transition-opacity">
+                        {successMessage}
+                        <button
+                            onClick={() => setSuccessMessage('')}
+                            className="ml-4 text-lg text-white"
+                        >
+                            <FaTimes />
+                        </button>
+                    </div>
                 )}
-                {success && (
-                    <p className="mb-4 font-bold text-green-500">
-                        {success}
-                    </p>
+
+                {error && (
+                    <div className="fixed top-4 right-4 bg-red-500 text-white p-4 rounded-lg shadow-md transition-opacity">
+                        {error}
+                        <button onClick={() => setError(null)} className="ml-4 text-lg text-white">
+                            <FaTimes />
+                        </button>
+                    </div>
                 )}
 
                 <div className="mb-4">
@@ -164,11 +173,11 @@ const TaskDetailsModal = ({ isOpen, onClose, task, onSave }) => {
                 </div>
 
                 {/* Lista de detalles */}
-                <ul className="space-y-4">
+                <ul className="space-y-2">
                     {details.map((detail) => (
                         <li
                             key={detail.id}
-                            className="flex justify-between items-center p-3 bg-gray-700 rounded-md"
+                            className="flex justify-between items-center p-2 bg-gray-700 rounded-md"
                         >
                             {editDetailId === detail.id ? (
                                 <>

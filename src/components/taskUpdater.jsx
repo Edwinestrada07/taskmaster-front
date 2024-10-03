@@ -1,8 +1,10 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 import { FaTimes } from 'react-icons/fa';
 
-const TaskUpdater = ({ taskToUpdate, updateTask, setTaskToUpdate, setUpdateMode, loading, error }) => {
+const TaskUpdater = ({ taskToUpdate, updateTask, setTaskToUpdate, setUpdateMode, loading }) => {
+    const [error, setError] = useState(null)
+    const [successMessage, setSuccessMessage] = useState('') 
+
     /*Formulario para actualizar tareas*/
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75 z-50">
@@ -20,7 +22,26 @@ const TaskUpdater = ({ taskToUpdate, updateTask, setTaskToUpdate, setUpdateMode,
 
                 <h2 className="text-xl font-semibold mb-4">Formulario de Actualización</h2>
 
-                {error && <p className="text-red-500 mb-4 font-bold">{error}</p>}
+                {successMessage && (
+                    <div className="fixed top-4 right-4 bg-green-500 text-white p-4 rounded-lg shadow-md transition-opacity">
+                        {successMessage}
+                        <button
+                            onClick={() => setSuccessMessage('')}
+                            className="ml-4 text-lg text-white"
+                        >
+                            <FaTimes />
+                        </button>
+                    </div>
+                )}
+
+                {error && (
+                    <div className="fixed top-4 right-4 bg-red-500 text-white p-4 rounded-lg shadow-md transition-opacity">
+                        {error}
+                        <button onClick={() => setError(null)} className="ml-4 text-lg text-white">
+                            <FaTimes />
+                        </button>
+                    </div>
+                )}
 
                 {taskToUpdate && (
                     <form

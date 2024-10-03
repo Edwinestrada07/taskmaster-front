@@ -6,7 +6,6 @@ import Modal from 'react-modal'
 import { ThemeDarkMode, toggleTheme } from '../themeDarkMode/themeDark'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMoon, faSun } from '@fortawesome/free-regular-svg-icons'
-import { faUserPlus } from '@fortawesome/free-solid-svg-icons'
 import OpenHelpModal from '../components/openHelpModal'
 
 // Estilo del modal
@@ -189,7 +188,6 @@ function Navbar() {
                                                 )
                                             }
                                         >
-                                            <FontAwesomeIcon icon={faUserPlus} className='mr-2'/>
                                             Registrarse
                                         </NavLink>
                                     </>
@@ -342,7 +340,6 @@ function Navbar() {
                                     )
                                 }
                             >
-                                <FontAwesomeIcon icon={faUserPlus} className='mr-2'/>
                                 Registrarse
                             </DisclosureButton>
                         </>
