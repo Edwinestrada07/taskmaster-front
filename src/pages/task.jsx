@@ -372,25 +372,25 @@ const TaskListPage = () => {
                     />
                 )}
                 {successMessage && (
-                        <div className="fixed top-4 right-4 bg-green-500 text-white p-4 rounded-lg shadow-md transition-opacity">
-                            {successMessage}
-                            <button
-                                onClick={() => setSuccessMessage('')}
-                                className="ml-4 text-lg text-white"
-                            >
-                                <FaTimes />
-                            </button>
-                        </div>
-                    )}
+                    <div className="fixed top-4 right-4 bg-green-500 text-white p-4 rounded-lg shadow-md transition-opacity">
+                        {successMessage}
+                        <button
+                            onClick={() => setSuccessMessage('')}
+                            className="ml-4 text-lg text-white"
+                        >
+                            <FaTimes />
+                        </button>
+                    </div>
+                )}
 
-                    {error && (
-                        <div className="fixed top-4 right-4 bg-red-500 text-white p-4 rounded-lg shadow-md transition-opacity">
-                            {error}
-                            <button onClick={() => setError(null)} className="ml-4 text-lg text-white">
-                                <FaTimes />
-                            </button>
-                        </div>
-                    )}
+                {error && (
+                    <div className="fixed top-4 right-4 bg-red-500 text-white p-4 rounded-lg shadow-md transition-opacity">
+                        {error}
+                         <button onClick={() => setError(null)} className="ml-4 text-lg text-white">
+                            <FaTimes />
+                        </button>
+                    </div>
+                )}
             </div>
         </div>
     )
