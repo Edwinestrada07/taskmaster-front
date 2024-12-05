@@ -21,53 +21,20 @@ Este es el repositorio del frontend para la aplicación **TaskMaster**, una herr
 - **Supabase**: Autenticación con OAuth para iniciar sesión con Google.
 - **Fetch API**: Para las llamadas al backend.
 
-## Instalación
-
-1. Clona este repositorio:
-   ```bash
-   git clone https://github.com/Edwinestrada07/taskmaster-front.git
-   
-2. Navega al directorio del proyecto:
-   
-   **cd taskmaster-frontend**
-   
-3. Instala las dependencias:
-
-   **npm install**
-
-4. Crea un archivo .env en la raíz del proyecto y añade la URL de tu backend:
-
-   **REACT_APP_BACKEND_URL=https://taskmaster-back.onrender.com**
-
-5. Ejecuta el servidor de desarrollo:
-
-   **npm start**
-
-6. Abre la aplicación en tu navegador en http://localhost:3000.
-
 ## Scripts Disponibles
 
-- npm start: Ejecuta la aplicación en modo de desarrollo.
-- npm run build: Compila la aplicación para producción.
-  
-## Funcionalidades en Desarrollo
-
-- Integración de notificaciones push.
-- Optimización del rendimiento en dispositivos móviles.
-- Funcionalidades avanzadas de búsqueda y filtrado de tareas.
-  
-## Estructura del Proyecto
-
-- src/components/: Componentes reutilizables como TaskList, TaskItem, y el modal de detalles de tareas.
-- src/pages/: Vistas principales como Login, Register, Task.
-- src/services/: Servicios para interactuar con el backend.
+![Interfaz de Task-Master](./public/assets/screen/img1.jpg)
+![Interfaz de Task-Master](./public/assets/screen/img2.jpg)
+## Vista para la funcionalidad de la web
+![Interfaz de Task-Master](./public/assets/screen/img3.jpg)
+![Interfaz de Task-Master](./public/assets/screen/img4.jpg)
+## Vista para las características
+![Interfaz de Task-Master](./public/assets/screen/img5.jpg)
 
 ## Contribuciones
 
-Las contribuciones son bienvenidas. Si deseas colaborar, por favor, abre un issue o crea un pull request con tus mejoras.
+Las contribuciones son bienvenidas.
 
-## Licencia
+## Visitar sitio web 
 
-Este proyecto está bajo la Licencia MIT.
-
-
+https://t4sk-master.netlify.app/start
