@@ -22,7 +22,7 @@ const TaskListPage = () => {
     // Función para obtener las tareas con filtros según el modo de vista
     const getTasks = useCallback(async () => {
         try {
-            const baseUrl = 'https://taskmaster-back.onrender.com/task';
+            const baseUrl = 'http://localhost:5000/task';
             const endpoints = {
                 registered: '',
                 byFavorites: '/favorites',
