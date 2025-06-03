@@ -34,7 +34,7 @@ const TaskItem = ({ task, index, onUpdateTask, onDeleteTask, onFavoriteTask, onM
     // Manejar el evento de mover la tarea al historial
     const handleMoveToHistory = async () => {
         try {
-            const response = await fetch(`https://taskmaster-back.onrender.com/task/${id}/move`, {
+            const response = await fetch(`http://localhost:5000/task/${id}/move`, {
                 method: 'POST', 
                 headers: {
                     'Content-Type': 'application/json',

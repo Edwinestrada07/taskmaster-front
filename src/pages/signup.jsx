@@ -38,7 +38,7 @@ function Signup() {
         }
 
         try {
-            const response = await fetch('https://taskmaster-back.onrender.com/signup', {
+            const response = await fetch('http://localhost:5000/signup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

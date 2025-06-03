@@ -14,7 +14,7 @@ const CalendarView = () => {
     };
 
     const fetchTasks = async () => {
-        const baseUrl = `https://taskmaster-back.onrender.com/task`;
+        const baseUrl = `http://localhost:5000/task`;
         try {
             const response = await fetch(baseUrl, {
                 method: 'GET',

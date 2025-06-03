@@ -7,7 +7,7 @@ const FavoriteTasksPage = () => {
 
     const fetchFavoriteTasks = async () => {
         try {
-            const response = await fetch('https://taskmaster-back.onrender.com/task/favorites', {
+            const response = await fetch('http://localhost:5000/task/favorites', {
                 method: 'GET',
                 headers: {
                     authorization: localStorage.getItem('token')

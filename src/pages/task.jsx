@@ -205,7 +205,7 @@ const TaskListPage = () => {
         try {
             if (taskStatus === 'COMPLETED') throw new Error('Solo se pueden mover tareas completadas al historial.');
 
-            const response = await fetch(`https://taskmaster-back.onrender.com/task/${taskId}/move`, {
+            const response = await fetch(`http://localhost:5000/task/${taskId}/move`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -232,7 +232,7 @@ const TaskListPage = () => {
     //Funcion para actualizar el estado de la tarea en la base de datos
     const updateTaskStatus = async (taskId, newStatus) => {
         try {
-            const response = await fetch(`https://taskmaster-back.onrender.com/task/${taskId}/status`, {
+            const response = await fetch(`http://localhost:5000/task/${taskId}/status`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

@@ -13,7 +13,7 @@ const TaskDetailsModal = ({ isOpen, onClose, task, onSave }) => {
     useEffect(() => {
         if (task && isOpen) {
             // Cargar detalles de la tarea al abrir el modal
-            fetch(`https://taskmaster-back.onrender.com/task/${task.id}/detail`, {
+            fetch(`http://localhost:5000/task/${task.id}/detail`, {
                 headers: {
                     authorization: localStorage.getItem('token')
                 }
@@ -41,7 +41,7 @@ const TaskDetailsModal = ({ isOpen, onClose, task, onSave }) => {
 
         try {
             setLoading(true);
-            const response = await fetch(`https://taskmaster-back.onrender.com/task/${task.id}/detail`, {
+            const response = await fetch(`http://localhost:5000/task/${task.id}/detail`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -70,7 +70,7 @@ const TaskDetailsModal = ({ isOpen, onClose, task, onSave }) => {
     // Actualizar un detalle existente con su color
     const handleUpdateDetail = async (id) => {
         try {
-            const response = await fetch(`https://taskmaster-back.onrender.com/task/${task.id}/detail/${id}`, {
+            const response = await fetch(`http://localhost:5000/task/${task.id}/detail/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -98,7 +98,7 @@ const TaskDetailsModal = ({ isOpen, onClose, task, onSave }) => {
     // Eliminar un detalle
     const handleDeleteDetail = async (id) => {
         try {
-            const response = await fetch(`https://taskmaster-back.onrender.com/task/${task.id}/detail/${id}`, {
+            const response = await fetch(`http://localhost:5000/task/${task.id}/detail/${id}`, {
                 method: 'DELETE',
                 headers: {
                     authorization: localStorage.getItem('token')

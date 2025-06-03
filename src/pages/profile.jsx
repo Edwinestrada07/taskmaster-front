@@ -18,7 +18,7 @@ function Profile() {
             return;
         }
 
-        fetch('https://taskmaster-back.onrender.com/user/profile', {
+        fetch('http://localhost:5000/user/profile', {
             headers: {
                 authorization: token,
             },
@@ -54,7 +54,7 @@ function Profile() {
             return;
         }
 
-        fetch('https://taskmaster-back.onrender.com/user/change-password', {
+        fetch('http://localhost:5000/user/change-password', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -85,7 +85,7 @@ function Profile() {
             return;
         }
 
-        fetch('https://taskmaster-back.onrender.com/user/profile', {
+        fetch('http://localhost:5000/user/profile', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
