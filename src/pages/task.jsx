@@ -58,7 +58,7 @@ const TaskListPage = () => {
             const userId = JSON.parse(localStorage.getItem('user')).id;
             task.userId = userId;
 
-            const response = await fetch('https://taskmaster-back.onrender.com/task', {
+            const response = await fetch('http://localhost:5000/task', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -83,7 +83,7 @@ const TaskListPage = () => {
     // Función para actualizar una tarea existente
     const updateTask = async (id, task) => {
         try {
-            const response = await fetch(`https://taskmaster-back.onrender.com/task/${id}`, {
+            const response = await fetch(`http://localhost:5000/task/${id}`, {  
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -111,7 +111,7 @@ const TaskListPage = () => {
     const deleteTask = async (id) => {
         try {
             // Primero, hacer una petición para verificar si la tarea tiene detalles
-            const detailResponse = await fetch(`https://taskmaster-back.onrender.com/task/${id}/detail`, {
+            const detailResponse = await fetch(`http://localhost:5000/task/${id}/detail`, {
                 method: 'GET',
                 headers: {
                     authorization: localStorage.getItem('token'),
@@ -130,7 +130,7 @@ const TaskListPage = () => {
             }
 
             // Proceder con la eliminación de la tarea
-            const response = await fetch(`https://taskmaster-back.onrender.com/task/${id}`, {
+            const response = await fetch(`http://localhost:5000/task/${id}`, {
                 method: 'DELETE',
                 headers: {
                     authorization: localStorage.getItem('token'),
@@ -155,7 +155,7 @@ const TaskListPage = () => {
     // Función para eliminar todas las tareas del historial
     const handleDeleteAll = async (taskId) => {
         try {
-            const response = await fetch(`https://taskmaster-back.onrender.com/task/${taskId}/history`, {
+            const response = await fetch(`http://localhost:5000/task/${taskId}/history`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -178,7 +178,7 @@ const TaskListPage = () => {
     // Función para controlar tareas favoritas
     const handleFavoriteTask = async (id, isFavorite) => {
         try {
-            const response = await fetch(`https://taskmaster-back.onrender.com/task/${id}/favorite`, {
+            const response = await fetch(`http://localhost:5000/task/${id}/favorite`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
